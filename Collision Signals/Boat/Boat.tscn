@@ -2,23 +2,23 @@
 
 [ext_resource type="Script" uid="uid://cs10h4g0n4jk" path="res://Collision Signals/Boat/Boat.gd" id="1_76qmm"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_aif8m"]
-points = PackedVector3Array(0.5, 0.36, 1.6474998, 0.5, -0.36, 1.6474998, 0.5, 0.36, -1.6475, -0.5, 0.36, 1.6474998, -0.5, -0.36, 1.6474998, 0.5, -0.36, -1.6475, -0.5, 0.36, -1.6475, -0.5, -0.36, -1.6475)
+[sub_resource type="BoxShape3D" id="BoxShape3D_76qmm"]
+size = Vector3(10, 1, 30)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xpt5n"]
-size = Vector3(1, 0.72, 3.295)
+size = Vector3(10, 1, 30)
 
 [node name="Boat" type="RigidBody3D"]
 collision_layer = 2
-axis_lock_linear_x = true
 axis_lock_linear_y = true
-axis_lock_linear_z = true
+mass = 100.0
 contact_monitor = true
 max_contacts_reported = 801
+linear_velocity = Vector3(0, 0, -5)
 script = ExtResource("1_76qmm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_aif8m")
+shape = SubResource("BoxShape3D_76qmm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_xpt5n")
