@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk36hxdufxq0w"]
+[gd_scene load_steps=4 format=3 uid="uid://dk36hxdufxq0w"]
 
 [ext_resource type="PackedScene" uid="uid://d0d4vsws77t4h" path="res://water_tests/water.tscn" id="1_nb2bu"]
 
 [sub_resource type="Environment" id="Environment_fipqd"]
 background_mode = 1
-background_color = Color(0.06969052, 0.1665557, 0.27242228, 1)
+background_color = Color(0.60708255, 0.75137305, 0.922309, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nb2bu"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -12,28 +14,39 @@ background_color = Color(0.06969052, 0.1665557, 0.27242228, 1)
 environment = SubResource("Environment_fipqd")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5274277, 9.031508, -90.70188)
+transform = Transform3D(-0.12825902, -0.5417221, 0.8307147, 0, 0.83763295, 0.5462336, -0.99174076, 0.07005938, -0.107433975, 192.52242, 11.30508, 77.09471)
 
 [node name="Water" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8246155, 0)
 
 [node name="Water2" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0023651123, 5.8246155, -125.736534)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.002, 0, 128)
+
+[node name="Water4" parent="." instance=ExtResource("1_nb2bu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
+
+[node name="Water5" parent="." instance=ExtResource("1_nb2bu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256, 0, 128)
+
+[node name="Water6" parent="." instance=ExtResource("1_nb2bu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256, 0, 0)
+
+[node name="Water3" parent="." instance=ExtResource("1_nb2bu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.7597526, 0.6440611, 0.08922542, 0.43682462, -0.6072321, 0.66366667, 0.4816224, -0.46524662, -0.74268794, -0.77913666, 9.159594, 0)
-light_energy = 1.6
-light_indirect_energy = 0.821
-light_volumetric_fog_energy = 1.687
-light_angular_distance = 3.45
+transform = Transform3D(0.5300616, -0.13769285, -0.8367054, 0.71807534, -0.45191935, 0.52927923, -0.45100144, -0.88136786, -0.14067115, -6.5514717, 31.744192, 0)
 shadow_enabled = true
-shadow_bias = 0.13
-shadow_normal_bias = 0.87
+shadow_bias = 1.05
+shadow_normal_bias = 0.445
 shadow_blur = 1.77
-directional_shadow_split_1 = 0.252
-directional_shadow_split_2 = 0.498
-directional_shadow_split_3 = 0.565
+directional_shadow_split_1 = 0.212
+directional_shadow_split_2 = 0.363
+directional_shadow_split_3 = 0.495
 directional_shadow_blend_splits = true
-directional_shadow_fade_start = 1.0
+directional_shadow_fade_start = 0.67
 directional_shadow_max_distance = 213.5
 directional_shadow_pancake_size = 100.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6993265, 0)
+mesh = SubResource("BoxMesh_nb2bu")

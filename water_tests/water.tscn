@@ -6,15 +6,15 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aeewm"]
 render_priority = 0
 shader = ExtResource("2_2rucg")
-shader_parameter/wave_amp = 0.7
-shader_parameter/wave_freq = 0.5
-shader_parameter/wave_speed = 0.5
+shader_parameter/wave_amp = 3.0
+shader_parameter/wave_freq = 1.0
+shader_parameter/wave_speed = 0.4
 
 [sub_resource type="QuadMesh" id="QuadMesh_lxjfm"]
 material = SubResource("ShaderMaterial_aeewm")
 size = Vector2(128, 128)
-subdivide_width = 512
-subdivide_depth = 512
+subdivide_width = 128
+subdivide_depth = 128
 orientation = 1
 
 [node name="Water" type="Node3D"]
