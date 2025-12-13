@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://d0d4vsws77t4h"]
+[gd_scene load_steps=5 format=3 uid="uid://d0d4vsws77t4h"]
+
+[ext_resource type="Script" uid="uid://kpxu4ehuoonv" path="res://water_tests/water.gd" id="1_n5nlf"]
+[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://water_tests/WaterShader.gdshader" id="2_2rucg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeewm"]
+render_priority = 0
+shader = ExtResource("2_2rucg")
+shader_parameter/wave_amp = 0.7
+shader_parameter/wave_freq = 0.5
+shader_parameter/wave_speed = 0.5
+
+[sub_resource type="QuadMesh" id="QuadMesh_lxjfm"]
+material = SubResource("ShaderMaterial_aeewm")
+size = Vector2(128, 128)
+subdivide_width = 512
+subdivide_depth = 512
+orientation = 1
 
 [node name="Water" type="Node3D"]
+script = ExtResource("1_n5nlf")
+
+[node name="SurfaceMesh" type="MeshInstance3D" parent="."]
+gi_mode = 2
+mesh = SubResource("QuadMesh_lxjfm")
