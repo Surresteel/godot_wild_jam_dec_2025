@@ -1,11 +1,11 @@
 extends RigidBody3D
 
 var boat : Node3D
-var speed := 10.0
+var speed := 2.0
 
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var dir := position.direction_to(boat.position)
 	apply_central_force(dir * speed)
 
