@@ -1,8 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://cejfc7tvn1ht1"]
+[gd_scene load_steps=7 format=3 uid="uid://cejfc7tvn1ht1"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_1d6bi"]
+[ext_resource type="PackedScene" uid="uid://d1lcq6xx1gbri" path="res://Collision Signals/Boat/Boat.tscn" id="1_haa73"]
+[ext_resource type="PackedScene" uid="uid://b5rlswtae1s6h" path="res://Collision Signals/IceBerg/spawner.tscn" id="2_haa73"]
+[ext_resource type="Script" uid="uid://bk2kpispy7bje" path="res://camera_3d.gd" id="3_b55i6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_haa73"]
+sky_horizon_color = Color(0.6230351, 0.645187, 0.6770302, 1)
+ground_bottom_color = Color(0.12941177, 0.14901961, 0.18039216, 1)
+ground_horizon_color = Color(0.6230351, 0.645187, 0.6770302, 1)
+
+[sub_resource type="Sky" id="Sky_b55i6"]
+sky_material = SubResource("ProceduralSkyMaterial_haa73")
+
+[sub_resource type="Environment" id="Environment_n3hra"]
+background_mode = 2
+sky = SubResource("Sky_b55i6")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="TestingLevel" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_1d6bi")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_n3hra")
+
+[node name="Boat" parent="." instance=ExtResource("1_haa73")]
+transform = Transform3D(-0.36481178, 0, -0.9310813, 0, 1, 0, 0.9310813, 0, -0.36481178, -2.15663, 0, -0.31108424)
+
+[node name="Spawner" parent="Boat" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
+boat = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="Boat"]
+transform = Transform3D(0.8001874, 0.4414588, -0.40597317, 0, 0.67690396, 0.7360714, 0.59975, -0.58899504, 0.54165006, -14.510082, 19.16959, 14.603511)
+top_level = true
+script = ExtResource("3_b55i6")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5rlswtae1s6h"]
+
+[ext_resource type="Script" uid="uid://grwj2m8oa77p" path="res://Collision Signals/IceBerg/spawner.gd" id="1_w4s7n"]
+
+[node name="Spawner" type="Node3D"]
+script = ExtResource("1_w4s7n")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
