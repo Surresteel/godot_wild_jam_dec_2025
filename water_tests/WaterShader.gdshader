@@ -4,10 +4,6 @@ uniform float wave_amp = 2.7;
 uniform float wave_freq = 0.2;
 uniform float wave_speed = 0.5;
 
-vec3 fade(vec3 t) {
-	return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
-}
-
 float hash(vec3 p) {
 	p  = fract(p * 0.3183099 + vec3(0.1,0.1,0.1));
 	p *= 17.0;

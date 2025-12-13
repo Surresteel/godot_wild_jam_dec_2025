@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cypax8bji6tw1"]
+
+[ext_resource type="PackedScene" uid="uid://b4vj18povcgo8" path="res://water_tests/Models/PenguinShip_WIP.blend" id="1_l7ocu"]
+[ext_resource type="Script" uid="uid://w0qqggs3hjl2" path="res://water_tests/ship.gd" id="1_r5d65"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l7ocu"]
+size = Vector3(5.946289, 3.9442139, 17.450241)
+
+[node name="Ship" type="RigidBody3D"]
+mass = 2000.0
+linear_damp = 0.5
+angular_damp = 0.5
+script = ExtResource("1_r5d65")
+
+[node name="PenguinShip_WIP2" parent="." instance=ExtResource("1_l7ocu")]
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00048828125, 1.4721069, 1.9628983)
+shape = SubResource("BoxShape3D_l7ocu")
