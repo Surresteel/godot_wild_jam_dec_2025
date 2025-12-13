@@ -12,12 +12,12 @@ var area: float = 30.0
 @onready var collider: CollisionShape3D = $Collider
 
 func _ready() -> void:
-	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET -0.2, 5.0))
-	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET -0.2, 5.0))
-	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET, 0.5))
-	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET, 0.5))
-	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET + 0.2, -3.0))
-	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET + 0.2, -3.0))
+	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET +1.5, 8.0))
+	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET +1.5, 8.0))
+	offsets.append(Vector3(4.0, -BUOYANCY_OFFSET - 1.5, 1.5))
+	offsets.append(Vector3(-4.0, -BUOYANCY_OFFSET - 1.5, 1.5))
+	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET + 1.2, -5.0))
+	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET + 1.2, -5.0))
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	for offset in offsets:
