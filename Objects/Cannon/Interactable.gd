@@ -3,6 +3,7 @@ class_name Interactable
 
 var player: Player = null
 @export var interactable_node: Node3D
+@export var change_camera: bool = false
 
 
 func _on_body_entered(body: Node3D) -> void:
@@ -16,9 +17,15 @@ func _on_body_exited(body: Node3D) -> void:
 		player = null
 
 func toggle_interaction() -> void:
-	if interactable_node.is_active:
+	if interactable_node.is_active: #Turn Off
 		interactable_node.is_active = false
 		player.is_interacting = false
-	else:
+		if change_camera:
+			player.camera.current = true
+			interactable_node.camera.current = false
+	else:                          #Turn On
 		interactable_node.is_active = true
 		player.is_interacting = true
+		if change_camera:
+			interactable_node.camera.current = true
+			player.camera.current = false

@@ -1433,6 +1433,7 @@ data = PackedVector3Array(0, 3.789569, -4.7597113, 1.901159, 4.0655413, -6.59293
 
 [node name="Boat" type="RigidBody3D"]
 collision_layer = 2
+collision_mask = 5
 axis_lock_linear_y = true
 mass = 10000.0
 center_of_mass_mode = 1
@@ -1447,7 +1448,7 @@ script = ExtResource("1_76qmm")
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -2.2647488, 2.331046, 1.5406748)
 
 [node name="Cannon4" parent="." instance=ExtResource("2_wpqwl")]
-transform = Transform3D(-0.9701477, 0, 0.24251467, 0, 1, 0, -0.24251467, 0, -0.9701477, -0.037896648, 3.312442, 8.448222)
+transform = Transform3D(-0.9701477, 0, 0.24251467, 0, 1, 0, -0.24251467, 0, -0.9701477, 0.15016633, 3.4310486, 8.117082)
 
 [node name="Cannon2" parent="." instance=ExtResource("2_wpqwl")]
 transform = Transform3D(-0.014206516, 0, -0.9998991, 0, 1, 0, 0.9998991, 0, -0.014206516, 2.3202276, 2.331046, 1.5439981)

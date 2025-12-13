@@ -6,3 +6,4 @@ func onHit() -> void:
 
 func fire(power: float, dir: Vector3) -> void:
 	apply_central_impulse(dir * power)
+	await get_tree().create_timer(5).timeout

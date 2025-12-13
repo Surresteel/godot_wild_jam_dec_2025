@@ -358,6 +358,7 @@ radius = 0.6615217
 [node name="Cannon" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
 script = ExtResource("1_hesxv")
+rotation_speed = 2.0
 max_power = 30.0
 
 [node name="Mesh" type="Node3D" parent="."]
@@ -422,10 +423,15 @@ collision_layer = 0
 collision_mask = 4
 script = ExtResource("2_pcunv")
 interactable_node = NodePath("..")
+change_camera = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35504448, 0.0024121776)
 shape = SubResource("SphereShape3D_hesxv")
+
+[node name="PowerTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
 
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]

@@ -2,5 +2,5 @@ extends RigidBody3D
 
 
 
-func takeHit(body: Node) -> void:
+func takeHit(_body: Node) -> void:
 	pass
