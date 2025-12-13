@@ -1441,7 +1441,7 @@ center_of_mass = Vector3(0, 2, 0)
 inertia = Vector3(217366.66, 243333.33, 34408.33)
 contact_monitor = true
 max_contacts_reported = 801
-linear_velocity = Vector3(0, 0, -5)
+linear_velocity = Vector3(0, 0, -50)
 script = ExtResource("1_76qmm")
 
 [node name="Cannon" parent="." instance=ExtResource("2_wpqwl")]

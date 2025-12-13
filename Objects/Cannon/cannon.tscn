@@ -415,7 +415,7 @@ mesh = SubResource("ArrayMesh_ereio")
 skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.79999983)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.46)
 
 [node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("interactable_node")]
 process_mode = 1
