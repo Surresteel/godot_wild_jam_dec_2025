@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b4vj18povcgo8"
-valid=false
+path="res://.godot/imported/PenguinShip_WIP.blend-dfe6367d3bea005df3cf1b702f6c303f.scn"
 
 [deps]
 
 source_file="res://water_tests/Models/PenguinShip_WIP.blend"
+dest_files=["res://.godot/imported/PenguinShip_WIP.blend-dfe6367d3bea005df3cf1b702f6c303f.scn"]
 
 [params]
 

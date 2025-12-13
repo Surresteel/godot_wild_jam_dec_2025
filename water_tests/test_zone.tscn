@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk36hxdufxq0w"]
+[gd_scene load_steps=5 format=3 uid="uid://dk36hxdufxq0w"]
 
 [ext_resource type="PackedScene" uid="uid://d0d4vsws77t4h" path="res://water_tests/water.tscn" id="1_nb2bu"]
+[ext_resource type="PackedScene" uid="uid://b4vj18povcgo8" path="res://water_tests/Models/PenguinShip_WIP.blend" id="2_fll28"]
 
 [sub_resource type="Environment" id="Environment_fipqd"]
 background_mode = 1
@@ -14,7 +15,8 @@ background_color = Color(0.60708255, 0.75137305, 0.922309, 1)
 environment = SubResource("Environment_fipqd")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.12825902, -0.5417221, 0.8307147, 0, 0.83763295, 0.5462336, -0.99174076, 0.07005938, -0.107433975, 192.52242, 11.30508, 77.09471)
+transform = Transform3D(0.541475, -0.0369863, 0.83990294, 0.014603168, 0.999295, 0.0345909, -0.84059024, -0.0064647943, 0.54163337, 278.65573, 6.8678093, 117.3526)
+fov = 52.5
 
 [node name="Water" parent="." instance=ExtResource("1_nb2bu")]
 
@@ -50,3 +52,6 @@ directional_shadow_pancake_size = 100.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6993265, 0)
 mesh = SubResource("BoxMesh_nb2bu")
+
+[node name="PenguinShip_WIP2" parent="." instance=ExtResource("2_fll28")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 260.57507, 0.08217049, 102.82325)

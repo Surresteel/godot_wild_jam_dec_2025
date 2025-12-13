@@ -46,13 +46,13 @@ float waveNoise(vec3 p, float scale) {
 
 float fbm(vec3 p) {
 	float sum = 0.0;
-	float amp = 1.0;
-	float freq = 0.2;
+	float amp = 1.5;
+	float freq = 0.4;
 	
 	for (int i = 0; i < 5; i++) {
 		sum += amp * smoothNoise(p * freq);
 		freq *= 2.2;
-		amp *= 0.3;
+		amp *= 0.2;
 	}
 	
 	return sum;
@@ -66,16 +66,7 @@ void vertex() {
 	float height = fbm(vec3(world_pos.xz * wave_freq, t));
 	VERTEX.y += height * wave_amp;
 	
-	// vec2 e = vec2(2.0, 0.0);
-	// vec3 normal = normalize(vec3(
-	// fbm(vec3(world_pos.xz - e, t)) - fbm(vec3(world_pos.xz + e, t)), 
-	// 1.0 * e.x, 
-	// fbm(vec3(world_pos.xz - e.yx, t)) - fbm(vec3(world_pos.xz + e.yx, t))));
 	float eps = 0.1;
-	// float hL = fbm(vec3((world_pos.x - eps) * wave_freq, world_pos.z * wave_freq, t));
-	// float hR = fbm(vec3((world_pos.x + eps) * wave_freq, world_pos.z * wave_freq, t));
-	// float hD = fbm(vec3(world_pos.x * wave_freq, (world_pos.z - eps) * wave_freq, t));
-	// float hU = fbm(vec3(world_pos.x * wave_freq, (world_pos.z + eps) * wave_freq, t));
 	float hL = fbm(vec3((world_pos.xz - vec2(eps, 0.0)) * wave_freq, t));
 	float hR = fbm(vec3((world_pos.xz + vec2(eps, 0.0)) * wave_freq, t));
 	float hD = fbm(vec3((world_pos.xz - vec2(0.0, eps)) * wave_freq, t));

@@ -6,7 +6,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aeewm"]
 render_priority = 0
 shader = ExtResource("2_2rucg")
-shader_parameter/wave_amp = 3.0
+shader_parameter/wave_amp = 1.0
 shader_parameter/wave_freq = 1.0
 shader_parameter/wave_speed = 0.4
 
