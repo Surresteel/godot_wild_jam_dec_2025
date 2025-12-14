@@ -1,6 +1,7 @@
 shader_type spatial;
 
 // Parameters to control wave properties:
+uniform float time = 0.0;
 uniform float wave_amp = 2.7;
 uniform float wave_freq = 0.2;
 uniform float wave_speed = 0.5;
@@ -61,7 +62,8 @@ void vertex() {
 	vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 
 	// Apply wave speed modifier to time:
-	float t = TIME * wave_speed;
+	//float t = TIME * wave_speed;
+	float t = time * wave_speed;
 
 	// Add linear wave movement vector:
 	world_pos.xz += vec2(2.0 * t, 2.0 * t);
@@ -84,12 +86,25 @@ void vertex() {
 			-(hU - hD) / (2.0 * eps)));
 
 	NORMAL = normal;
+
+	// Colour:
+	float sample_offset = fbm(vec3((world_pos.xz + vec2(100.0, 100.0)) * 0.1, t));
+	float edge0 = 1.1;
+	float edge1 = 1.8;
+	float edge3 = 0.8;
+	float edge4 = 1.2;
+	float mask_foam = smoothstep(edge0, edge1, height);
+	float mask_light = smoothstep(edge3, edge4, sample_offset);
+	vec3 colour = mix(vec3(0.0, 0.25, 0.5), vec3(0.1, 0.5, 0.8), mask_foam);
+	vec3 colour_light = mix(vec3(0.0, 0.4, 0.5), vec3(0.1, 0.5, 0.8), mask_foam);
+	COLOR.xyz = mix(colour, colour_light, mask_light);
 }
 
 // Fragment shader:
 void fragment() {
 	// Set fixed albedo and roughness values for now.
-	ALBEDO = vec3(0.0, 0.2, 0.5);
+	//ALBEDO = vec3(0.0, 0.2, 0.5);
+	ALBEDO = COLOR.xyz;
 	ROUGHNESS = 0.5;
 
 	// TODO: apply different colours based on wave height.

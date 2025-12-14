@@ -1,6 +1,7 @@
 #===============================================================================
 #	CLASS PROPERTIES:
 #===============================================================================
+class_name Ship
 extends RigidBody3D
 
 
@@ -13,6 +14,7 @@ const BUOYANCY_COEF: float = 60_000.0 / SAMPLE_POINTS
 const DAMPING_COEF: float = 50.0
 const MAX_DEPTH: float = 3.0 
 const BUOYANCY_OFFSET: float = 0.4
+const MAX_SPEED: float = 10.0
 
 
 # BUOYANCY PARAMETERS
@@ -20,20 +22,25 @@ var offsets: PackedVector3Array
 var area: float = 30.0
 
 
+# FORCE CALCULATIONS:
+var _force_to_apply := Vector3.ZERO
+
+
 #===============================================================================
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
-	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET +1.5, 8.0))
-	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET +1.5, 8.0))
-	offsets.append(Vector3(4.0, -BUOYANCY_OFFSET - 1.5, 1.5))
-	offsets.append(Vector3(-4.0, -BUOYANCY_OFFSET - 1.5, 1.5))
+	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET +1.2, 8.0))
+	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET +1.2, 8.0))
+	offsets.append(Vector3(4.0, -BUOYANCY_OFFSET - 1.5, 1.8))
+	offsets.append(Vector3(-4.0, -BUOYANCY_OFFSET - 1.5, 1.8))
 	offsets.append(Vector3(3.0, -BUOYANCY_OFFSET + 1.2, -5.0))
 	offsets.append(Vector3(-3.0, -BUOYANCY_OFFSET + 1.2, -5.0))
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	_apply_buoyancy_forces(state)
+	_apply_internal_forces(state)
 
 
 #===============================================================================
@@ -56,11 +63,25 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 				pos_glb_point - state.transform.origin)
 		var vertical_velocity := point_velocity.dot(Vector3.UP)
 		var damping_force = -vertical_velocity * DAMPING_COEF
-		var force: Vector3 = Vector3.UP * (buoyancy_force + damping_force)
+		var point_force: Vector3 = Vector3.UP * (buoyancy_force + damping_force)
 		
 		# Apply forces
-		state.apply_force(force, pos_glb_point - state.transform.origin)
+		state.apply_force(point_force, pos_glb_point - state.transform.origin)
+
+
+func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
+	if state.linear_velocity.length() >= MAX_SPEED:
+		return
 	
+	var force := _force_to_apply
+	state.apply_force(force, state.center_of_mass)
+
+
+#===============================================================================
+#	PUBLIC FUNCTIONS:
+#===============================================================================
+func move_forwards() -> void:
+	_force_to_apply += 10.0 * self.transform.basis.z
 
 #===============================================================================
 #	EOF:

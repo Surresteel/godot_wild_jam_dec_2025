@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dk36hxdufxq0w"]
 
-[ext_resource type="PackedScene" uid="uid://d0d4vsws77t4h" path="res://water_tests/Scenes/water.tscn" id="1_nb2bu"]
+[ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://water_tests/Scripts/Scene_scripts/sea.gd" id="1_n8j0f"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://water_tests/Scenes/ship.tscn" id="2_fll28"]
 [ext_resource type="PackedScene" uid="uid://f4pxfnckkqqc" path="res://water_tests/Models/P_Muscle_Static.blend" id="3_ua0qe"]
 [ext_resource type="PackedScene" uid="uid://crbg78qxtqesu" path="res://water_tests/Models/P_Pirate_Static.blend" id="4_1uasb"]
@@ -8,59 +8,32 @@
 
 [sub_resource type="Environment" id="Environment_fipqd"]
 background_mode = 1
-background_color = Color(0.60708255, 0.75137305, 0.922309, 1)
+background_color = Color(0.6817683, 0.8602336, 0.99999994, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
 
-[node name="Node3D" type="Node3D"]
+[node name="Sea" type="Node3D"]
+script = ExtResource("1_n8j0f")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fipqd")
 
-[node name="Water" parent="." instance=ExtResource("1_nb2bu")]
-
-[node name="Water2" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.002, 0, 128)
-
-[node name="Water4" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
-
-[node name="Water5" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256, 0, 128)
-
-[node name="Water7" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.002, 0, 255.44536)
-
-[node name="Water8" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 255.44536)
-
-[node name="Water9" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256, 0, 255.44536)
-
-[node name="Water6" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 256, 0, 0)
-
-[node name="Water3" parent="." instance=ExtResource("1_nb2bu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 0)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.53472567, 0.39017066, 0.7495568, 0.071592756, -0.8629155, 0.5002512, 0.8419876, 0.32115996, 0.43348962, -6.5514717, 31.744192, 0)
+transform = Transform3D(-0.1970059, 0.9310515, -0.30713508, -0.502241, 0.17320423, 0.8472039, 0.84198743, 0.32116, 0.43348983, -6.5514717, 31.744192, 0)
+light_energy = 1.2
+light_angular_distance = 0.5
 shadow_enabled = true
-shadow_bias = 1.05
 shadow_normal_bias = 0.445
 shadow_blur = 1.77
-directional_shadow_split_1 = 0.212
-directional_shadow_split_2 = 0.363
-directional_shadow_split_3 = 0.495
+directional_shadow_split_1 = 0.225
+directional_shadow_split_2 = 0.396
+directional_shadow_split_3 = 0.655
 directional_shadow_blend_splits = true
-directional_shadow_fade_start = 0.67
-directional_shadow_max_distance = 213.5
-directional_shadow_pancake_size = 100.0
+directional_shadow_max_distance = 92.0
 
 [node name="Ship" parent="." instance=ExtResource("2_fll28")]
-transform = Transform3D(-4.3711392e-08, 0, 1.0000001, 0, 1, 0, -1.0000001, 0, -4.3711392e-08, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="Ship"]
-transform = Transform3D(-0.04558794, -0.3801737, 0.9237908, 0.0071941074, 0.9246034, 0.3808632, -0.9989343, 0.024008613, -0.039415754, 12.923079, 8.189461, 0.5487561)
-fov = 60.0
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, 0, 0, 0)
 
 [node name="P_Muscle_Static2" parent="Ship" instance=ExtResource("3_ua0qe")]
 transform = Transform3D(-0.476315, 0, 0.8792747, 0, 1, 0, -0.8792747, 0, -0.476315, -0.3652945, 9.273144, 3.8796697)
@@ -70,3 +43,7 @@ transform = Transform3D(0.82738453, 0, 0.56163585, 0, 1, 0, -0.56163585, 0, 0.82
 
 [node name="P_Baby_Static2" parent="Ship" instance=ExtResource("5_p5pe8")]
 transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, -5.956907e-07, 5.462959, 13.627815)
+
+[node name="Camera3D" type="Camera3D" parent="Ship"]
+transform = Transform3D(-0.9981613, 0.036328133, -0.048520133, 0.027308304, 0.9841746, 0.17508474, 0.054112792, 0.17343782, -0.98335695, 0.7720325, 3.6130733, -2.8099487)
+fov = 80.0
