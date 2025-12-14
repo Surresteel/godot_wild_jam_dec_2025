@@ -1,19 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://cypax8bji6tw1"]
+[gd_scene load_steps=9 format=3 uid="uid://cypax8bji6tw1"]
 
-[ext_resource type="PackedScene" uid="uid://b4vj18povcgo8" path="res://water_tests/Models/PenguinShip_WIP.blend" id="1_l7ocu"]
 [ext_resource type="Script" uid="uid://w0qqggs3hjl2" path="res://water_tests/Scripts/Scene_scripts/ship.gd" id="1_r5d65"]
+[ext_resource type="PackedScene" uid="uid://bggjyximn37e6" path="res://Objects/Boat/Assets/PenguinShip_WIP (1).blend" id="2_bcr36"]
+[ext_resource type="PackedScene" uid="uid://cdwtcgl5bsf5f" path="res://Objects/Cannon/cannon.tscn" id="3_olgus"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_l7ocu"]
-size = Vector3(5.946289, 3.9442139, 17.450241)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_olgus"]
+points = PackedVector3Array(-2.2, 3.425, -6.7, 0, 3.435, -10, 2.2, 3.395, -6.7, -1.805, 0, -4.59, 0, 0, -7.78, 1.8, 0, -4.515)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bcr36"]
+points = PackedVector3Array(-2.2, 2.3, -6, 2.2, 2.3, -6, 3, 2.3, -3, -3, 2.3, -3, 3, 2.3, 2, -3, 2.3, 2, 0, 0, -7, 0, 0, 0, 0, 0, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_82nb5"]
+points = PackedVector3Array(3, 3.1, 2.2, -3, 3.1, 2.2, 2.4, 3.1, 4.3, -2.4, 3.1, 4.3, 0, 0, 2, 0, 0, 4.3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u2lwu"]
+points = PackedVector3Array(2.4, 3.8, 4.8, -2.4, 3.8, 4.8, 1.9, 4.1, 6.6, -1.9, 4.1, 6.6, 2.4, 0, 2, -2.4, 0, 2, 1.9, 0, 5, -1.9, 0, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_binhx"]
+size = Vector3(1.1586914, 2.2088165, 1)
 
 [node name="Ship" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 0
 mass = 2000.0
 linear_damp = 0.5
 angular_damp = 0.1
 script = ExtResource("1_r5d65")
 
-[node name="PenguinShip_WIP2" parent="." instance=ExtResource("1_l7ocu")]
+[node name="Mesh" parent="." instance=ExtResource("2_bcr36")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00048828125, 1.4721069, 1.9628983)
-shape = SubResource("BoxShape3D_l7ocu")
+[node name="col_deck_fore" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_olgus")
+
+[node name="col_deck_main" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_bcr36")
+
+[node name="col_deck_helm" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_82nb5")
+
+[node name="col_deck_aft" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_u2lwu")
+
+[node name="col_stair_helm_L" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 7.5710346e-08, -4.3711385e-08, 0, 0.49999997, 0.86602545, 8.742278e-08, 0.86602545, -0.49999997, 1.72, 2.216, 1.671)
+shape = SubResource("BoxShape3D_binhx")
+
+[node name="col_stair_helm_R" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 7.5710346e-08, -4.3711385e-08, 0, 0.49999997, 0.86602545, 8.742278e-08, 0.86602545, -0.49999997, -1.738, 2.216, 1.671)
+shape = SubResource("BoxShape3D_binhx")
+
+[node name="col_stair_aft_R" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 7.5710346e-08, -4.3711385e-08, 0, 0.49999997, 0.86602545, 8.742278e-08, 0.86602545, -0.49999997, -1.738, 2.998, 4.42)
+shape = SubResource("BoxShape3D_binhx")
+
+[node name="col_stair_aft_L" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 7.5710346e-08, -4.3711385e-08, 0, 0.49999997, 0.86602545, 8.742278e-08, 0.86602545, -0.49999997, 1.712, 2.998, 4.42)
+shape = SubResource("BoxShape3D_binhx")
+
+[node name="col_stair_Fore" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 7.4138704e-08, 4.6327017e-08, 0, -0.52991927, 0.848048, 8.742278e-08, 0.848048, 0.52991927, 0.066, 2.3998473, -6.024689)
+shape = SubResource("BoxShape3D_binhx")
+
+[node name="Cannons" type="Node3D" parent="."]
+
+[node name="Cannon" parent="Cannons" instance=ExtResource("3_olgus")]
+transform = Transform3D(-4.371139e-08, -0.034899496, -0.99939084, 0, 0.99939084, -0.034899496, 1, -1.5255054e-09, -4.368476e-08, 2.2, 2.4, -1.6)
+
+[node name="Cannon2" parent="Cannons" instance=ExtResource("3_olgus")]
+transform = Transform3D(-4.371139e-08, 0.034899496, 0.99939084, 0, 0.99939084, -0.034899496, -1, -1.5255054e-09, -4.368476e-08, -2.2, 2.4, -1.6)
+
+[node name="Cannon3" parent="Cannons" instance=ExtResource("3_olgus")]
+transform = Transform3D(-1, -3.0510108e-09, -8.736952e-08, 0, 0.99939084, -0.034899496, 8.742278e-08, -0.034899496, -0.99939084, 0, 4.105, 6)
+
+[node name="Cannon4" parent="Cannons" instance=ExtResource("3_olgus")]
+transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.99939084, 0, 3.4218335, -8.199997)

@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://cejfc7tvn1ht1"]
+[gd_scene load_steps=7 format=3 uid="uid://cejfc7tvn1ht1"]
 
 [ext_resource type="Environment" uid="uid://41bc3bbo448b" path="res://Testing_World_Environment.tres" id="1_b55i6"]
-[ext_resource type="PackedScene" uid="uid://d1lcq6xx1gbri" path="res://Objects/Boat/Boat.tscn" id="1_haa73"]
+[ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://water_tests/Scripts/Scene_scripts/sea.gd" id="1_th68x"]
 [ext_resource type="PackedScene" uid="uid://b5rlswtae1s6h" path="res://Objects/IceBerg/spawner.tscn" id="2_haa73"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="3_b55i6"]
+[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://water_tests/Scenes/ship.tscn" id="3_n3hra"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n3hra"]
 height = 19.46
 
 [node name="TestingLevel" type="Node3D"]
+script = ExtResource("1_th68x")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -17,16 +19,15 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_b55i6")
 
-[node name="Boat" parent="." instance=ExtResource("1_haa73")]
-linear_velocity = Vector3(0, 0, 0)
-
-[node name="Spawner" parent="Boat" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
-boat = NodePath("..")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46512, 0, -12.309639)
 mesh = SubResource("CylinderMesh_n3hra")
 
 [node name="Player" parent="." instance=ExtResource("3_b55i6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2050252, 2.3564453, -1.5748819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2050252, 2.5455992, -1.5748819)
+
+[node name="Ship" parent="." instance=ExtResource("3_n3hra")]
+
+[node name="Spawner" parent="Ship" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
+boat = NodePath("..")

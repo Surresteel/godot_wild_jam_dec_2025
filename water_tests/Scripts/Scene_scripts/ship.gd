@@ -78,7 +78,7 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.apply_force(point_force, pos_glb_point - state.transform.origin)
 
 
-# Apply forces internal to the ship (steering, propultion):
+# Apply forces internal to the ship (steering, propulsion):
 func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 	var force := _force_to_apply
 	if state.linear_velocity.length() < MAX_SPEED:
@@ -96,7 +96,7 @@ func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 #===============================================================================
 # Moves the ship forwards:
 func move_forwards() -> void:
-	_force_to_apply += 10.0 * self.transform.basis.z
+	_force_to_apply += 10.0 * -self.transform.basis.z
 
 
 func turn_left() -> void:
