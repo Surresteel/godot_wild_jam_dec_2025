@@ -7,8 +7,8 @@
 render_priority = 0
 shader = ExtResource("2_2rucg")
 shader_parameter/time = 0.0
-shader_parameter/wave_amp = 1.0
-shader_parameter/wave_freq = 0.6
+shader_parameter/wave_amp = 2.0
+shader_parameter/wave_freq = 0.3
 shader_parameter/wave_speed = 0.4
 
 [sub_resource type="QuadMesh" id="QuadMesh_lxjfm"]

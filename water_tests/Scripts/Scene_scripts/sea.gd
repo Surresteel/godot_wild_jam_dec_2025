@@ -33,11 +33,15 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	# DEBUG:
 	ship.move_forwards()
+	# DEBUG:
 	
+	# GATE: - Ship must have moved to generate new tiles.
 	if (grid_pos == _world_to_grid(ship.global_position)):
 		return
 	
+	# Update ship grid position and generate tiles.
 	grid_pos = _world_to_grid(ship.global_position)
 	_update_sea_grid()
 
@@ -69,12 +73,12 @@ func _spawn_tiles() -> void:
 		if i == 0:
 			continue
 			
-		var edge_length: int = 2 * i
+		var leng: int = 2 * i
 		@warning_ignore("narrowing_conversion")
-		var cur_pos := Vector2i(grid_pos.x - edge_length*0.5, grid_pos.y + edge_length*0.5)
+		var cur_pos := Vector2i(grid_pos.x - leng*0.5, grid_pos.y + leng*0.5)
 		var dir := Vector2i(0, 1)
-		for y in edge_length * 4:
-			if y % edge_length == 0:
+		for y in leng * 4:
+			if y % leng == 0:
 				dir = Vector2i(dir.y, -dir.x)
 			
 			cur_pos += dir
@@ -101,10 +105,14 @@ func _world_to_grid(pos: Vector3) -> Vector2i:
 	return Vector2i(floori(pos.x / GRID_SIZE), floori(pos.z / GRID_SIZE))
 
 
-func _grid_to_world(coords: Vector2i) -> Vector3:
-	return Vector3((coords.x + 0.5) * GRID_SIZE, 0.0, (coords.y + 0.5) * GRID_SIZE)
+func _grid_to_world(pos: Vector2i) -> Vector3:
+	return Vector3((pos.x + 0.5) * GRID_SIZE, 0.0, (pos.y + 0.5) * GRID_SIZE)
 
 
 func _grid_distance(p1: Vector2i, p2: Vector2i) -> int:
-	#return abs(p2.x - p1.x) + abs(p2.y - p1.y)
 	return max(abs(p2.x - p1.x), abs(p2.y - p1.y))
+
+
+#===============================================================================
+#	EOF:
+#===============================================================================

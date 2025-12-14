@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk36hxdufxq0w"]
+[gd_scene load_steps=8 format=3 uid="uid://dk36hxdufxq0w"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://water_tests/Scripts/Scene_scripts/sea.gd" id="1_n8j0f"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://water_tests/Scenes/ship.tscn" id="2_fll28"]
 [ext_resource type="PackedScene" uid="uid://f4pxfnckkqqc" path="res://water_tests/Models/P_Muscle_Static.blend" id="3_ua0qe"]
 [ext_resource type="PackedScene" uid="uid://crbg78qxtqesu" path="res://water_tests/Models/P_Pirate_Static.blend" id="4_1uasb"]
 [ext_resource type="PackedScene" uid="uid://dboklpaxm47io" path="res://water_tests/Models/P_Baby_Static.blend" id="5_p5pe8"]
+[ext_resource type="Script" uid="uid://bfu2nnsgdsitw" path="res://water_tests/DEBUG/cam_test.gd" id="6_n8j0f"]
 
 [sub_resource type="Environment" id="Environment_fipqd"]
 background_mode = 1
@@ -20,7 +21,7 @@ script = ExtResource("1_n8j0f")
 environment = SubResource("Environment_fipqd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.1970059, 0.9310515, -0.30713508, -0.502241, 0.17320423, 0.8472039, 0.84198743, 0.32116, 0.43348983, -6.5514717, 31.744192, 0)
+transform = Transform3D(0.85355073, 0.48801523, -0.18246138, 0.38722828, -0.3599049, 0.84883606, 0.34857613, -0.795179, -0.49617046, 0, 20, 0)
 light_energy = 1.2
 light_angular_distance = 0.5
 shadow_enabled = true
@@ -44,6 +45,8 @@ transform = Transform3D(0.82738453, 0, 0.56163585, 0, 1, 0, -0.56163585, 0, 0.82
 [node name="P_Baby_Static2" parent="Ship" instance=ExtResource("5_p5pe8")]
 transform = Transform3D(1, 0, 2.1316282e-14, 0, 1, 0, -2.1316282e-14, 0, 1, -5.956907e-07, 5.462959, 13.627815)
 
-[node name="Camera3D" type="Camera3D" parent="Ship"]
-transform = Transform3D(-0.9981613, 0.036328133, -0.048520133, 0.027308304, 0.9841746, 0.17508474, 0.054112792, 0.17343782, -0.98335695, 0.7720325, 3.6130733, -2.8099487)
-fov = 80.0
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("ship")]
+transform = Transform3D(-0.9981613, 0.036328137, -0.048520144, 0.017250558, 0.937648, 0.3471581, 0.05810642, 0.34568283, -0.9365506, 0, 0, 0)
+fov = 60.0
+script = ExtResource("6_n8j0f")
+ship = NodePath("../Ship")
