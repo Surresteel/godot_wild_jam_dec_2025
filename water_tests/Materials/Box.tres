@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dua5k26joa1w"]
+
+[ext_resource type="Texture2D" uid="uid://ckdx8ctcfxl0f" path="res://water_tests/Textures/temp.png" id="1_c5fxu"]
+
+[resource]
+resource_name = "Box"
+cull_mode = 2
+albedo_color = Color(0.50035244, 0.3018288, 0.09761746, 1)
+roughness = 0.82272726
+normal_enabled = true
+normal_texture = ExtResource("1_c5fxu")

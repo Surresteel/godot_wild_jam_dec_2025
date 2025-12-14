@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cejfc7tvn1ht1"]
+[gd_scene load_steps=8 format=3 uid="uid://cejfc7tvn1ht1"]
 
 [ext_resource type="Environment" uid="uid://41bc3bbo448b" path="res://Testing_World_Environment.tres" id="1_b55i6"]
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://water_tests/Scripts/Scene_scripts/sea.gd" id="1_th68x"]
 [ext_resource type="PackedScene" uid="uid://b5rlswtae1s6h" path="res://Objects/IceBerg/spawner.tscn" id="2_haa73"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="3_b55i6"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://water_tests/Scenes/ship.tscn" id="3_n3hra"]
+[ext_resource type="PackedScene" uid="uid://70br035sa0ey" path="res://water_tests/Scenes/prop_crate.tscn" id="6_du6cx"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n3hra"]
 height = 19.46
@@ -33,3 +34,6 @@ speed = 2.5
 [node name="Spawner" parent="Ship" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
 boat = NodePath("..")
+
+[node name="Prop_Crate" parent="Ship" instance=ExtResource("6_du6cx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3845735, 2.2756267, -3.1098971)
