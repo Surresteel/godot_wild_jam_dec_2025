@@ -5,7 +5,7 @@ var player: Player = null
 @export var interactable_node: Node3D
 @export var change_camera: bool = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global_position = interactable_node.global_position
 
 func _on_body_entered(body: Node3D) -> void:
@@ -14,10 +14,12 @@ func _on_body_entered(body: Node3D) -> void:
 		player.connect("Interact",toggle_interaction)
 
 func _on_body_exited(body: Node3D) -> void:
-	if body == player:
+	if body == player:		
+		if player.is_interacting:
+			toggle_interaction()
+		
 		player.disconnect("Interact",toggle_interaction)
 		player = null
-	print(body)
 
 func toggle_interaction() -> void:
 	if interactable_node.is_active: #Turn Off
