@@ -13,11 +13,16 @@ config_version=5
 config/name="godot_wild_jam_dec_2025"
 run/main_scene="uid://cejfc7tvn1ht1"
 config/features=PackedStringArray("4.5", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
 Singletons="*res://singletons.gd"
+
+[display]
+
+window/vsync/vsync_mode=0
 
 [editor]
 
