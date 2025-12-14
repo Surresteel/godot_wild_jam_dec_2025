@@ -60,7 +60,7 @@ static func _fbm(p: Vector3) -> float:
 
 
 #===============================================================================
-#	PRIVATE STATIC FUNCTIONS:
+#	PUBLIC STATIC FUNCTIONS:
 #===============================================================================
 
 static func sample_at_pos_time(pos_time: Vector3) -> float:
