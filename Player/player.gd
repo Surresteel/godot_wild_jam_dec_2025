@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name Player
 
 @export_category("Controller Values")
-@export var speed := 10.0
+@export var speed := 5.0
 var inertia: Vector3 = Vector3.ZERO
 var is_interacting: bool = false
 var was_on_floor: bool = false
@@ -47,27 +47,27 @@ func _physics_process(delta: float) -> void:
 	var dir: Vector3 = (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized()
 	
 	if dir and not is_interacting:
-		velocity.x = dir.x * speed * delta + inertia.x
-		velocity.z = dir.z * speed * delta + inertia.z
+		velocity.x = dir.x * speed + inertia.x
+		velocity.z = dir.z * speed + inertia.z
 		
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0.0, delta * 69)
 		velocity.z = move_toward(velocity.z, 0.0, delta * 69)
 	
 	move_and_slide()
-	
+
+
+
+
+
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact"):
 		emit_signal("Interact")
 
-
-
-
-
-#func _input(_event: InputEvent) -> void:
-	#if Input.is_action_just_pressed("interact"):
-		#emit_signal("Interact")
-
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_ESCAPE:
-			get_tree().quit()
+		if event.pressed:
+				if event.keycode == KEY_ESCAPE:
+					get_tree().quit()
+				if event.keycode == KEY_TAB:
+					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

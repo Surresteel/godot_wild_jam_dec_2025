@@ -13,6 +13,7 @@ subdivide_width = 6
 [node name="IceBerg" type="RigidBody3D"]
 collision_mask = 2
 axis_lock_linear_y = true
+continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 716
 script = ExtResource("1_672ou")

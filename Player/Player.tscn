@@ -133,7 +133,6 @@ shadow_mesh = SubResource("ArrayMesh_0s0g2")
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_3qydi")
-speed = 250.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3591919, 0)
