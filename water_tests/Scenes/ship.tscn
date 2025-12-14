@@ -9,7 +9,7 @@ size = Vector3(5.946289, 3.9442139, 17.450241)
 [node name="Ship" type="RigidBody3D"]
 mass = 2000.0
 linear_damp = 0.5
-angular_damp = 0.5
+angular_damp = 0.1
 script = ExtResource("1_r5d65")
 
 [node name="PenguinShip_WIP2" parent="." instance=ExtResource("1_l7ocu")]

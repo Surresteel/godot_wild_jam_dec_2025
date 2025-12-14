@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgeanshx8tm5p"]
+
+[ext_resource type="Script" uid="uid://chvudtctdj67d" path="res://water_tests/Scripts/test_ball.gd" id="1_76xty"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62gfv"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_76xty"]
+material = SubResource("StandardMaterial3D_62gfv")
+
+[node name="test_ball" type="Node3D"]
+script = ExtResource("1_76xty")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_76xty")

@@ -4,8 +4,8 @@
 class_name NoiseFunc
 
 # CONSTANTS:
-const WAVE_AMP: float = 1.0
-const WAVE_FREQ: float = 0.6
+const WAVE_AMP: float = 2.0
+const WAVE_FREQ: float = 0.3
 const WAVE_SPEED: float = 0.4
 
 
@@ -65,7 +65,8 @@ static func _fbm(p: Vector3) -> float:
 
 static func sample_at_pos_time(pos_time: Vector3) -> float:
 	var t: float = pos_time.z * WAVE_SPEED
-	var pos_shift := Vector2(2.0 * t, 2.0 * t)
+	#var pos_shift := Vector2(2.0 * t, 2.0 * t)
+	pos_time += Vector3(2.0 * t, 2.0 * t, 0.0)
 	
-	return _fbm(Vector3(pos_shift.x * WAVE_FREQ, pos_shift.y * WAVE_FREQ, t)) \
+	return _fbm(Vector3(pos_time.x * WAVE_FREQ, pos_time.y * WAVE_FREQ, t)) \
 			* WAVE_AMP

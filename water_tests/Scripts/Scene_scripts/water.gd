@@ -3,16 +3,19 @@
 #===============================================================================
 extends Node3D
 
+@onready var mesh := $SurfaceMesh
+var material: ShaderMaterial
 
 #===============================================================================
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	material = mesh.get_active_material(0) as ShaderMaterial
 	pass
 
 
 func _process(_delta: float) -> void:
-	# TODO: Send time data to shader noise function
+	material.set_shader_parameter("time", Time.get_ticks_msec() / 1000.0)
 	pass
 	
 
