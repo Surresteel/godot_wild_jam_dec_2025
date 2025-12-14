@@ -15,6 +15,10 @@ run/main_scene="uid://cejfc7tvn1ht1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Singletons="*res://singletons.gd"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

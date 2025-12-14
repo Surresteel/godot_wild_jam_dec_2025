@@ -21,6 +21,7 @@ environment = ExtResource("1_b55i6")
 linear_velocity = Vector3(0, 0, 0)
 
 [node name="Spawner" parent="Boat" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
 boat = NodePath("..")
 

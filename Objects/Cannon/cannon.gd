@@ -31,11 +31,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,min_angle_x,max_angle_x)
 		cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,-max_angle_y,max_angle_y)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if is_active:
 		if Input.is_action_just_pressed("Main Action"):
 			power_timer.start()
-			print("timer start")
+			#print("timer start")
 		if Input.is_action_just_released("Main Action"):
 			var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
 			var new_cannonball: RigidBody3D = CANNONBALL.instantiate()

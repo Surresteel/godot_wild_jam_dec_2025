@@ -1,8 +1,12 @@
 extends CharacterBody3D
 class_name Player
 
+@export_category("Controller Values")
 @export var speed := 10.0
+var inertia: Vector3 = Vector3.ZERO
 var is_interacting: bool = false
+var was_on_floor: bool = false
+var floor_velocity: Vector3
 
 @onready var camera: Camera3D = $Camera3D
 
@@ -26,20 +30,31 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
+		floor_velocity = get_platform_velocity()
+		was_on_floor = true
+		velocity -= inertia
+		inertia = Vector3.ZERO
 		if Input.is_action_just_pressed("jump"):
 			velocity.y += 5
+	elif was_on_floor:
+		inertia = floor_velocity
+		was_on_floor = false
 	else:
 		velocity.y += get_gravity().y * delta
+	
 	
 	var input_dir: Vector2 = Input.get_vector("left","right","forward","backward")
 	var dir: Vector3 = (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized()
 	
 	if dir and not is_interacting:
-		velocity.x = dir.x * speed
-		velocity.z = dir.z * speed
+		velocity.x = dir.x * speed * delta + inertia.x
+		velocity.z = dir.z * speed * delta + inertia.z
+		
 	elif is_on_floor():
-		velocity.x = move_toward(velocity.x,0.0, 0.8)
-		velocity.z = move_toward(velocity.z,0.0, 0.8)
+		velocity.x = move_toward(velocity.x, 0.0, delta * 100)
+		velocity.z = move_toward(velocity.z, 0.0, delta * 100)
+	
+	print(velocity)
 	
 	move_and_slide()
 
