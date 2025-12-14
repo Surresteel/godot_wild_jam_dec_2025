@@ -29,4 +29,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46512, 0, -12.309639)
 mesh = SubResource("CylinderMesh_n3hra")
 
 [node name="Player" parent="." instance=ExtResource("3_b55i6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34193993, 2.215871, -1.6427263)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34193993, 2.2504115, -1.6427263)

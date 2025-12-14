@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bk2kpispy7bje" path="res://camera_3d.gd" id="2_q3lat"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3qydi"]
-radius = 0.29296875
+radius = 0.22802734
 height = 0.755249
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b01x0"]
@@ -140,6 +140,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3591919, 0)
 shape = SubResource("CapsuleShape3D_3qydi")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
 top_level = true
 current = true

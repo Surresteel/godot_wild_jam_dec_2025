@@ -51,20 +51,21 @@ func _physics_process(delta: float) -> void:
 		velocity.z = dir.z * speed * delta + inertia.z
 		
 	elif is_on_floor():
-		velocity.x = move_toward(velocity.x, 0.0, delta * 100)
-		velocity.z = move_toward(velocity.z, 0.0, delta * 100)
-	
-	print(velocity)
+		velocity.x = move_toward(velocity.x, 0.0, delta * 69)
+		velocity.z = move_toward(velocity.z, 0.0, delta * 69)
 	
 	move_and_slide()
-
-
-
-
-
-func _input(_event: InputEvent) -> void:
+	
 	if Input.is_action_just_pressed("interact"):
 		emit_signal("Interact")
+
+
+
+
+
+#func _input(_event: InputEvent) -> void:
+	#if Input.is_action_just_pressed("interact"):
+		#emit_signal("Interact")
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:

@@ -353,7 +353,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_awr4j")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hesxv"]
-radius = 0.6615217
+radius = 0.70038915
 
 [node name="Cannon" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
@@ -417,15 +417,16 @@ skeleton = NodePath("")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.46)
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("interactable_node")]
-process_mode = 1
+[node name="Interactable" type="Area3D" parent="." node_paths=PackedStringArray("interactable_node")]
+transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
+top_level = true
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("2_pcunv")
 interactable_node = NodePath("..")
 change_camera = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35504448, 0.0024121776)
 shape = SubResource("SphereShape3D_hesxv")
 
@@ -433,5 +434,5 @@ shape = SubResource("SphereShape3D_hesxv")
 wait_time = 1.5
 one_shot = true
 
-[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]
+[connection signal="body_entered" from="Interactable" to="Interactable" method="_on_body_entered"]
+[connection signal="body_exited" from="Interactable" to="Interactable" method="_on_body_exited"]

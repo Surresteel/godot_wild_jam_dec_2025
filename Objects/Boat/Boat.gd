@@ -1,8 +1,10 @@
 extends RigidBody3D
 
-func _physics_process(delta: float) -> void:
-	linear_velocity.z = -500 * delta
-	Singletons.boat_velocity = linear_velocity
+
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	state.linear_velocity = -state.transform.basis.z * 5
+	Singletons.boat_velocity = state.linear_velocity
 
 func takeHit(_body: Node) -> void:
 	pass
