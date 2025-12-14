@@ -1,17 +1,23 @@
-### This class mirrors the noise generation functions found in the WaterShader.
+#===============================================================================
+#	CLASS PROPERTIES:
+#===============================================================================
 class_name NoiseFunc
 
-
-#const WAVE_AMP: float = 1.0
+# CONSTANTS:
 const WAVE_AMP: float = 1.0
 const WAVE_FREQ: float = 0.6
 const WAVE_SPEED: float = 0.4
 
 
+#===============================================================================
+#	PRIVATE STATIC FUNCTIONS:
+#===============================================================================
 static func _hash(p: Vector3) -> float:
-	p = (p * 0.3183099 + Vector3(0.1, 0.1, 0.1)) - floor((p * 0.3183099 + Vector3(0.1, 0.1, 0.1)))
+	p = (p * 0.3183099 + Vector3(0.1, 0.1, 0.1)) - floor((p * 0.3183099 + 
+			Vector3(0.1, 0.1, 0.1)))
 	p *= 17.0;
-	return (p.x * p.y * p.z * (p.x + p.y + p.z)) - floor(p.x * p.y * p.z * (p.x + p.y + p.z))
+	return (p.x * p.y * p.z * (p.x + p.y + p.z)) - floor(p.x * p.y * p.z * 
+			(p.x + p.y + p.z))
 
 
 static func _smoothNoise(p: Vector3) -> float:
@@ -53,8 +59,13 @@ static func _fbm(p: Vector3) -> float:
 	return sum
 
 
-static func get_height_at_pos_time(pos_time: Vector3) -> float:
+#===============================================================================
+#	PRIVATE STATIC FUNCTIONS:
+#===============================================================================
+
+static func sample_at_pos_time(pos_time: Vector3) -> float:
 	var t: float = pos_time.z * WAVE_SPEED
 	var pos_shift := Vector2(2.0 * t, 2.0 * t)
 	
-	return _fbm(Vector3(pos_shift.x * WAVE_FREQ, pos_shift.y * WAVE_FREQ, t)) * WAVE_AMP
+	return _fbm(Vector3(pos_shift.x * WAVE_FREQ, pos_shift.y * WAVE_FREQ, t)) \
+			* WAVE_AMP

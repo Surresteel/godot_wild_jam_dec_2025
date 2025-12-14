@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dk36hxdufxq0w"]
 
-[ext_resource type="PackedScene" uid="uid://d0d4vsws77t4h" path="res://water_tests/water.tscn" id="1_nb2bu"]
-[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://water_tests/ship.tscn" id="2_fll28"]
+[ext_resource type="PackedScene" uid="uid://d0d4vsws77t4h" path="res://water_tests/Scenes/water.tscn" id="1_nb2bu"]
+[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://water_tests/Scenes/ship.tscn" id="2_fll28"]
 [ext_resource type="PackedScene" uid="uid://f4pxfnckkqqc" path="res://water_tests/Models/P_Muscle_Static.blend" id="3_ua0qe"]
 [ext_resource type="PackedScene" uid="uid://crbg78qxtqesu" path="res://water_tests/Models/P_Pirate_Static.blend" id="4_1uasb"]
 [ext_resource type="PackedScene" uid="uid://dboklpaxm47io" path="res://water_tests/Models/P_Baby_Static.blend" id="5_p5pe8"]

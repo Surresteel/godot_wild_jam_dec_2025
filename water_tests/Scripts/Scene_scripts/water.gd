@@ -1,16 +1,7 @@
+#===============================================================================
+#	CLASS PROPERTIES:
+#===============================================================================
 extends Node3D
-
-
-#===============================================================================
-#	NODE INITIALISATION:
-#===============================================================================
-# CONSTANTS:
-const TILE_RESOLUTION: int = 128
-const TILE_SIZE: int = 128
-@warning_ignore("integer_division")
-const PIXELS_PER_UNIT: int = TILE_RESOLUTION / TILE_SIZE
-
-# PRIVATE MEMBERS:
 
 
 #===============================================================================
@@ -20,11 +11,11 @@ func _ready() -> void:
 	pass
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	# TODO: Send time data to shader noise function
 	pass
-
-
+	
 
 #===============================================================================
-#	PRIVATE FUNCTIONS:
+#	EOF:
 #===============================================================================

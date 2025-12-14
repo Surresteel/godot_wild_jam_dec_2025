@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0d4vsws77t4h"]
 
-[ext_resource type="Script" uid="uid://kpxu4ehuoonv" path="res://water_tests/water.gd" id="1_n5nlf"]
-[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://water_tests/WaterShader.gdshader" id="2_2rucg"]
+[ext_resource type="Script" uid="uid://kpxu4ehuoonv" path="res://water_tests/Scripts/Scene_scripts/water.gd" id="1_n5nlf"]
+[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://water_tests/Shaders/WaterShader.gdshader" id="2_2rucg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aeewm"]
 render_priority = 0
