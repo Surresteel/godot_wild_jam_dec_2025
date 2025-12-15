@@ -8,7 +8,7 @@ extends Node3D
 #	NODE INITIALISATION:
 #===============================================================================
 # Preloaded scenes:
-var scene_water = preload("res://water_tests/Scenes/water.tscn")
+var scene_water = preload("res://Objects/WaterTile/water.tscn")
 
 
 # Constants:
