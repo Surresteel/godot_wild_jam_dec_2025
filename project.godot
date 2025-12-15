@@ -74,6 +74,10 @@ interact={
 3d_physics/layer_3="Player"
 3d_physics/layer_4="Projectiles"
 
+[navigation]
+
+3d/default_cell_size=0.001
+
 [rendering]
 
 environment/defaults/default_environment="uid://41bc3bbo448b"

@@ -1,5 +1,5 @@
 extends SealionBaseState
-class_name SwimmingSealionState
+class_name TargetingSeaLionState
 
 func enter(_sealion: Sealion) -> void:
 	pass

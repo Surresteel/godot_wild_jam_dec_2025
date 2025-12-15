@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cejfc7tvn1ht1"]
+[gd_scene load_steps=11 format=3 uid="uid://cejfc7tvn1ht1"]
 
 [ext_resource type="Environment" uid="uid://41bc3bbo448b" path="res://Testing_World_Environment.tres" id="1_b55i6"]
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_th68x"]
@@ -10,6 +10,14 @@
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n3hra"]
 height = 19.46
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_50fuq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nha3r"]
+material = SubResource("StandardMaterial3D_50fuq")
+radius = 0.05
+height = 0.1
 
 [node name="TestingLevel" type="Node3D"]
 script = ExtResource("1_th68x")
@@ -26,11 +34,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46512, 0, -12.309639)
 mesh = SubResource("CylinderMesh_n3hra")
 
 [node name="Player" parent="." instance=ExtResource("3_b55i6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3040974, -0.99256444)
+transform = Transform3D(-0.9847076, 0, 0.1742153, 0, 1, 0, -0.1742153, 0, -0.9847076, 0.8698908, 2.3040974, -4.3475637)
 wall_min_slide_angle = 1.0471976
 speed = 2.5
 
 [node name="Ship" parent="." instance=ExtResource("3_n3hra")]
+freeze = true
+
+[node name="PathFollow3D" parent="Ship/SealionLeftPath" index="0"]
+transform = Transform3D(0.7104448, 6.210905e-08, 0.7037553, 8.742278e-08, -1, -7.10545e-15, 0.70375293, 6.152405e-08, -0.71044713, 1.4330935, 0, -4.23307)
+
+[node name="PathFollow3D" parent="Ship/SealionRightPath" index="0"]
+transform = Transform3D(0.7104448, 6.210905e-08, 0.70375526, 8.742278e-08, -1, -7.105449e-15, 0.70375293, 6.152405e-08, -0.7104471, 1.4330935, 0, -4.23307)
 
 [node name="Spawner" parent="Ship" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
@@ -39,8 +54,35 @@ boat = NodePath("..")
 [node name="Prop_Crate" parent="Ship" instance=ExtResource("6_du6cx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3845735, 2.2756267, -3.1098971)
 
-[node name="Sealion" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50fuq")]
-transform = Transform3D(0.7006354, 0, -0.7135195, 0, 1, 0, 0.7135195, 0, 0.7006354, 0.5288305, 2.2079732, 0.62182736)
-player = NodePath("../Player")
+[node name="Sealion" parent="." node_paths=PackedStringArray("target", "targets") instance=ExtResource("7_50fuq")]
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 0.5288305, 3.578569, 0.62182736)
+target = NodePath("../Player")
+targets = [NodePath("../MeshInstance3D2"), NodePath("../MeshInstance3D3"), NodePath("../MeshInstance3D6"), NodePath("../MeshInstance3D4"), NodePath("../MeshInstance3D5")]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 1.1948726, 4.6236105, 5.8121557)
+mesh = SubResource("CapsuleMesh_nha3r")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, -1.5253634, 2.6246486, -3.5517397)
+mesh = SubResource("CapsuleMesh_nha3r")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 2.0900764, 2.6246486, -0.902931)
+mesh = SubResource("CapsuleMesh_nha3r")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 0.7011139, 3.9318242, -8.177708)
+mesh = SubResource("CapsuleMesh_nha3r")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, -0.023185134, 3.5246003, 3.1185477)
+mesh = SubResource("CapsuleMesh_nha3r")
+skeleton = NodePath("")
 
 [editable path="Ship"]
+[editable path="Ship/Mesh"]

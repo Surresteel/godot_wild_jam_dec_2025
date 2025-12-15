@@ -11,5 +11,5 @@ func exit(_sealion: Sealion) -> void:
 func pre_update(_sealion: Sealion) -> void:
 	pass
 
-func update(_sealion: Sealion) -> void:
+func update(_sealion: Sealion, _delta) -> void:
 	pass
