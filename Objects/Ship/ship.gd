@@ -14,7 +14,9 @@ const BUOYANCY_COEF: float = 50_000.0 / SAMPLE_POINTS
 const DAMPING_COEF: float = 400.0
 const MAX_DEPTH: float = 3.0 
 
-const BUOYANCY_OFFSET: float = 0.4
+const BUOYANCY_OFFSET_FOR: float = 0.4
+const BUOYANCY_OFFSET_MID: float = 0.3
+const BUOYANCY_OFFSET_AFT: float = 0.2
 const MAX_SPEED: float = 2.0
 const MAX_ROTATION: float = 10.0
 
@@ -33,15 +35,18 @@ var _torque_to_apply := Vector3.ZERO
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
-	sample_points.append(Vector3(4.0, -BUOYANCY_OFFSET +1.2, 10.0))
-	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET +1.2, 10.0))
-	sample_points.append(Vector3(-4.0, -BUOYANCY_OFFSET +1.2, 10.0))
-	sample_points.append(Vector3(4.0, -BUOYANCY_OFFSET - 1.5, 1.8))
-	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET - 1.5, 1.8))
-	sample_points.append(Vector3(-4.0, -BUOYANCY_OFFSET - 1.5, 1.8))
-	sample_points.append(Vector3(4.0, -BUOYANCY_OFFSET + 1.2, -8.0))
-	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET + 1.2, -8.0))
-	sample_points.append(Vector3(-4.0, -BUOYANCY_OFFSET + 1.2, -8.0))
+	# Forward
+	sample_points.append(Vector3(3.0, -BUOYANCY_OFFSET_FOR, 6.0))
+	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET_FOR, 6.0))
+	sample_points.append(Vector3(-3.0, -BUOYANCY_OFFSET_FOR, 6.0))
+	# Mid
+	sample_points.append(Vector3(3.2, -BUOYANCY_OFFSET_MID, -1.0))
+	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET_MID, -1.0))
+	sample_points.append(Vector3(-3.2, -BUOYANCY_OFFSET_MID, -1.0))
+	# Aft
+	sample_points.append(Vector3(2.0, -BUOYANCY_OFFSET_AFT, -8.0))
+	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET_AFT, -8.0))
+	sample_points.append(Vector3(-2.0, -BUOYANCY_OFFSET_AFT, -8.0))
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -56,7 +61,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 	# Loop through buoyancy sample points and compute their forces:
 	for point in sample_points:
-		
 		# Buoyancy forces:
 		var pos_glb_point = state.transform.origin + state.transform.basis \
 				* point
