@@ -358,8 +358,6 @@ radius = 0.70038915
 [node name="Cannon" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
 script = ExtResource("1_hesxv")
-rotation_speed = 2.0
-max_power = 30.0
 
 [node name="Mesh" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.06649999)
