@@ -18,7 +18,6 @@ shadow_enabled = true
 environment = ExtResource("1_b55i6")
 
 [node name="Boat" parent="." instance=ExtResource("1_haa73")]
-linear_velocity = Vector3(0, 0, 0)
 
 [node name="Spawner" parent="Boat" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)

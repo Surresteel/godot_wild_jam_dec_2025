@@ -9,12 +9,15 @@ extends Node3D
 const CANNONBALL = preload("uid://jifqhmqqi4ym")
 
 @export_category("Stats")
-@export var rotation_speed: float = 1.0
-@export var max_power: float = 100.0
+@export var rotation_speed: float = 2.0
+@export var max_power: float = 30.0
 var current_power: float = 0.0
 @onready var power_timer: Timer = $PowerTimer
+@export_range(0.5, 10, 0.5, "suffix:Seconds") var charge_time: float = 1.5
 
 var projectile_Offset := Vector3(0,0,-0.9).length()
+var last_pos: Vector3
+var Velocity: Vector3
 var is_active: bool = false
 
 @export_category("TurnAngle")
@@ -24,6 +27,10 @@ var is_active: bool = false
 @export var max_angle_x: float = 10.0
 
 
+func _ready() -> void:
+	power_timer.wait_time = charge_time
+	last_pos = global_position
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and is_active:
 		var new_rotation_x: float = -event.screen_relative.y * rotation_speed * get_process_delta_time()
@@ -31,11 +38,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,min_angle_x,max_angle_x)
 		cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,-max_angle_y,max_angle_y)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_active:
+		Velocity = (global_position - last_pos) / delta
+		last_pos = global_position
+		
 		if Input.is_action_just_pressed("Main Action"):
 			power_timer.start()
 			#print("timer start")
+			
 		if Input.is_action_just_released("Main Action"):
 			var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
 			var new_cannonball: RigidBody3D = CANNONBALL.instantiate()
@@ -48,6 +59,6 @@ func _physics_process(_delta: float) -> void:
 			if power_timer.is_stopped():
 				current_power = max_power
 			else:
-				current_power = lerpf(5,max_power,1 - (power_timer.time_left / power_timer.wait_time))
-			new_cannonball.fire(current_power,-cannon_barrel.global_basis.z)
+				current_power = lerpf(5, max_power, 1 - (power_timer.time_left / power_timer.wait_time))
+			new_cannonball.fire(current_power, -cannon_barrel.global_basis.z, Velocity)
 			#print(current_power)
