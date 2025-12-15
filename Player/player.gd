@@ -4,11 +4,15 @@ class_name Player
 @export_category("Controller Values")
 @export var speed := 5.0
 var inertia: Vector3 = Vector3.ZERO
-var is_interacting: bool = false
-var was_on_floor: bool = false
 var floor_velocity: Vector3
 
+var is_interacting: bool = false
+var was_on_floor: bool = false
+var is_swimming: bool = false
+
 @onready var camera: Camera3D = $Camera3D
+
+@export var target: Node3D
 
 signal Interact
 
@@ -39,6 +43,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		floor_velocity = get_platform_velocity()
 		was_on_floor = true
+		is_swimming = true
 		velocity -= inertia
 		inertia = Vector3.ZERO
 		if Input.is_action_just_pressed("jump"):
@@ -77,6 +82,7 @@ func _handle_buoyancy(delta: float) -> void:
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
 	if global_position.y < water_height:
+		is_swimming = true
 		var error = water_height - global_position.y
 		integral += error * delta
 		var derivative = (error - last_error) / delta
@@ -84,6 +90,9 @@ func _handle_buoyancy(delta: float) -> void:
 		
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
+	
+	#print(is_swimming," = is_swimming\n", water_height, " > ", global_position.y)
+		
 
 
 func _input(_event: InputEvent) -> void:

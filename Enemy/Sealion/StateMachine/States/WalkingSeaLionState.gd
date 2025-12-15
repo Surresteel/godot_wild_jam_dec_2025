@@ -2,22 +2,23 @@ extends SealionBaseState
 class_name WalkingSeaLionState
 
 
-var speed:= 2
+var speed:= 1
 
 func enter(_sealion: Sealion) -> void:
-	print("entered ", self) #delete me
+	pass
+	#sealion.animation_player.play("WaddleCycle",-1, 3) #TODO get sealion animations
 
 func exit(_sealion: Sealion) -> void:
 	pass
+	#sealion.animation_player.stop()
 
-func pre_update(_sealion: Sealion) -> void:
-	pass
+func pre_update(sealion: Sealion) -> void:
+	if sealion.velocity == Vector3.ZERO:
+		sealion.change_state(SealionStates.TARGETING)
 
-func update(sealion: Sealion, delta) -> void:
-	
+func update(sealion: Sealion, _delta) -> void:
 	#Move The Sealion towards it's target
-	sealion.nav_agent.target_position = sealion.target.global_position
-	var dir: Vector3 = (sealion.nav_agent.get_next_path_position() 
+	var dir: Vector3 = (sealion.next_target_pos
 						- sealion.global_position).normalized()
 	
 	if not sealion.nav_agent.is_navigation_finished():
@@ -34,4 +35,3 @@ func update(sealion: Sealion, delta) -> void:
 	#Apply Gravity
 	if not sealion.is_on_floor():
 		sealion.velocity.y += sealion.get_gravity().y
-	print(sealion.velocity.length())

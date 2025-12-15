@@ -4,55 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://44cepbkncdhv" path="res://Models/Ship without cannons.blend" id="2_0a1j2"]
 [ext_resource type="PackedScene" uid="uid://cdwtcgl5bsf5f" path="res://Objects/Cannon/cannon.tscn" id="3_olgus"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_olgus"]
-points = PackedVector3Array(-2.2, 3.425, -6.7, 0, 3.435, -10, 2.2, 3.395, -6.7, -1.805, 0, -4.59, 0, 0, -7.78, 1.8, 0, -4.515)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bcr36"]
-points = PackedVector3Array(-2.2, 2.3, -6, 2.2, 2.3, -6, 3, 2.3, -3, -3, 2.3, -3, 3, 2.3, 2, -3, 2.3, 2, 2, 0, -5, -2, 0, 0, 2, 0, 2, -2, 0, -5, 2, 0, 0, -2, 0, 2)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_82nb5"]
-points = PackedVector3Array(3, 3.1, 2.2, -3, 3.1, 2.2, 2.4, 3.1, 4.3, -2.4, 3.1, 4.3, 0, 0, 1, 0, 0, 4.3)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u2lwu"]
-points = PackedVector3Array(2.4, 3.8, 4.8, -2.4, 3.8, 4.8, 1.9, 4.1, 6.6, -1.9, 4.1, 6.6, 2.4, 0, 2, -2.4, 0, 2, 1.9, 0, 5, -1.9, 0, 5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_binhx"]
-size = Vector3(1.1586914, 1.774449, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_olgus"]
-size = Vector3(1.1586914, 2.348986, 1)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_olgus"]
-radius = 0.17773438
-height = 3.6628418
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0a1j2"]
-size = Vector3(0.3637085, 0.3720703, 5.4956055)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xuvaw"]
-size = Vector3(0.38964844, 0.9789276, 3.1840057)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_skpsb"]
-size = Vector3(0.31323242, 0.35253906, 2.4470215)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_nwdpe"]
-size = Vector3(2.1192627, 0.99853516, 0.32006836)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ipcsp"]
-size = Vector3(0.30541992, 0.73394775, 2.2257385)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wqltn"]
-size = Vector3(4.137329, 1, 0.20880127)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ugeoi"]
-size = Vector3(0.4277954, 1, 3.8156738)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7v6ye"]
-size = Vector3(1.4036865, 1, 0.24389648)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xenj3"]
-size = Vector3(0.235, 0.262, 4.291)
-
 [sub_resource type="Curve3D" id="Curve3D_0a1j2"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, -3.155, 0, 3.185, 1.4330935, 0, -4.23307, 1.025, 0, -1.315, 0, 0, 0, 0.19376528, 0, 0.365758, 0.195, 0, -0.625, 0, 0, 0, -0.7366313, 0, 1.788175),
@@ -102,6 +53,55 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_r0s23")
 
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_olgus"]
+points = PackedVector3Array(-2.2, 3.425, -6.7, 0, 3.435, -10, 2.2, 3.395, -6.7, -1.805, 0, -4.59, 0, 0, -7.78, 1.8, 0, -4.515)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bcr36"]
+points = PackedVector3Array(-2.2, 2.3, -6, 2.2, 2.3, -6, 3, 2.3, -3, -3, 2.3, -3, 3, 2.3, 2, -3, 2.3, 2, 2, 0, -5, -2, 0, 0, 2, 0, 2, -2, 0, -5, 2, 0, 0, -2, 0, 2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_82nb5"]
+points = PackedVector3Array(3, 3.1, 2.2, -3, 3.1, 2.2, 2.4, 3.1, 4.3, -2.4, 3.1, 4.3, 0, 0, 1, 0, 0, 4.3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u2lwu"]
+points = PackedVector3Array(2.4, 3.8, 4.8, -2.4, 3.8, 4.8, 1.9, 4.1, 6.6, -1.9, 4.1, 6.6, 2.4, 0, 2, -2.4, 0, 2, 1.9, 0, 5, -1.9, 0, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_binhx"]
+size = Vector3(1.1586914, 1.774449, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_olgus"]
+size = Vector3(1.1586914, 2.348986, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_olgus"]
+radius = 0.17773438
+height = 3.6628418
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0a1j2"]
+size = Vector3(0.3637085, 0.3720703, 5.4956055)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xuvaw"]
+size = Vector3(0.38964844, 0.9789276, 3.1840057)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_skpsb"]
+size = Vector3(0.31323242, 0.35253906, 2.4470215)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nwdpe"]
+size = Vector3(2.1192627, 0.99853516, 0.32006836)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ipcsp"]
+size = Vector3(0.30541992, 0.73394775, 2.2257385)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wqltn"]
+size = Vector3(4.137329, 1, 0.20880127)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ugeoi"]
+size = Vector3(0.4277954, 1, 3.8156738)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7v6ye"]
+size = Vector3(1.4036865, 1, 0.24389648)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xenj3"]
+size = Vector3(0.235, 0.262, 4.291)
+
 [node name="Ship" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 0
@@ -126,6 +126,52 @@ transform = Transform3D(1, 0, 0, 0, 0.99939084, -0.034899496, 0, 0.034899496, 0.
 
 [node name="Mesh" parent="." instance=ExtResource("2_0a1j2")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.010238647, 0.015280247, -0.0042438507)
+
+[node name="SealionLeftPath" type="Path3D" parent="."]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.84, 2.434, -0.356)
+curve = SubResource("Curve3D_0a1j2")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="SealionLeftPath"]
+transform = Transform3D(0.7104448, 6.210905e-08, 0.70375574, 8.742278e-08, -1, -7.1054545e-15, 0.70375293, 6.152405e-08, -0.71044755, 1.4330935, 0, -4.23307)
+loop = false
+
+[node name="SealionRightPath" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.84014523, 2.4341433, -0.3567093)
+curve = SubResource("Curve3D_0a1j2")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="SealionRightPath"]
+transform = Transform3D(0.7104448, 6.210905e-08, 0.7037558, 8.742278e-08, -1, -7.105455e-15, 0.70375293, 6.152405e-08, -0.71044767, 1.4330935, 0, -4.23307)
+loop = false
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_0a1j2")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007594779, 2.8105013, 0.19070311)
+visible = false
+radius = 0.4
+vertices = PackedVector3Array(0.09913427, 0, -0.000281021, 0.07544125, 0, 0.06893973, 0.002039373, 0, 0.09820758, -0.06764596, 0, 0.06801058, -0.09737836, 0, -0.0016747713, -0.06950421, 0, -0.07182466, -0.014220506, 0, -0.09551766, 0.04756714, 0, -0.08390345, 0.074512124, 0, -0.07275378)
+affect_navigation_mesh = true
+
+[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007594779, 3.521555, -3.8813705)
+visible = false
+radius = 0.4
+vertices = PackedVector3Array(0.09913427, 0, -0.000281021, 0.07544125, 0, 0.06893973, 0.002039373, 0, 0.09820758, -0.06764596, 0, 0.06801058, -0.09737836, 0, -0.0016747713, -0.06950421, 0, -0.07182466, -0.014220506, 0, -0.09551766, 0.04756714, 0, -0.08390345, 0.074512124, 0, -0.07275378)
+affect_navigation_mesh = true
+
+[node name="NavigationObstacle3D3" type="NavigationObstacle3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007594779, 2.7351472, 3.9335582)
+visible = false
+radius = 0.4
+vertices = PackedVector3Array(0.09913427, 0, -0.000281021, 0.07544125, 0, 0.06893973, 0.002039373, 0, 0.09820758, -0.06764596, 0, 0.06801058, -0.09737836, 0, -0.0016747713, -0.06950421, 0, -0.07182466, -0.014220506, 0, -0.09551766, 0.04756714, 0, -0.08390345, 0.074512124, 0, -0.07275378)
+affect_navigation_mesh = true
+
+[node name="Plane" type="MeshInstance3D" parent="NavigationRegion3D"]
+visible = false
+mesh = SubResource("ArrayMesh_xuvaw")
+skeleton = NodePath("")
 
 [node name="col_deck_fore" type="CollisionShape3D" parent="."]
 visible = false
@@ -269,51 +315,5 @@ shape = SubResource("BoxShape3D_7v6ye")
 transform = Transform3D(1, 0, 0, 0, 0.93062216, -0.36598155, 0, 0.36598155, 0.93062216, 0, 4.5862026, -11.728495)
 visible = false
 shape = SubResource("BoxShape3D_xenj3")
-
-[node name="SealionLeftPath" type="Path3D" parent="."]
-transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.84, 2.434, -0.356)
-curve = SubResource("Curve3D_0a1j2")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="SealionLeftPath"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.7037555, 8.742278e-08, -1, -7.105452e-15, 0.70375293, 6.152405e-08, -0.7104473, 1.4330935, 0, -4.23307)
-loop = false
-
-[node name="SealionRightPath" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.84014523, 2.4341433, -0.3567093)
-curve = SubResource("Curve3D_0a1j2")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="SealionRightPath"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.70375556, 8.742278e-08, -1, -7.105453e-15, 0.70375293, 6.152405e-08, -0.71044743, 1.4330935, 0, -4.23307)
-loop = false
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-navigation_mesh = SubResource("NavigationMesh_0a1j2")
-
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007594779, 2.8105013, 0.19070311)
-visible = false
-radius = 0.4
-vertices = PackedVector3Array(0.09913427, 0, -0.000281021, 0.07544125, 0, 0.06893973, 0.002039373, 0, 0.09820758, -0.06764596, 0, 0.06801058, -0.09737836, 0, -0.0016747713, -0.06950421, 0, -0.07182466, -0.014220506, 0, -0.09551766, 0.04756714, 0, -0.08390345, 0.074512124, 0, -0.07275378)
-affect_navigation_mesh = true
-
-[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007594779, 3.521555, -3.8813705)
-visible = false
-radius = 0.4
-vertices = PackedVector3Array(0.09913427, 0, -0.000281021, 0.07544125, 0, 0.06893973, 0.002039373, 0, 0.09820758, -0.06764596, 0, 0.06801058, -0.09737836, 0, -0.0016747713, -0.06950421, 0, -0.07182466, -0.014220506, 0, -0.09551766, 0.04756714, 0, -0.08390345, 0.074512124, 0, -0.07275378)
-affect_navigation_mesh = true
-
-[node name="NavigationObstacle3D3" type="NavigationObstacle3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.007594779, 2.7351472, 3.9335582)
-visible = false
-radius = 0.4
-vertices = PackedVector3Array(0.09913427, 0, -0.000281021, 0.07544125, 0, 0.06893973, 0.002039373, 0, 0.09820758, -0.06764596, 0, 0.06801058, -0.09737836, 0, -0.0016747713, -0.06950421, 0, -0.07182466, -0.014220506, 0, -0.09551766, 0.04756714, 0, -0.08390345, 0.074512124, 0, -0.07275378)
-affect_navigation_mesh = true
-
-[node name="Plane" type="MeshInstance3D" parent="NavigationRegion3D"]
-visible = false
-mesh = SubResource("ArrayMesh_xuvaw")
-skeleton = NodePath("")
 
 [editable path="Mesh"]
