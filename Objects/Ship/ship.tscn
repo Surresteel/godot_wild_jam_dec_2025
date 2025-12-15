@@ -275,7 +275,15 @@ transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.8
 curve = SubResource("Curve3D_0a1j2")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="SealionLeftPath"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.7037549, 8.742278e-08, -1, -7.105446e-15, 0.70375293, 6.152405e-08, -0.7104467, 1.4330935, 0, -4.23307)
+transform = Transform3D(0.7104448, 6.210905e-08, 0.7037555, 8.742278e-08, -1, -7.105452e-15, 0.70375293, 6.152405e-08, -0.7104473, 1.4330935, 0, -4.23307)
+loop = false
+
+[node name="SealionRightPath" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.84014523, 2.4341433, -0.3567093)
+curve = SubResource("Curve3D_0a1j2")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="SealionRightPath"]
+transform = Transform3D(0.7104448, 6.210905e-08, 0.70375556, 8.742278e-08, -1, -7.105453e-15, 0.70375293, 6.152405e-08, -0.71044743, 1.4330935, 0, -4.23307)
 loop = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -307,13 +315,5 @@ affect_navigation_mesh = true
 visible = false
 mesh = SubResource("ArrayMesh_xuvaw")
 skeleton = NodePath("")
-
-[node name="SealionRightPath" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.84014523, 2.4341433, -0.3567093)
-curve = SubResource("Curve3D_0a1j2")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="SealionRightPath"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.70375496, 8.742278e-08, -1, -7.105447e-15, 0.70375293, 6.152405e-08, -0.71044683, 1.4330935, 0, -4.23307)
-loop = false
 
 [editable path="Mesh"]
