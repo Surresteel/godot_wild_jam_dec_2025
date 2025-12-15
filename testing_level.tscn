@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cejfc7tvn1ht1"]
+[gd_scene load_steps=9 format=3 uid="uid://cejfc7tvn1ht1"]
 
 [ext_resource type="Environment" uid="uid://41bc3bbo448b" path="res://Testing_World_Environment.tres" id="1_b55i6"]
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_th68x"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="3_b55i6"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_n3hra"]
 [ext_resource type="PackedScene" uid="uid://70br035sa0ey" path="res://DEBUG/prop_crate.tscn" id="6_du6cx"]
+[ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="7_50fuq"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n3hra"]
 height = 19.46
@@ -25,7 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46512, 0, -12.309639)
 mesh = SubResource("CylinderMesh_n3hra")
 
 [node name="Player" parent="." instance=ExtResource("3_b55i6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2050252, 2.5455992, -1.5748819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3040974, -0.99256444)
 wall_min_slide_angle = 1.0471976
 speed = 2.5
 
@@ -37,3 +38,9 @@ boat = NodePath("..")
 
 [node name="Prop_Crate" parent="Ship" instance=ExtResource("6_du6cx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3845735, 2.2756267, -3.1098971)
+
+[node name="Sealion" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_50fuq")]
+transform = Transform3D(0.7006354, 0, -0.7135195, 0, 1, 0, 0.7135195, 0, 0.7006354, 0.5288305, 2.2079732, 0.62182736)
+player = NodePath("../Player")
+
+[editable path="Ship"]

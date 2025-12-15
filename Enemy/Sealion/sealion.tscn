@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1nfl17a80wwi"]
+
+[ext_resource type="Script" uid="uid://ucyrib3il4yk" path="res://Enemy/Sealion/Sealion.gd" id="1_0fx28"]
+[ext_resource type="PackedScene" uid="uid://0g1cedpf1tmi" path="res://Enemy/Sealion/PlaceholderMesh.blend" id="1_myrwn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qxe43"]
+radius = 0.36523438
+height = 1.0092773
+
+[node name="Sealion" type="CharacterBody3D"]
+collision_mask = 11
+script = ExtResource("1_0fx28")
+
+[node name="PlaceholderMesh" parent="." instance=ExtResource("1_myrwn")]
+
+[node name="capsule" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49536133, 0)
+shape = SubResource("CapsuleShape3D_qxe43")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
