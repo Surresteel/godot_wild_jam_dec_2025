@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://crbg78qxtqesu"
-path="res://.godot/imported/P_Pirate_Static.blend-70be8a1601f05e590522d7eae1417a01.scn"
+uid="uid://f4pxfnckkqqc"
+path="res://.godot/imported/P_Muscle_Static.blend-7d451b90f95430ace056f81abb50c008.scn"
 
 [deps]
 
-source_file="res://water_tests/Models/P_Pirate_Static.blend"
-dest_files=["res://.godot/imported/P_Pirate_Static.blend-70be8a1601f05e590522d7eae1417a01.scn"]
+source_file="res://Models/P_Muscle_Static.blend"
+dest_files=["res://.godot/imported/P_Muscle_Static.blend-7d451b90f95430ace056f81abb50c008.scn"]
 
 [params]
 

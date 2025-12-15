@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dntbdwwulvcpc"
-path="res://.godot/imported/Prop_Crate.blend-79210ec00c4d6715ccf610dd4973994d.scn"
+path="res://.godot/imported/Prop_Crate.blend-8f15da41b7f651f2b132b45e6db33cf4.scn"
 
 [deps]
 
-source_file="res://water_tests/Models/Prop_Crate.blend"
-dest_files=["res://.godot/imported/Prop_Crate.blend-79210ec00c4d6715ccf610dd4973994d.scn"]
+source_file="res://Models/Prop_Crate.blend"
+dest_files=["res://.godot/imported/Prop_Crate.blend-8f15da41b7f651f2b132b45e6db33cf4.scn"]
 
 [params]
 
@@ -41,12 +41,12 @@ _subresources={
 "materials": {
 "Box": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://water_tests/Materials/Box.tres",
+"use_external/fallback_path": "res://Materials/Box.tres",
 "use_external/path": "uid://dua5k26joa1w"
 },
 "Box_inner": {
 "use_external/enabled": true,
-"use_external/fallback_path": "res://water_tests/Materials/Box_inner.tres",
+"use_external/fallback_path": "res://Materials/Box_inner.tres",
 "use_external/path": "uid://drlj2u4jjtwq1"
 }
 }

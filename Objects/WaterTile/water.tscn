@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://d0d4vsws77t4h"]
 
-[ext_resource type="Script" uid="uid://kpxu4ehuoonv" path="res://water_tests/Scripts/Scene_scripts/water.gd" id="1_n5nlf"]
-[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://water_tests/Shaders/WaterShader.gdshader" id="2_2rucg"]
+[ext_resource type="Script" uid="uid://kpxu4ehuoonv" path="res://Objects/WaterTile/water.gd" id="1_uc808"]
+[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://Materials/Shaders/WaterShader.gdshader" id="2_mj6xg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aeewm"]
 render_priority = 0
-shader = ExtResource("2_2rucg")
+shader = ExtResource("2_mj6xg")
 shader_parameter/time = 0.0
 shader_parameter/wave_amp = 2.0
 shader_parameter/wave_freq = 0.3
@@ -19,7 +19,7 @@ subdivide_depth = 128
 orientation = 1
 
 [node name="Water" type="Node3D"]
-script = ExtResource("1_n5nlf")
+script = ExtResource("1_uc808")
 
 [node name="SurfaceMesh" type="MeshInstance3D" parent="."]
 gi_mode = 2
