@@ -41,11 +41,8 @@ speed = 2.5
 [node name="Ship" parent="." instance=ExtResource("3_n3hra")]
 freeze = true
 
-[node name="PathFollow3D" parent="Ship/SealionLeftPath" index="0"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.7037553, 8.742278e-08, -1, -7.10545e-15, 0.70375293, 6.152405e-08, -0.71044713, 1.4330935, 0, -4.23307)
-
 [node name="PathFollow3D" parent="Ship/SealionRightPath" index="0"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.70375526, 8.742278e-08, -1, -7.105449e-15, 0.70375293, 6.152405e-08, -0.7104471, 1.4330935, 0, -4.23307)
+transform = Transform3D(0.7104448, 6.210905e-08, 0.7037554, 8.742278e-08, -1, -7.105451e-15, 0.70375293, 6.152405e-08, -0.71044725, 1.4330935, 0, -4.23307)
 
 [node name="Spawner" parent="Ship" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
@@ -56,6 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3845735, 2.2756267, -3.1098
 
 [node name="Sealion" parent="." node_paths=PackedStringArray("target", "targets") instance=ExtResource("7_50fuq")]
 transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 0.5288305, 3.578569, 0.62182736)
+visible = false
 target = NodePath("../Player")
 targets = [NodePath("../MeshInstance3D2"), NodePath("../MeshInstance3D3"), NodePath("../MeshInstance3D6"), NodePath("../MeshInstance3D4"), NodePath("../MeshInstance3D5")]
 
