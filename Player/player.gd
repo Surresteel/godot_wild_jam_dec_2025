@@ -12,6 +12,13 @@ var floor_velocity: Vector3
 
 signal Interact
 
+# Buoyancy PID controller:
+const KP := 20.0
+const KI := 2.0
+const KD := 8.0
+var integral := 0.0
+var last_error := 0.0
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -54,9 +61,25 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, delta * 69)
 		velocity.z = move_toward(velocity.z, 0.0, delta * 69)
 	
+	_handle_buoyancy(delta)
+	
 	move_and_slide()
 
 
+# Handles buoyancy forces when the player is in the water:
+func _handle_buoyancy(delta: float) -> void:
+	var data := Vector3(global_position.x, global_position.z, 
+				(Time.get_ticks_msec() / 1000.0))
+	var water_height = NoiseFunc.sample_at_pos_time(data)
+	
+	if global_position.y < water_height:
+		var error = water_height - global_position.y
+		integral += error * delta
+		var derivative = (error - last_error) / delta
+		last_error = error
+		
+		var output = KP * error + KI * integral + KD * derivative
+		velocity.y += output * delta
 
 
 func _input(_event: InputEvent) -> void:

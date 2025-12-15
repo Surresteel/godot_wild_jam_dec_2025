@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv35k8nfgv88o"]
+
+[ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
+[ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
+[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
+[ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
+
+[node name="Level_Test" type="Node3D"]
+script = ExtResource("1_0pb8u")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_koan3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.63281345, 0.77430433, 0, -0.77430433, 0.63281345, 0, 3.7851057, 0)
+directional_shadow_blend_splits = true
+
+[node name="Ship" parent="." instance=ExtResource("3_nomhl")]
+
+[node name="Player" parent="." instance=ExtResource("4_dq315")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.664776, -3.0507786)

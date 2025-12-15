@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cypax8bji6tw1"]
 
 [ext_resource type="Script" uid="uid://w0qqggs3hjl2" path="res://Objects/Ship/ship.gd" id="1_r5d65"]
-[ext_resource type="PackedScene" uid="uid://bggjyximn37e6" path="res://Objects/Boat/Assets/PenguinShip_WIP (1).blend" id="2_bcr36"]
+[ext_resource type="PackedScene" uid="uid://44cepbkncdhv" path="res://Models/Ship without cannons.blend" id="2_0a1j2"]
 [ext_resource type="PackedScene" uid="uid://cdwtcgl5bsf5f" path="res://Objects/Cannon/cannon.tscn" id="3_olgus"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_olgus"]
@@ -34,7 +34,7 @@ linear_damp = 0.5
 angular_damp = 0.1
 script = ExtResource("1_r5d65")
 
-[node name="Mesh" parent="." instance=ExtResource("2_bcr36")]
+[node name="Mesh" parent="." instance=ExtResource("2_0a1j2")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="col_deck_fore" type="CollisionShape3D" parent="."]
