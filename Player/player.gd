@@ -60,6 +60,10 @@ func _physics_process(delta: float) -> void:
 	elif is_on_floor():
 		velocity.x = move_toward(velocity.x, 0.0, delta * 69)
 		velocity.z = move_toward(velocity.z, 0.0, delta * 69)
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, delta * 1)
+		velocity.z = move_toward(velocity.z, 0.0, delta * 1)
+	
 	
 	_handle_buoyancy(delta)
 	
