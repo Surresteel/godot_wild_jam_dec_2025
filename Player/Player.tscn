@@ -129,9 +129,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_0s0g2")
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 4
 collision_mask = 2
+floor_max_angle = 1.0471976
 script = ExtResource("1_3qydi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
