@@ -5,6 +5,10 @@ uniform float time = 0.0;
 uniform float wave_amp = 2.7;
 uniform float wave_freq = 0.2;
 uniform float wave_speed = 0.5;
+uniform vec3 colour_dark = vec3(0.0, 0.25, 0.5);
+uniform vec3 colour_light = vec3(0.0, 0.4, 0.5);
+uniform vec3 colour_foam = vec3(0.1, 0.5, 0.8);
+
 
 // Hashing function for noise generation:
 float hash(vec3 p) {
@@ -62,7 +66,6 @@ void vertex() {
 	vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 
 	// Apply wave speed modifier to time:
-	//float t = TIME * wave_speed;
 	float t = time * wave_speed;
 
 	// Add linear wave movement vector:
@@ -70,6 +73,7 @@ void vertex() {
 
 	// Sample noise based on computed position and time:
 	float height = fbm(vec3(world_pos.xz * wave_freq, t));
+	//float height = h1 + h2;
 
 	// Apply it to the vertext Y axis.
 	VERTEX.y += height * wave_amp;
@@ -89,15 +93,15 @@ void vertex() {
 
 	// Colour:
 	float sample_offset = fbm(vec3((world_pos.xz + vec2(100.0, 100.0)) * 0.1, t));
-	float edge0 = 1.1;
-	float edge1 = 1.8;
+	float edge0 = 0.9;
+	float edge1 = 1.6;
 	float edge3 = 0.8;
 	float edge4 = 1.2;
 	float mask_foam = smoothstep(edge0, edge1, height);
 	float mask_light = smoothstep(edge3, edge4, sample_offset);
-	vec3 colour = mix(vec3(0.0, 0.25, 0.5), vec3(0.1, 0.5, 0.8), mask_foam);
-	vec3 colour_light = mix(vec3(0.0, 0.4, 0.5), vec3(0.1, 0.5, 0.8), mask_foam);
-	COLOR.xyz = mix(colour, colour_light, mask_light);
+	vec3 colour_dfoam = mix(colour_dark, colour_foam, mask_foam);
+	vec3 colour_lfoam = mix(colour_light, colour_foam, mask_foam);
+	COLOR.xyz = mix(colour_dfoam, colour_lfoam, mask_light);
 }
 
 // Fragment shader:

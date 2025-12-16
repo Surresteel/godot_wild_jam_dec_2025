@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bfldeivslnad"]
+
+[ext_resource type="Shader" uid="uid://130nevwjvgsj" path="res://Materials/Shaders/wave_shader.gdshader" id="1_kcg5l"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_kcg5l")
+shader_parameter/colour = Vector3(0, 0.3, 0.5)

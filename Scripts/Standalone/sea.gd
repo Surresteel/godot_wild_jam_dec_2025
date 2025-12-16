@@ -29,14 +29,20 @@ var grid_tiles: Array[Node3D]
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	call_deferred("_ready_post")
 	_create_sea_grid()
 
 
+func _ready_post() -> void:
+	Water.set_water_colour_dark(Vector3(0.0, 0.2, 0.5))
+	Water.set_water_colour_light(Vector3(0.0, 0.3, 0.5))
+	Water.set_water_colour_foam(Vector3(0.5, 0.5, 1.0))
+	Water.set_wave_frequency(3.0)
+	Water.set_wave_amplitude(0.4)
+	Water.set_wave_speed(0.25)
+
+
 func _process(_delta: float) -> void:
-	# DEBUG:
-	ship.move_forwards()
-	# DEBUG:
-	
 	# GATE: - Ship must have moved to generate new tiles.
 	if (grid_pos == _world_to_grid(ship.global_position)):
 		return
@@ -45,6 +51,12 @@ func _process(_delta: float) -> void:
 	grid_pos = _world_to_grid(ship.global_position)
 	_update_sea_grid()
 
+
+func _physics_process(_delta: float) -> void:
+	# DEBUG:
+	#ship.move_forwards()
+	Water.advance_time()
+	# DEBUG:
 
 #===============================================================================
 #	PRIVATE FUNCTIONS:

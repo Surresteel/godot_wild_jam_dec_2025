@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cjv48eker6rs3"]
+
+[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://Materials/Shaders/WaterShader.gdshader" id="1_2xeaq"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_2xeaq")
+shader_parameter/time = 0.0
+shader_parameter/wave_amp = 2.0
+shader_parameter/wave_freq = 0.3
+shader_parameter/wave_speed = 0.4
+shader_parameter/colour_dark = Vector3(0, 0.25, 0.5)
+shader_parameter/colour_light = Vector3(0, 0.4, 0.5)
+shader_parameter/colour_foam = Vector3(0.1, 0.5, 0.8)

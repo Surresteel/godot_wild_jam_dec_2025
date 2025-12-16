@@ -57,7 +57,8 @@ size = Vector3(0.235, 0.262, 4.291)
 collision_layer = 2
 collision_mask = 0
 mass = 2000.0
-linear_damp = 0.5
+linear_damp_mode = 1
+linear_damp = 0.3
 angular_damp = 0.1
 script = ExtResource("1_r5d65")
 

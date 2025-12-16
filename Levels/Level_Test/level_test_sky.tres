@@ -4,9 +4,7 @@
 sky_top_color = Color(0.39999998, 0.71999997, 1, 1)
 sky_horizon_color = Color(0.79426557, 0.9021185, 0.99921054, 1)
 sky_curve = 0.19792609
-ground_bottom_color = Color(0.2542, 0.63139987, 0.82, 1)
 ground_horizon_color = Color(0.79607844, 0.9019608, 1, 1)
-ground_curve = 0.012311475
 
 [resource]
 sky_material = SubResource("ProceduralSkyMaterial_vfrve")

@@ -1,18 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0d4vsws77t4h"]
+[gd_scene load_steps=4 format=3 uid="uid://d0d4vsws77t4h"]
 
 [ext_resource type="Script" uid="uid://kpxu4ehuoonv" path="res://Objects/WaterTile/water.gd" id="1_uc808"]
-[ext_resource type="Shader" uid="uid://cxsmhtci1myar" path="res://Materials/Shaders/WaterShader.gdshader" id="2_mj6xg"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aeewm"]
-render_priority = 0
-shader = ExtResource("2_mj6xg")
-shader_parameter/time = 0.0
-shader_parameter/wave_amp = 2.0
-shader_parameter/wave_freq = 0.3
-shader_parameter/wave_speed = 0.4
+[ext_resource type="Material" uid="uid://cjv48eker6rs3" path="res://Materials/Shaders/water_shader_mat.tres" id="2_uc808"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_lxjfm"]
-material = SubResource("ShaderMaterial_aeewm")
+material = ExtResource("2_uc808")
 size = Vector2(128, 128)
 subdivide_width = 128
 subdivide_depth = 128

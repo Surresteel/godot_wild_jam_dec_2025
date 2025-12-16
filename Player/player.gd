@@ -76,8 +76,8 @@ func _handle_buoyancy(delta: float) -> void:
 				(Time.get_ticks_msec() / 1000.0))
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
-	if global_position.y < water_height:
-		var error = water_height - global_position.y
+	if global_position.y - 0.5 < water_height:
+		var error = water_height - (global_position.y - 0.5)
 		integral += error * delta
 		var derivative = (error - last_error) / delta
 		last_error = error

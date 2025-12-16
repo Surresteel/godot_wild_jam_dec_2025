@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxfefmy0re5bq"]
+
+[ext_resource type="Script" uid="uid://buy5d7ufotxk2" path="res://Objects/Wave/wave.gd" id="1_bjumy"]
+[ext_resource type="Material" uid="uid://bfldeivslnad" path="res://Materials/Shaders/wave_shader_mat.tres" id="2_2bu6t"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_57l7g"]
+material = ExtResource("2_2bu6t")
+size = Vector2(40, 20)
+subdivide_width = 128
+subdivide_depth = 64
+
+[node name="Wave" type="Node3D"]
+script = ExtResource("1_bjumy")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+instance_shader_parameters/swave_amp = 4.305
+mesh = SubResource("PlaneMesh_57l7g")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.03856472, -0.5185196, 0.85419565, -0.023385994, 0.85506576, 0.51799196, -0.9989824, 0, -0.045101468, 22.916431, 4.8651743, 4.259881)
