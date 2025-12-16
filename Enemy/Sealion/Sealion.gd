@@ -2,9 +2,13 @@ extends CharacterBody3D
 class_name Sealion
 
 
-@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @export var target: Node3D
+#nav agent things
+@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var next_target_pos: Vector3
+#swimming things
+var  target_speed: Vector3
+var target_last_pos: Vector3
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -66,3 +70,8 @@ func _handle_buoyancy(delta: float) -> void:
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
 		
+
+func get_target_speed() -> Vector3:
+	var speed:= (target.global_position - target_last_pos) / get_physics_process_delta_time()
+	target_last_pos = target.global_position
+	return speed

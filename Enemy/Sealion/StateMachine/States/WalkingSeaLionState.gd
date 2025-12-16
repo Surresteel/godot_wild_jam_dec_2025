@@ -14,8 +14,7 @@ func enter(sealion: Sealion) -> void:
 	sealion.animation_player.play("Penguin_Base/Penguin_Waddle") #TODO get sealion animations
 
 func exit(sealion: Sealion) -> void:
-	#Set NavigationAgentLayer
-	sealion.nav_agent.set_navigation_layer_value(1,false)
+	pass
 
 func pre_update(sealion: Sealion) -> void:
 	if sealion.velocity == Vector3.ZERO and sealion.nav_agent.is_navigation_finished():

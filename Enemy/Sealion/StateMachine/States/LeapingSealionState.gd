@@ -6,7 +6,7 @@ func enter(sealion: Sealion) -> void:
 	print("entered leaping state")
 	#look at the desiginated landing point node and jump forward
 	sealion.look_at(sealion.target.get_parent().global_position)
-	sealion.velocity += sealion.global_basis * Vector3(0,7,-8)
+	sealion.velocity += sealion.global_basis * Vector3(0,6.5,-6.5)
 	print("h")
 	await sealion.get_tree().create_timer(5).timeout
 	if sealion.state == self:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://cypax8bji6tw1"]
+[gd_scene load_steps=26 format=4 uid="uid://cypax8bji6tw1"]
 
 [ext_resource type="Script" uid="uid://w0qqggs3hjl2" path="res://Objects/Ship/ship.gd" id="1_r5d65"]
 [ext_resource type="PackedScene" uid="uid://44cepbkncdhv" path="res://Models/Ship without cannons.blend" id="2_0a1j2"]
@@ -106,18 +106,6 @@ size = Vector3(0.235, 0.262, 4.291)
 radius = 0.8
 height = 1.6
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_xuvaw"]
-vertices = PackedVector3Array(-3.3921413, 0.5, -10.25, -1.1421413, 0.5, -10.5, -1.1421413, 0.5, -24.5, -22.392141, 0.5, -24.5, -22.392141, 0.5, -8.25, -3.3921413, 0.5, -8.25, 1.1078587, 0.5, -10.5, 1.1078587, 0.5, -24.5, 3.1078587, 0.5, -10.5, 3.3578587, 0.5, -8.25, 22.357859, 0.5, -8.25, 22.357859, 0.5, -24.5, -22.392141, 0.5, 8.25, -3.3921413, 0.5, 8.25, 3.3578587, 0.5, 8.25, 22.357859, 0.5, 8.25, -1.1421413, 0.5, 24.5, -1.1421413, 0.5, 10.5, -3.3921413, 0.5, 10.25, -22.392141, 0.5, 24.5, 3.1078587, 0.5, 10.5, 1.1078587, 0.5, 10.5, 1.1078587, 0.5, 24.5, 22.357859, 0.5, 24.5)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(2, 7, 1), PackedInt32Array(1, 7, 6), PackedInt32Array(8, 6, 7), PackedInt32Array(8, 10, 9), PackedInt32Array(7, 11, 8), PackedInt32Array(8, 11, 10), PackedInt32Array(4, 5, 12), PackedInt32Array(12, 5, 13), PackedInt32Array(9, 10, 14), PackedInt32Array(14, 10, 15), PackedInt32Array(17, 16, 18), PackedInt32Array(18, 16, 19), PackedInt32Array(18, 19, 12), PackedInt32Array(12, 13, 18), PackedInt32Array(22, 21, 20), PackedInt32Array(20, 14, 15), PackedInt32Array(22, 20, 23), PackedInt32Array(23, 20, 15), PackedInt32Array(17, 21, 16), PackedInt32Array(16, 21, 22)]
-geometry_parsed_geometry_type = 0
-agent_height = 0.0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_skpsb"]
-size = Vector2(20, 50)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_0a1j2"]
-size = Vector2(6, 15)
-
 [node name="Ship" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 0
@@ -148,7 +136,7 @@ transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, -0.8
 curve = SubResource("Curve3D_0a1j2")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="SealionLeftPath"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.7037569, 8.742278e-08, -1, -7.105466e-15, 0.70375293, 6.152405e-08, -0.71044874, 1.4330935, 0, -4.23307)
+transform = Transform3D(0.7104448, 6.210905e-08, 0.7037571, 8.742278e-08, -1, -7.105468e-15, 0.70375293, 6.152405e-08, -0.7104489, 1.4330935, 0, -4.23307)
 loop = false
 
 [node name="SealionRightPath" type="Path3D" parent="."]
@@ -156,7 +144,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.84014523, 2.4341433, -0.356
 curve = SubResource("Curve3D_0a1j2")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="SealionRightPath"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.703757, 8.742278e-08, -1, -7.105467e-15, 0.70375293, 6.152405e-08, -0.71044886, 1.4330935, 0, -4.23307)
+transform = Transform3D(0.7104448, 6.210905e-08, 0.70375717, 8.742278e-08, -1, -7.105469e-15, 0.70375293, 6.152405e-08, -0.71044904, 1.4330935, 0, -4.23307)
 loop = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -352,35 +340,6 @@ mesh = SubResource("SphereMesh_0a1j2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2190032, -2.7251704, 0)
 visible = false
 mesh = SubResource("SphereMesh_0a1j2")
-skeleton = NodePath("../..")
-
-[node name="OceanNavigationRegion" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1826427, 0)
-navigation_mesh = SubResource("NavigationMesh_xuvaw")
-navigation_layers = 2
-
-[node name="SeaPlane" type="MeshInstance3D" parent="OceanNavigationRegion"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.892141, 0, 0)
-visible = false
-mesh = SubResource("PlaneMesh_skpsb")
-skeleton = NodePath("../..")
-
-[node name="SeaPlane2" type="MeshInstance3D" parent="OceanNavigationRegion"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.892, 0, 0)
-visible = false
-mesh = SubResource("PlaneMesh_skpsb")
-skeleton = NodePath("../..")
-
-[node name="SeaPlane3" type="MeshInstance3D" parent="OceanNavigationRegion"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.5)
-visible = false
-mesh = SubResource("PlaneMesh_0a1j2")
-skeleton = NodePath("../..")
-
-[node name="SeaPlane4" type="MeshInstance3D" parent="OceanNavigationRegion"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 17.5)
-visible = false
-mesh = SubResource("PlaneMesh_0a1j2")
 skeleton = NodePath("../..")
 
 [editable path="Mesh"]
