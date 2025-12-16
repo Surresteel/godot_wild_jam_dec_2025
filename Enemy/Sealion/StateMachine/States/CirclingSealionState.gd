@@ -3,13 +3,13 @@ class_name CirclingSealionState
 
 var speed:= 10.0
 var swimming_distance: float = 50.0
-var swimming_distance_drain_speed:= 5.0
+var swimming_distance_drain_speed:= 2.0
 
 func enter(_sealion: Sealion) -> void:
 	swimming_distance = randf_range(25, 80)
 
 func exit(sealion: Sealion) -> void:
-	pass
+	sealion.velocity = Vector3.ZERO
 
 func pre_update(sealion: Sealion) -> void:
 	if swimming_distance <= 20:

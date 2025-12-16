@@ -1,15 +1,16 @@
 extends CharacterBody3D
 class_name Sealion
 
-const SPHERE = preload("uid://jyad5hkedyun")
 
 #movement code related
 var target_node: Node3D
 var target_pos: Vector3
+
 #nav agent things
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var next_target_pos: Vector3
 
+#References To Ship
 @onready var ship: Ship = $"../Ship"
 
 

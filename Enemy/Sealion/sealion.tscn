@@ -13,7 +13,7 @@ floor_max_angle = 1.0471976
 script = ExtResource("1_0fx28")
 
 [node name="PlaceholderMesh" parent="." instance=ExtResource("1_myrwn")]
-transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, 0, 0, 0)
+transform = Transform3D(-0.8, 0, -6.9938224e-08, 0, 0.8, 0, 6.9938224e-08, 0, -0.8, -1.26131585e-08, 0, -0.14427769)
 
 [node name="capsule" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53213984, -0.15424019)
