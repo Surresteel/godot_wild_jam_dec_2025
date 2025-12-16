@@ -26,17 +26,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46512, 0, -12.309639)
 mesh = SubResource("CylinderMesh_n3hra")
 
 [node name="Player" parent="." instance=ExtResource("3_b55i6")]
-transform = Transform3D(-0.9847076, 0, 0.1742153, 0, 1, 0, -0.1742153, 0, -0.9847076, 0.5928793, 4.7089524, -4.698305)
+transform = Transform3D(-0.9847076, 0, 0.1742153, 0, 1, 0, -0.1742153, 0, -0.9847076, -0.18236256, 2.3108716, -3.4974113)
 wall_min_slide_angle = 1.0471976
 speed = 2.5
 
 [node name="Ship" parent="." instance=ExtResource("3_n3hra")]
 
 [node name="PathFollow3D" parent="Ship/SealionLeftPath" index="0"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.70375776, 8.742278e-08, -1, -7.105475e-15, 0.70375293, 6.152405e-08, -0.71044964, 1.4330935, 0, -4.23307)
+transform = Transform3D(0.7104448, 6.210905e-08, 0.7037594, 8.742278e-08, -1, -7.105491e-15, 0.70375293, 6.152405e-08, -0.71045125, 1.4330935, 0, -4.23307)
 
 [node name="PathFollow3D" parent="Ship/SealionRightPath" index="0"]
-transform = Transform3D(0.7104448, 6.210905e-08, 0.70375764, 8.742278e-08, -1, -7.105474e-15, 0.70375293, 6.152405e-08, -0.7104495, 1.4330935, 0, -4.23307)
+transform = Transform3D(0.7104448, 6.210905e-08, 0.70375925, 8.742278e-08, -1, -7.10549e-15, 0.70375293, 6.152405e-08, -0.7104511, 1.4330935, 0, -4.23307)
 
 [node name="Spawner" parent="Ship" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
@@ -46,7 +46,7 @@ boat = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3845735, 2.2756267, -3.1098971)
 
 [node name="Sealion" parent="." node_paths=PackedStringArray("target") instance=ExtResource("7_50fuq")]
-transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 0.5288305, 2.4935598, 0.62182736)
+transform = Transform3D(-0.98898745, 0, -0.14799947, 0, 1, 0, 0.14799947, 0, -0.98898745, 21.092077, 1.5236425, 28.630964)
 target = NodePath("../Player")
 
 [editable path="Ship"]

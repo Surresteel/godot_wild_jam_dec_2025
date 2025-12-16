@@ -6,7 +6,9 @@ class_name Sealion
 @export var target: Node3D
 var next_target_pos: Vector3
 
-var state: SealionBaseState = SealionStates.WALKING
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+var state: SealionBaseState = SealionStates.SWIMMING
 
 # Buoyancy PID controller:
 const KP := 20.0
@@ -14,6 +16,8 @@ const KI := 2.0
 const KD := 8.0
 var integral := 0.0
 var last_error := 0.0
+
+var submerge_amount := 0
 
 
 func _ready() -> void:
@@ -30,12 +34,22 @@ func _physics_process(delta: float) -> void:
 	#states update function
 	state.update(self, delta)
 	
+	_handle_buoyancy(delta)
+	
+	#Apply Gravity - Always want to apply gravity so its here
+	if not is_on_floor():
+		velocity.y += get_gravity().y * delta
+	
 	move_and_slide()
+	
 
 func change_state(new_state: SealionBaseState) -> void:
 	state.exit(self)
 	state = new_state
 	state.enter(self)
+
+func change_target(new_target: Node3D) -> void:
+	target = new_target
 
 # Handles buoyancy forces when the player is in the water:
 func _handle_buoyancy(delta: float) -> void:
@@ -43,8 +57,8 @@ func _handle_buoyancy(delta: float) -> void:
 				(Time.get_ticks_msec() / 1000.0))
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
-	if global_position.y < water_height:
-		var error = water_height - global_position.y
+	if global_position.y + submerge_amount < water_height:
+		var error = water_height - global_position.y + submerge_amount
 		integral += error * delta
 		var derivative = (error - last_error) / delta
 		last_error = error

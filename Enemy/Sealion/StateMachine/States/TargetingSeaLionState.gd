@@ -1,9 +1,8 @@
 extends SealionBaseState
 class_name TargetingSeaLionState
 
-func enter(_sealion: Sealion) -> void:
-	print("targeting")
-	pass
+func enter(sealion: Sealion) -> void:
+	sealion.animation_player.play("Penguin_Base/Penguin_Idle")
 
 func exit(_sealion: Sealion) -> void:
 	pass
