@@ -4,9 +4,12 @@ class_name CirclingSealionState
 var speed:= 10.0
 var swimming_distance: float = 50.0
 var swimming_distance_drain_speed:= 2.0
+var clockwise:bool = false
 
 func enter(_sealion: Sealion) -> void:
 	swimming_distance = randf_range(25, 80)
+	swimming_distance_drain_speed = randf_range(1, 3)
+	clockwise = randi() % 2
 
 func exit(sealion: Sealion) -> void:
 	sealion.velocity = Vector3.ZERO
@@ -49,4 +52,7 @@ func update(sealion: Sealion, delta) -> void:
 func get_next_circling_point(sealion: Sealion) -> Vector3:
 	var initial_direction = sealion.ship.global_position.direction_to(sealion.global_position)
 	var next_direction = initial_direction.rotated(Vector3.UP,deg_to_rad(15))
-	return next_direction * swimming_distance + sealion.ship.global_position
+	if clockwise:
+		return -next_direction * swimming_distance + sealion.ship.global_position
+	else:
+		return next_direction * swimming_distance + sealion.ship.global_position

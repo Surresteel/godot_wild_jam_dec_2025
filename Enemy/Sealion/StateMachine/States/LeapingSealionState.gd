@@ -5,12 +5,12 @@ var missed: bool = false
 
 
 func enter(sealion: Sealion) -> void:
+	missed = false
 	print("entered leaping state")
 	sealion.velocity.y = 7.5              #Up and Backwards Vector - default(7.5,4.5) 
 	sealion.velocity += sealion.transform.basis * Vector3(0,0,4.5)
 	
 	await sealion.get_tree().create_timer(5).timeout
-	print("I missed")
 	missed = true
 	
 

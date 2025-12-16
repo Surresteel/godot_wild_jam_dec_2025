@@ -11,8 +11,9 @@
 [sub_resource type="CylinderMesh" id="CylinderMesh_n3hra"]
 height = 19.46
 
-[node name="TestingLevel" type="Node3D"]
+[node name="TestingLevel" type="Node3D" node_paths=PackedStringArray("gen_point")]
 script = ExtResource("1_th68x")
+gen_point = NodePath("Ship")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8472238, -0.46006384, 0.26561794, -0.2411595, 0.7785889, 0.5793456, -0.4733432, 0.42677903, -0.7705881, 0, 0, 0)

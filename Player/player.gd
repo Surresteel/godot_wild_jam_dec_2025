@@ -69,7 +69,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0.0, delta * 1)
 		velocity.z = move_toward(velocity.z, 0.0, delta * 1)
 	
-	#print(velocity)
 	_handle_buoyancy(delta)
 	
 	move_and_slide()
