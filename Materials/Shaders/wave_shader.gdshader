@@ -4,7 +4,6 @@ shader_type spatial;
 // Parameters to control a single wave feature in world space:
 instance uniform vec2 size = vec2(20.0, 40.0);
 instance uniform vec3 colour = vec3(0.0, 0.2, 0.5);
-//instance uniform vec2 swave_dir = vec2(0.0, 0.0);
 instance uniform float swave_amp = 0.0;
 
 const vec2 swave_dir = vec2(0.0, 1.0);

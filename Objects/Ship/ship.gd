@@ -18,7 +18,7 @@ const MAX_DEPTH: float = 3.0
 const BUOYANCY_OFFSET_FOR: float = 0.4
 const BUOYANCY_OFFSET_MID: float = 0.3
 const BUOYANCY_OFFSET_AFT: float = 0.2
-const MAX_SPEED: float = 50.0
+const MAX_SPEED: float = 5.0
 const MAX_ROTATION: float = 10.0
 
 
@@ -55,6 +55,8 @@ func _ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	print(linear_velocity.length())
+	move_forwards()
 	_apply_buoyancy_forces(state)
 	#_apply_external_forces(state)
 	_apply_internal_forces(state)
@@ -161,7 +163,7 @@ func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 #===============================================================================
 # Moves the ship forwards:
 func move_forwards() -> void:
-	_force_to_apply += 10000.0 * -self.transform.basis.z
+	_force_to_apply += 6000.0 * -self.transform.basis.z
 
 
 func turn_left() -> void:

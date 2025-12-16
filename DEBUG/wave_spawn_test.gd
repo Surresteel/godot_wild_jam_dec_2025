@@ -7,6 +7,7 @@ var scene_wave = preload("res://Objects/Wave/wave.tscn")
 var wave: Wave = null
 
 func _physics_process(_delta: float) -> void:
+	return
 	if not wave and wm:
 		wave = scene_wave.instantiate()
 		add_child(wave)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://v4pg05aunbi8"]
+
+[ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_rpwlu"]
+[ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_usjlc"]
+[ext_resource type="PackedScene" uid="uid://m46fqntcnrhl" path="res://Objects/Orca/orca.tscn" id="3_fajl2"]
+[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="4_rpwlu"]
+
+[node name="OrcaTest" type="Node3D" node_paths=PackedStringArray("gen_point")]
+script = ExtResource("1_rpwlu")
+gen_point = NodePath("Orca")
+wave_freq = 0.2
+wave_amp = 2.0
+wave_speed = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_usjlc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.47623825, 0.87931633, 0, -0.87931633, -0.47623825, 0, 12.352188, 0)
+
+[node name="Orca" parent="." instance=ExtResource("3_fajl2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5818548, 0)
+
+[node name="Ship" parent="." instance=ExtResource("4_rpwlu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, 85)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 1.0669933e-14, -8.7422784e-08, -5.848251e-08, 0.7432966, 0.668962, 6.4981066e-08, 0.668962, -0.7432966, -48.65436, 39.469765, 26.115929)
+current = true
+fov = 60.0
+near = 0.01

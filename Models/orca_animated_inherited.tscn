@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1l321msdcdav"]
+
+[ext_resource type="PackedScene" uid="uid://ce3lde3t8f7pu" path="res://Models/Orca_Animated.blend" id="1_sbcig"]
+[ext_resource type="Animation" uid="uid://cft13xccam6cm" path="res://Orca_anims/Dive.res" id="2_sr0wq"]
+[ext_resource type="Animation" uid="uid://dvsc4iri4kg01" path="res://Orca_anims/Dive Bomb.res" id="3_hdh5o"]
+[ext_resource type="Animation" uid="uid://dbosgq0o3ghnj" path="res://Orca_anims/Surface.res" id="4_nlf1u"]
+[ext_resource type="Animation" uid="uid://45f15mj3qiyx" path="res://Orca_anims/Swimming.res" id="5_8yv4f"]
+[ext_resource type="Animation" uid="uid://ny21acosw4xa" path="res://Orca_anims/Swimming Left.res" id="6_wc4xp"]
+[ext_resource type="Animation" uid="uid://be6sqapb5luce" path="res://Orca_anims/Swimming Right.res" id="7_nb6te"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_51kdx"]
+_data = {
+&"Dive": ExtResource("2_sr0wq"),
+&"Dive Bomb": ExtResource("3_hdh5o"),
+&"Surface": ExtResource("4_nlf1u"),
+&"Swimming": ExtResource("5_8yv4f"),
+&"Swimming Left": ExtResource("6_wc4xp"),
+&"Swimming Right": ExtResource("7_nb6te")
+}
+
+[node name="Orca_Animated" instance=ExtResource("1_sbcig")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/2/rotation = Quaternion(-7.490644e-08, -0.16984978, 0.98546994, -9.431704e-09)
+bones/3/rotation = Quaternion(0.011861706, -7.5492586e-08, 8.9553553e-10, 0.99992967)
+bones/4/rotation = Quaternion(0.0020714472, -1.1614582e-13, -2.0563334e-15, 0.9999979)
+bones/5/rotation = Quaternion(-0.0007649332, -3.348415e-16, 9.722902e-16, 0.9999997)
+bones/6/rotation = Quaternion(-0.0060280524, -4.5523315e-16, 1.5445576e-15, 0.9999819)
+bones/6/scale = Vector3(1, 0.99999994, 0.99999994)
+bones/7/rotation = Quaternion(-3.6389865e-05, -0.00059238693, -0.3528806, 0.9356682)
+bones/8/rotation = Quaternion(-3.637894e-05, 0.000592379, 0.3528806, 0.9356682)
+bones/9/rotation = Quaternion(-6.4599774e-08, 0.5175554, 0.8556497, -3.9074347e-08)
+bones/10/rotation = Quaternion(-0.2110277, -2.0934916e-08, 0.0021970286, 0.9774776)
+bones/11/rotation = Quaternion(0.0059934394, 0, 0, 0.99998206)
+bones/12/rotation = Quaternion(0.0030370918, 0, 0, 0.9999954)
+bones/13/rotation = Quaternion(-0.05222268, 6.7032937e-07, -4.0238724e-08, 0.9986355)
+bones/14/rotation = Quaternion(-0.105744794, -0.26148325, 0.63437325, 0.71973276)
+bones/15/rotation = Quaternion(-0.05099803, 0.010258514, 0.09328163, 0.9942799)
+bones/16/rotation = Quaternion(-0.027596125, -0.02207325, 0.15085422, 0.9879242)
+bones/17/rotation = Quaternion(-0.105744794, 0.26148325, -0.63437325, 0.71973276)
+bones/18/rotation = Quaternion(-0.05099803, -0.010258514, -0.09328163, 0.9942799)
+bones/19/rotation = Quaternion(-0.027596125, 0.02207325, -0.15085422, 0.9879242)
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+&"": SubResource("AnimationLibrary_51kdx")
+}

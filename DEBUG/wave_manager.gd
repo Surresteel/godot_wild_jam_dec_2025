@@ -61,6 +61,9 @@ func unregister_wave(wave: Wave) -> bool:
 func get_waves() -> Array[WaveData]:
 	var data: Array[WaveData]
 	for wave in _waves:
+		if not wave:
+			continue
+		
 		if wave.is_done:
 			continue
 		
