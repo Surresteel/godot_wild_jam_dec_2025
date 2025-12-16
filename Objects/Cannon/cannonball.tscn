@@ -50,6 +50,7 @@ continuous_cd = true
 script = ExtResource("1_l2xo0")
 
 [node name="SnowBall_001" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 mesh = SubResource("ArrayMesh_05mlj")
 skeleton = NodePath("")
 
