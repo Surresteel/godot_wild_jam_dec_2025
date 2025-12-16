@@ -33,6 +33,7 @@ version_control/autoload_on_startup=true
 
 SealionJumpArea="Transform that the sealion will navigate towards to go from swimming to jumping"
 Player="The Player Character"
+SealionInteractables=""
 
 [input]
 

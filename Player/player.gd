@@ -13,6 +13,7 @@ var is_swimming: bool = false
 @onready var camera: Camera3D = $Camera3D
 
 @export var target: Node3D
+@onready var ship: Ship = $"../Ship"
 
 signal Interact
 
@@ -39,7 +40,6 @@ func _process(_delta: float) -> void:
 	camera.mouse_input = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	
 	if is_on_floor():
 		floor_velocity = get_platform_velocity()
 		was_on_floor = true
@@ -90,9 +90,7 @@ func _handle_buoyancy(delta: float) -> void:
 		
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
-	
-	#print(is_swimming," = is_swimming\n", water_height, " > ", global_position.y)
-		
+
 
 
 func _input(_event: InputEvent) -> void:

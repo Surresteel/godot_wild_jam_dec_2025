@@ -1,18 +1,20 @@
 extends CharacterBody3D
 class_name Sealion
 
+const SPHERE = preload("uid://jyad5hkedyun")
 
-@export var target: Node3D
+#movement code related
+var target_node: Node3D
+var target_pos: Vector3
 #nav agent things
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var next_target_pos: Vector3
-#swimming things
-var  target_speed: Vector3
-var target_last_pos: Vector3
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var ship: Ship = $"../Ship"
 
-var state: SealionBaseState = SealionStates.SWIMMING
+
+
+var state: SealionBaseState = SealionStates.CIRCLING
 
 # Buoyancy PID controller:
 const KP := 20.0
@@ -30,8 +32,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	#update the Nav Agent
-	next_target_pos = nav_agent.get_next_path_position()
-	nav_agent.target_position = target.global_position
+	if target_node != null:
+		next_target_pos = nav_agent.get_next_path_position()
+		nav_agent.target_position = target_node.global_position
 	
 	#check to change state
 	state.pre_update(self)
@@ -52,8 +55,10 @@ func change_state(new_state: SealionBaseState) -> void:
 	state = new_state
 	state.enter(self)
 
-func change_target(new_target: Node3D) -> void:
-	target = new_target
+func change_target_pos(new_pos: Vector3) -> void:
+	target_pos = new_pos
+func change_target_node(new_Node: Node3D) -> void:
+	target_node = new_Node
 
 # Handles buoyancy forces when the player is in the water:
 func _handle_buoyancy(delta: float) -> void:
@@ -70,8 +75,3 @@ func _handle_buoyancy(delta: float) -> void:
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
 		
-
-func get_target_speed() -> Vector3:
-	var speed:= (target.global_position - target_last_pos) / get_physics_process_delta_time()
-	target_last_pos = target.global_position
-	return speed
