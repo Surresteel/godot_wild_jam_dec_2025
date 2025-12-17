@@ -8,7 +8,7 @@ radius = 0.53252256
 height = 1.0650451
 
 [node name="Sealion" type="CharacterBody3D"]
-collision_mask = 10
+collision_mask = 11
 floor_max_angle = 1.0471976
 script = ExtResource("1_0fx28")
 
@@ -23,3 +23,4 @@ shape = SubResource("CapsuleShape3D_qxe43")
 path_max_distance = 1.01
 navigation_layers = 0
 path_postprocessing = 1
+debug_enabled = true

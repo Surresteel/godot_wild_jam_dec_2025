@@ -4,7 +4,7 @@ class_name SwimmingState
 const SWIM_SPEED = 5
 
 func enter() -> void:
-	print("swimming")
+	pass
 
 func exit() -> void:
 	pass

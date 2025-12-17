@@ -15,5 +15,5 @@ func _on_timer_timeout() -> void:
 	var x := randf_range(-20,20)
 	var z := randf_range(-5,5)
 	get_tree().get_root().add_child(new_ice_berg)
-	new_ice_berg.global_position = global_position + Vector3(x + (sign(x) * 20),0,z)
+	new_ice_berg.global_position = global_position + Vector3(x + (sign(x) * 50),0,z)
 	

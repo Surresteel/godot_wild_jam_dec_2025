@@ -20,6 +20,8 @@ func exit(_sealion: Sealion) -> void:
 func pre_update(sealion: Sealion) -> void:
 	if sealion.velocity == Vector3.ZERO and sealion.nav_agent.is_navigation_finished():
 		sealion.change_state(SealionStates.TARGETING)
+	if sealion.global_position.y < sealion.get_water_height():
+		sealion.change_state(SealionStates.CIRCLING)
 
 func update(sealion: Sealion, delta) -> void:
 	#Move The Sealion towards it's target
