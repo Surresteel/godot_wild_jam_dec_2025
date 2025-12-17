@@ -12,6 +12,7 @@ var floor_velocity: Vector3
 var is_interacting: bool = false
 
 @onready var camera: Camera3D = $Camera3D
+@onready var mesh: MeshInstance3D = $P_Generic_Static
 
 @export var target: Node3D
 

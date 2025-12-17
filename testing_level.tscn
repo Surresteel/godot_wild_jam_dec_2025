@@ -14,6 +14,9 @@ height = 19.46
 [node name="TestingLevel" type="Node3D" node_paths=PackedStringArray("gen_point")]
 script = ExtResource("1_th68x")
 gen_point = NodePath("Ship")
+wave_freq = 0.5
+wave_amp = 2.0
+wave_speed = 2.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8472238, -0.46006384, 0.26561794, -0.2411595, 0.7785889, 0.5793456, -0.4733432, 0.42677903, -0.7705881, 0, 0, 0)
@@ -32,9 +35,10 @@ wall_min_slide_angle = 1.0471976
 speed = 2.5
 
 [node name="Ship" parent="." instance=ExtResource("3_n3hra")]
-collision_mask = 1
+collision_mask = 8
 
 [node name="Spawner" parent="Ship" node_paths=PackedStringArray("boat") instance=ExtResource("2_haa73")]
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6560805, 0)
 boat = NodePath("..")
 

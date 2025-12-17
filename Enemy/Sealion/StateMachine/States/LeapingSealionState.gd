@@ -20,7 +20,7 @@ func exit(sealion: Sealion) -> void:
 func pre_update(sealion: Sealion) -> void:
 	if sealion.is_on_floor():
 		sealion.change_state(SealionStates.WALKING)
-	if missed:
+	elif missed:
 		sealion.change_state(SealionStates.CIRCLING)
 
 func update(sealion: Sealion, delta) -> void:
