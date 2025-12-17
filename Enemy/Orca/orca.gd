@@ -143,7 +143,6 @@ func _handle_collision(body: Node3D) -> void:
 	if body is Ship:
 		return
 	
-	print("HIT!")
 	var blood: Node3D = scene_death.instantiate()
 	get_tree().get_root().add_child(blood)
 	blood.global_position = global_position

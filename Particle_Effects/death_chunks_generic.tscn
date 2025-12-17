@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxd6d1hf0chd0"]
 
 [ext_resource type="Material" uid="uid://bs1mtf7781rfl" path="res://Particle_Effects/death_chunks_generic.tres" id="1_3wtuw"]
-[ext_resource type="Script" uid="uid://b4egjbmyl06td" path="res://Particle_Effects/death_chunks_generic.gd" id="2_aruqs"]
+[ext_resource type="Script" uid="uid://6pp0feiy0ted" path="res://Particle_Effects/particle_lifetime_manager.gd" id="2_aruqs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqf6d"]
 albedo_color = Color(0.81, 0.056699995, 0.18225022, 1)

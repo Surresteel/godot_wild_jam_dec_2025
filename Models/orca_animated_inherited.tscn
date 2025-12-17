@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://b1l321msdcdav"]
 
 [ext_resource type="PackedScene" uid="uid://ce3lde3t8f7pu" path="res://Models/Orca_Animated.blend" id="1_sbcig"]
-[ext_resource type="Animation" uid="uid://cft13xccam6cm" path="res://Orca_anims/Dive.res" id="2_sr0wq"]
-[ext_resource type="Animation" uid="uid://dvsc4iri4kg01" path="res://Orca_anims/Dive Bomb.res" id="3_hdh5o"]
-[ext_resource type="Animation" uid="uid://dbosgq0o3ghnj" path="res://Orca_anims/Surface.res" id="4_nlf1u"]
-[ext_resource type="Animation" uid="uid://45f15mj3qiyx" path="res://Orca_anims/Swimming.res" id="5_8yv4f"]
-[ext_resource type="Animation" uid="uid://ny21acosw4xa" path="res://Orca_anims/Swimming Left.res" id="6_wc4xp"]
-[ext_resource type="Animation" uid="uid://be6sqapb5luce" path="res://Orca_anims/Swimming Right.res" id="7_nb6te"]
+[ext_resource type="Animation" uid="uid://cft13xccam6cm" path="res://Models/Orca_anims/Dive.res" id="2_sr0wq"]
+[ext_resource type="Animation" uid="uid://dvsc4iri4kg01" path="res://Models/Orca_anims/Dive Bomb.res" id="3_hdh5o"]
+[ext_resource type="Animation" uid="uid://dbosgq0o3ghnj" path="res://Models/Orca_anims/Surface.res" id="4_nlf1u"]
+[ext_resource type="Animation" uid="uid://45f15mj3qiyx" path="res://Models/Orca_anims/Swimming.res" id="5_8yv4f"]
+[ext_resource type="Animation" uid="uid://ny21acosw4xa" path="res://Models/Orca_anims/Swimming Left.res" id="6_wc4xp"]
+[ext_resource type="Animation" uid="uid://be6sqapb5luce" path="res://Models/Orca_anims/Swimming Right.res" id="7_nb6te"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_51kdx"]
 _data = {
