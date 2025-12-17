@@ -1,7 +1,14 @@
-[gd_scene load_steps=10 format=4 uid="uid://u8ioaod5e2a3"]
+[gd_scene load_steps=17 format=4 uid="uid://u8ioaod5e2a3"]
 
 [ext_resource type="Script" uid="uid://dtxyf75rtamdf" path="res://Player/player.gd" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://bk2kpispy7bje" path="res://camera_3d.gd" id="2_q3lat"]
+[ext_resource type="Script" uid="uid://c8dpo4r8y6xw4" path="res://Player/StateMachine/PlayerStateMachine.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://ksdsrbtpqxwj" path="res://Player/StateMachine/BasePlayerState.gd" id="4_8g4oa"]
+[ext_resource type="Script" uid="uid://clu5lxjk30u48" path="res://Player/StateMachine/States/swimming_state.gd" id="5_6ysni"]
+[ext_resource type="Script" uid="uid://wwpopkvj3snd" path="res://Player/StateMachine/States/walking_state.gd" id="5_8g4oa"]
+[ext_resource type="Script" uid="uid://4xhspjxqjhey" path="res://Player/StateMachine/States/jumping_state.gd" id="6_vlldt"]
+[ext_resource type="Script" uid="uid://cxoy6ktej14jq" path="res://Player/StateMachine/States/falling_state.gd" id="7_s1rgi"]
+[ext_resource type="Script" uid="uid://c3vqhkdek2srf" path="res://Player/StateMachine/States/interacting_state.gd" id="8_j23h2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3qydi"]
 radius = 0.22802734
@@ -151,3 +158,25 @@ script = ExtResource("2_q3lat")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_q3lat")
 skeleton = NodePath("")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("3_ddoul")
+parent = NodePath("..")
+
+[node name="WalkingState" type="Node" parent="StateMachine"]
+script = ExtResource("5_8g4oa")
+
+[node name="SwimmingState" type="Node" parent="StateMachine"]
+script = ExtResource("5_6ysni")
+
+[node name="JumpingState" type="Node" parent="StateMachine"]
+script = ExtResource("6_vlldt")
+
+[node name="FallingState" type="Node" parent="StateMachine"]
+script = ExtResource("7_s1rgi")
+
+[node name="InteractingState" type="Node" parent="StateMachine"]
+script = ExtResource("8_j23h2")
+
+[node name="BaseState - Do Not Use" type="Node" parent="."]
+script = ExtResource("4_8g4oa")

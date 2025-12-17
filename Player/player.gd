@@ -6,14 +6,18 @@ class_name Player
 var inertia: Vector3 = Vector3.ZERO
 var floor_velocity: Vector3
 
+#state machine variables
+@onready var state_machine: PlayerStateMachine = $StateMachine
+
 var is_interacting: bool = false
-var was_on_floor: bool = false
-var is_swimming: bool = false
 
 @onready var camera: Camera3D = $Camera3D
 
 @export var target: Node3D
+
+#ship stuff
 @onready var ship: Ship = $"../Ship"
+var ship_last_rotation_y: float
 
 signal Interact
 
@@ -31,7 +35,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	camera.position = position + camera.pos
 	
-	if is_interacting:
+	if state_machine.current_state == state_machine.state.INTERACTING:
 		return
 	
 	camera.rotate_camera_x()
@@ -40,38 +44,14 @@ func _process(_delta: float) -> void:
 	camera.mouse_input = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-	if is_on_floor():
-		floor_velocity = get_platform_velocity()
-		was_on_floor = true
-		is_swimming = true
-		velocity -= inertia
-		inertia = Vector3.ZERO
-		if Input.is_action_just_pressed("jump"):
-			velocity.y += 5
-	elif was_on_floor:
-		inertia = floor_velocity
-		was_on_floor = false
-	else:
-		velocity.y += get_gravity().y * delta
-	
-	
-	var input_dir: Vector2 = Input.get_vector("left","right","forward","backward")
-	var dir: Vector3 = (transform.basis * Vector3(input_dir.x,0,input_dir.y)).normalized()
-	
-	if dir and not is_interacting:
-		velocity.x = dir.x * speed + inertia.x
-		velocity.z = dir.z * speed + inertia.z
-		
-	elif is_on_floor():
-		velocity.x = move_toward(velocity.x, 0.0, delta * 69)
-		velocity.z = move_toward(velocity.z, 0.0, delta * 69)
-	else:
-		velocity.x = move_toward(velocity.x, 0.0, delta * 1)
-		velocity.z = move_toward(velocity.z, 0.0, delta * 1)
-	
 	_handle_buoyancy(delta)
-	
+	#print(ship.angular_velocity)
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("interact"):
+		emit_signal("Interact")
+		print(is_interacting," on frame ", Engine.get_frames_drawn())
+		#if works, sets is_interacting to true
 
 
 # Handles buoyancy forces when the player is in the water:
@@ -80,8 +60,8 @@ func _handle_buoyancy(delta: float) -> void:
 				(Time.get_ticks_msec() / 1000.0))
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
-	if global_position.y - 0.5 < water_height:
-		var error = water_height - (global_position.y - 0.5)
+	if global_position.y - 0.1 < water_height:
+		var error = water_height - (global_position.y - 0.1)
 		integral += error * delta
 		var derivative = (error - last_error) / delta
 		last_error = error
@@ -89,11 +69,28 @@ func _handle_buoyancy(delta: float) -> void:
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
 
+func get_water_height() -> float:
+	var data := Vector3(global_position.x, global_position.z, 
+			(Time.get_ticks_msec() / 1000.0))
+	return NoiseFunc.sample_at_pos_time(data)
 
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("interact"):
-		emit_signal("Interact")
+func get_ship_velocity() -> Vector3:
+	var ship_velocity = ship.linear_velocity
+	
+	return Vector3(ship_velocity.x, 0 ,ship_velocity.z)
+
+func rotate_with_ship(lerp_ratio: float) -> void:
+	#player.rotation.x = ship_rotation.x
+	#player.rotation.z = ship_rotation.z
+	var ship_rotated_amount: float = ship.rotation.y - ship_last_rotation_y
+	if absf(ship_rotated_amount) * 1000 > 1 and absf(ship_rotated_amount) * 1000 < 50: 
+		rotation.y += move_toward(0, ship_rotated_amount, lerp_ratio)       # 50 since sometimes the -
+		#print(ship_rotated_amount * 1000)                                  #-amount is >6000, idk why.
+																			# and rotations over 50 are -
+																			#-too much probably
+	
+	ship_last_rotation_y = ship.rotation.y
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey:

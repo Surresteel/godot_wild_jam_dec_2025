@@ -28,6 +28,7 @@ func toggle_interaction() -> void:
 		if change_camera:
 			player.camera.current = true
 			interactable_node.camera.current = false
+			
 	else:                          #Turn On
 		interactable_node.is_active = true
 		player.is_interacting = true
