@@ -15,7 +15,7 @@ collision_mask = 2
 axis_lock_linear_y = true
 continuous_cd = true
 contact_monitor = true
-max_contacts_reported = 716
+max_contacts_reported = 1
 script = ExtResource("1_672ou")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

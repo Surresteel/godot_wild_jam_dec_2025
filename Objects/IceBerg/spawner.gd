@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var boat : Node3D
+@export var boat : RigidBody3D
 
 const ICE_BERG = preload("uid://c6ieiq6giwbp8")
 

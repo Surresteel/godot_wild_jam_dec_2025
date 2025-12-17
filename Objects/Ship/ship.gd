@@ -139,7 +139,7 @@ func _apply_external_forces(state: PhysicsDirectBodyState3D) -> void:
 	var w_data: Array[WaveManager.WaveData] = wave_manager.get_waves()
 	var force := Vector3.ZERO
 	for wave in w_data:
-		print(wave.vel)
+		#print(wave.vel)
 		if wave.pos.distance_to(Vector2(state.transform.origin.x, 
 				state.transform.origin.z)) < 7.0:
 			force += wave.vel.normalized() * wave.vel.length() * wave.vel.length() * 50000 * wave.amp * 10 \
