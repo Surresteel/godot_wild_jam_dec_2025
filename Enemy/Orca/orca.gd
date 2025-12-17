@@ -1,17 +1,19 @@
 #===============================================================================
 #	CLASS PROPERTIES:
 #===============================================================================
+class_name Orca
 extends CharacterBody3D
 
 const LAYER_CANNONBALL := (1 << 3)
 
+enum STATES {IDLE, FOLLOW, SWIM, CIRCLE, ATTACK}
+enum STATES_ATK {OUT, IN, JUMP, CHARGE, DIVE}
+const STATES_ARR_PASSIVE: Array[STATES] = [STATES.FOLLOW, STATES.CIRCLE]
 const SPEED_MAX: float = 20.0
 const CALC_SPEED: float = 10.0
 const SPEED_ORBIT_MAX: float = 7.0
 const ACC_MAX: float = 5.0
 const DRAG: float = 1.0
-enum STATES {IDLE, FOLLOW, SWIM, CIRCLE, ATTACK}
-enum STATES_ATK {OUT, IN, JUMP, CHARGE, DIVE}
 static var scene_wave := preload("res://Objects/Wave/wave.tscn")
 static var scene_death := preload("res://Particle_Effects/death_chunks_generic.tscn")
 
@@ -21,21 +23,24 @@ static var scene_death := preload("res://Particle_Effects/death_chunks_generic.t
 #===============================================================================
 @export var _wave_manager: WaveManager
 @export var _target: RigidBody3D
+#@export var debug: Node3D
 
 @onready var _area_3d: Area3D = $CollisionArea
 
 # State stuff:
 var _state: STATES = STATES.IDLE
 var _state_atk: STATES_ATK = STATES_ATK.OUT
-var _state_interval: float = 10.0
+var _state_interval: float = 30.0
+var _attack_interval: float = 60.0
 var _state_timeout: float = 0.0
+var _attack_timeout: float = 0.0
 
 # Navigation stuff:
 var _waypoint := Vector3.ZERO
 var _radius_orbit: float = 50.0
 var _orbit_dir: bool = false
 var _allow_pitch: bool = false
-var _lateral_fraction := 0.25
+var _lateral_fraction := 0.01
 var _set_orientation := Vector3.ZERO
 
 # Follow stuff:
@@ -45,8 +50,8 @@ var _dir_follow := Vector3.RIGHT
 
 # Attack stuff:
 var _dist_attack_start = 200.0
-var _dist_attack_jump = 100.0
-var _dist_attack_dive = 30.0
+var _dist_attack_jump = 110.0
+var _dist_attack_dive = 40.0
 var _can_attack = false
 var _jump_triggered = false;
 var _is_jumping = false
@@ -66,18 +71,20 @@ var _inv_height := -1.0
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	_attack_timeout = Time.get_ticks_msec() + _attack_interval * 1000
 	_area_3d.body_entered.connect(_handle_collision)
-	_waypoint = Vector3(0.0, 0, 0.0)
 	_state = STATES.FOLLOW
-	#_state = STATES.CIRCLE
 	pass
 
 
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
 	
+	_handle_state()
 	_handle_buoyancy(delta)
 	_update_orientation(delta)
+	if Engine.get_physics_frames() % (30 * 60) == 0:
+		_update_state_characteristics()
 	
 	match _state:
 		STATES.IDLE:
@@ -106,17 +113,12 @@ func _physics_process(delta: float) -> void:
 				_state = STATES.IDLE
 		
 	move_and_slide()
-	
-	# Collisions
-	# for i in range(get_slide_collision_count()):
-	# 	var collision := get_slide_collision(i)
-	# 	_handle_collision(collision)
 
 
 #===============================================================================
 #	SETUP:
 #===============================================================================
-func _assign_wave_manager(wm: WaveManager) -> void:
+func assign_wave_manager(wm: WaveManager) -> void:
 	_wave_manager = wm
 
 
@@ -127,20 +129,38 @@ func set_target(t: Node3D) -> void:
 	_target = t
 
 
-func _set_state(s: STATES) -> void:
-	#_state_timeout = Time.get_ticks_msec() + _state_interval * 1000
-	_end_attack()
+func _set_state(s: STATES, reset_timeout: bool = false) -> void:
+	if reset_timeout:
+		_state_timeout = Time.get_ticks_msec() + _state_interval * 1000
+	
+	_set_orientation = Vector3.ZERO
+	
 	_state = s
+
+
+func _set_state_rand(s_arr: Array[STATES], reset_timeout: bool = false) -> void:
+	var item = s_arr[randi() % s_arr.size()] 
+	_set_state(item, reset_timeout)
+
+
+func _update_state_characteristics() -> void:
+	_orbit_dir = randi() & 1
+	match (randi() & 1):
+		0:
+			_dir_follow = Vector3.RIGHT * ((randi() % 3) - 1)
+		1:
+			_dir_follow = Vector3.FORWARD * ((randi() % 3) - 1)
+	
+	_dist_follow = randf_range(20.0, 50.0)
 
 
 #===============================================================================
 #	COLLISION HANDLING:
 #===============================================================================
-#func _on_area
-
-
 func _handle_collision(body: Node3D) -> void:
 	if body is Ship:
+		velocity += Vector3(0.0, 15.0, 0.0)
+		_allow_pitch = true
 		return
 	
 	var blood: Node3D = scene_death.instantiate()
@@ -152,6 +172,19 @@ func _handle_collision(body: Node3D) -> void:
 #===============================================================================
 #	STATES:
 #===============================================================================
+func _handle_state() -> void:
+	if _state == STATES.ATTACK:
+		return
+	
+	if Time.get_ticks_msec() > _attack_timeout:
+		_set_state(STATES.ATTACK)
+		return
+	
+	if Time.get_ticks_msec() > _state_timeout:
+		_set_state_rand(STATES_ARR_PASSIVE, true)
+		return
+
+
 func _do_state_swim(delta: float, destination: Vector3) -> void:
 	if global_position.distance_squared_to(destination) < 9:
 		_state = STATES.IDLE
@@ -193,11 +226,6 @@ func _do_state_follow(delta: float, target: Node3D) -> void:
 
 
 func _do_state_circle(delta: float, target: Vector3) -> void:
-	if Time.get_ticks_msec() > _state_timeout:
-		print("Orca is attacking")
-		_state = STATES.ATTACK
-		return
-	
 	var to_point := global_position - target
 	var dir := to_point.normalized()
 	
@@ -256,7 +284,7 @@ func _do_atk_state_in(delta: float, target: Node3D) -> void:
 		_end_attack()
 		return
 	
-	_go_to_point(delta, global_position + dir * to_target.length() * 2)
+	_go_to_point(delta, global_position + dir * to_target.length() * 1.25)
 	
 	if to_target.length_squared() <= _dist_attack_jump * _dist_attack_jump:
 		_state_atk = STATES_ATK.JUMP
@@ -361,21 +389,20 @@ func _compute_wave_solution() -> Vector3:
 	return dir_fire
 
 
-func _end_attack(s: STATES = STATES.CIRCLE) -> void:
-	print("Orca is ending attack.")
+func _end_attack(s_arr: Array[STATES] = STATES_ARR_PASSIVE) -> void:
 	_set_swim_height(1.0)
 	_jump_triggered = false
 	_is_jumping = false
 	_state_atk = STATES_ATK.OUT
-	_state_timeout = Time.get_ticks_msec() + _state_interval * 1000
-	_state = s
+	_attack_timeout = Time.get_ticks_msec() + _attack_interval * 1000
+	_set_state_rand(s_arr)
 
 
 func _update_orientation(delta: float) -> void:
 	if velocity.is_zero_approx():
 		return
 	
-	var turn_speed := 2.0
+	var turn_speed := 1.0
 	var tgt_tform := transform
 	
 	if not _set_orientation.is_zero_approx():
@@ -423,13 +450,15 @@ func _get_lateral_velocity(point: Vector3) -> Vector3:
 func _go_to_point(delta:float, point: Vector3, ms: float = SPEED_MAX, 
 		cancel_lat: bool = true) -> void:
 	var heading_desired = (point - global_position).normalized()
+	#debug.global_position = point
 	
 	# Cancel lateral velocity:
 	if cancel_lat:
 		var vel_lateral = _get_lateral_velocity(point)
 		velocity -= vel_lateral * _lateral_fraction
 	
-	if velocity.length_squared() > ms * ms:
+	var new_vel = velocity + ACC_MAX * heading_desired * delta
+	if new_vel.length_squared() > ms * ms:
 		return
 	
 	velocity += ACC_MAX * heading_desired * delta

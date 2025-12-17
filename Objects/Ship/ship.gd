@@ -40,13 +40,15 @@ var _waypoint: Vector3 = Vector3.ZERO
 
 # WAVE INTERACTIONS:
 @export var wave_manager: WaveManager
+@export var initial_waypoint := Vector3.ZERO
 
 
 #===============================================================================
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
-	#set_waypoint(Vector3(0.0, 0.0, 1000.0))
+	if initial_waypoint.distance_squared_to(global_position) > 25:
+		set_waypoint(initial_waypoint)
 	
 	# Forward
 	sample_points.append(Vector3(3.0, -BUOYANCY_OFFSET_FOR, 6.0))

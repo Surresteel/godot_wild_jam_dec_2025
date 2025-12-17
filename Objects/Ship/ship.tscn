@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://cypax8bji6tw1"]
+[gd_scene load_steps=25 format=4 uid="uid://cypax8bji6tw1"]
 
 [ext_resource type="Script" uid="uid://w0qqggs3hjl2" path="res://Objects/Ship/ship.gd" id="1_r5d65"]
 [ext_resource type="PackedScene" uid="uid://44cepbkncdhv" path="res://Models/Ship without cannons.blend" id="2_0a1j2"]
@@ -83,10 +83,13 @@ size = Vector3(2.1192627, 0.99853516, 0.32006836)
 size = Vector3(0.30541992, 0.73394775, 2.2257385)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wqltn"]
-size = Vector3(4.137329, 1, 0.20880127)
+size = Vector3(4.137329, 0.6665039, 0.20880127)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ugeoi"]
-size = Vector3(0.4277954, 1, 3.8156738)
+size = Vector3(0.4277954, 0.60595703, 3.8156738)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_riav2"]
+size = Vector3(0.4277954, 0.5800781, 3.8156738)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7v6ye"]
 size = Vector3(1.4036865, 1, 0.24389648)
@@ -259,7 +262,7 @@ visible = false
 shape = SubResource("BoxShape3D_ipcsp")
 
 [node name="col_rail_aft_C" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03253174, 4.111273, 6.6201806)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03253174, 3.9445248, 6.6201806)
 visible = false
 shape = SubResource("BoxShape3D_wqltn")
 
@@ -269,14 +272,12 @@ visible = false
 shape = SubResource("BoxShape3D_ipcsp")
 
 [node name="col_rail_for_R" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.8248669, 0, 0.565327, 0, 1, 0, -0.565327, 0, 0.8248669, 1.2969878, 3.4953957, -8.144239)
-visible = false
+transform = Transform3D(0.8248669, 0, 0.565327, 0, 1, 0, -0.565327, 0, 0.8248669, 1.2969878, 3.2983742, -8.144239)
 shape = SubResource("BoxShape3D_ugeoi")
 
 [node name="col_rail_for_L" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.82511353, 0, -0.564967, 0, 1, 0, 0.564967, 0, 0.82511353, -1.297, 3.495, -8.144)
-visible = false
-shape = SubResource("BoxShape3D_ugeoi")
+transform = Transform3D(0.82511353, 0, -0.564967, 0, 1, 0, 0.564967, 0, 0.82511353, -1.297, 3.285039, -8.144)
+shape = SubResource("BoxShape3D_riav2")
 
 [node name="col_rail_for_CL" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2693481, 3.4078813, -6.7573724)
