@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Sealion
 
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 #movement code related
 var target_node: Node3D
 var target_pos: Vector3
