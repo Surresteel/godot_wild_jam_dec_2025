@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxd6d1hf0chd0"]
+
+[ext_resource type="Material" uid="uid://bs1mtf7781rfl" path="res://Particle_Effects/death_chunks_generic.tres" id="1_3wtuw"]
+[ext_resource type="Script" uid="uid://b4egjbmyl06td" path="res://Particle_Effects/death_chunks_generic.gd" id="2_aruqs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqf6d"]
+albedo_color = Color(0.81, 0.056699995, 0.18225022, 1)
+roughness = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_aruqs"]
+material = SubResource("StandardMaterial3D_qqf6d")
+radial_segments = 16
+rings = 8
+
+[node name="Chunks" type="GPUParticles3D"]
+emitting = false
+amount = 100
+lifetime = 5.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 60
+process_material = ExtResource("1_3wtuw")
+draw_pass_1 = SubResource("SphereMesh_aruqs")
+script = ExtResource("2_aruqs")

@@ -20,6 +20,7 @@ const BUOYANCY_OFFSET_MID: float = 0.3
 const BUOYANCY_OFFSET_AFT: float = 0.2
 const MAX_SPEED: float = 5.0
 const MAX_ROTATION: float = 10.0
+const WP_RADIUS: float = 10.0
 
 
 # BUOYANCY PARAMETERS
@@ -32,6 +33,11 @@ var _force_to_apply := Vector3.ZERO
 var _torque_to_apply := Vector3.ZERO
 
 
+# NAVIGATIONS:
+var _has_destination: bool = false
+var _waypoint: Vector3 = Vector3.ZERO
+
+
 # WAVE INTERACTIONS:
 @export var wave_manager: WaveManager
 
@@ -40,6 +46,8 @@ var _torque_to_apply := Vector3.ZERO
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	#set_waypoint(Vector3(0.0, 0.0, 1000.0))
+	
 	# Forward
 	sample_points.append(Vector3(3.0, -BUOYANCY_OFFSET_FOR, 6.0))
 	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET_FOR, 6.0))
@@ -55,8 +63,9 @@ func _ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	print(linear_velocity.length())
-	move_forwards()
+	if _has_destination:
+		_go_to_point(_waypoint)
+	
 	_apply_buoyancy_forces(state)
 	#_apply_external_forces(state)
 	_apply_internal_forces(state)
@@ -158,20 +167,47 @@ func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 	return
 
 
+func _go_to_point(p: Vector3) -> void:
+	var to_point = global_position - p
+	var dir = to_point.normalized()
+	var angle = dir.signed_angle_to(global_basis.z, Vector3.UP)
+	
+	if angle < -0.05 or angle > 0.05:
+		if angle > 0:
+			turn_left()
+		else:
+			turn_right()
+	
+	if to_point.length_squared() <= WP_RADIUS:
+		_has_destination = false
+		print("WP reached")
+	else:
+		move_forwards()
+
+
 #===============================================================================
 #	PUBLIC FUNCTIONS:
 #===============================================================================
 # Moves the ship forwards:
 func move_forwards() -> void:
-	_force_to_apply += 6000.0 * -self.transform.basis.z
+	_force_to_apply += 2000.0 * -self.transform.basis.z
 
 
-func turn_left() -> void:
-	_torque_to_apply += 100.0 * Vector3.UP
+func turn_left(torque: float = 250.0) -> void:
+	var vel_forward = linear_velocity.dot(global_basis.z)
+	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
+	_torque_to_apply += torque * Vector3.UP * momentum
 
 
-func turn_right() -> void:
-	_torque_to_apply -= 100.0 * Vector3.UP
+func turn_right(torque: float = 250.0) -> void:
+	var vel_forward = linear_velocity.dot(global_basis.z)
+	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
+	_torque_to_apply -= torque * Vector3.UP * momentum
+
+
+func set_waypoint(wp: Vector3) -> void:
+	_has_destination = true
+	_waypoint = wp
 
 
 #===============================================================================

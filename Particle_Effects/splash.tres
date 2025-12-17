@@ -1,0 +1,15 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://dh8s1e0dnxmiu"]
+
+[sub_resource type="Curve" id="Curve_lavhn"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0dlxp"]
+curve = SubResource("Curve_lavhn")
+
+[resource]
+lifetime_randomness = 0.2
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 7.0
+initial_velocity_max = 10.0
+scale_curve = SubResource("CurveTexture_0dlxp")
