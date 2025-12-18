@@ -16,7 +16,6 @@ script = ExtResource("1_so27i")
 _buoyancy_total = 25000.0
 _buoyancy_width = 8.0
 break_velocity = 4.0
-onion_layers = 3
 
 [node name="Mesh" parent="." instance=ExtResource("1_yinao")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

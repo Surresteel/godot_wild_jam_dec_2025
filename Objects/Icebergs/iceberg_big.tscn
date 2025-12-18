@@ -22,7 +22,7 @@ script = ExtResource("1_2a4gi")
 _buoyancy_total = 80000.0
 _buoyancy_width = 20.0
 break_velocity = 6.0
-onion_layers = 4
+onion_layers = 3
 
 [node name="Mesh" parent="." instance=ExtResource("1_wejd6")]
 

@@ -69,10 +69,10 @@ func _process(_delta: float) -> void:
 	if not target:
 		return
 	
-	#if Time.get_ticks_msec() >= _timeout_enemy:
-	#	_cleaup_enemies()
-	#	_spawn_enemy()
-	#	_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000
+	if Time.get_ticks_msec() >= _timeout_enemy:
+		_cleaup_enemies()
+		_spawn_enemy()
+		_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000
 	
 	if Time.get_ticks_msec() >= _timeout_iceberg:
 		if _count_icebergs >= TARGET_COUNT_ICEBERGS:

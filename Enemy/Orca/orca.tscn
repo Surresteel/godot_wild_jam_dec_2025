@@ -930,26 +930,26 @@ radius = 1.0
 height = 6.7380857
 
 [node name="Orca" type="CharacterBody3D"]
-collision_mask = 10
+collision_mask = 26
 script = ExtResource("1_4eyy6")
 
 [node name="Orca_Animated" parent="." instance=ExtResource("2_rkctl")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Orca_Animated/Armature" index="0"]
-bones/2/rotation = Quaternion(-8.643806e-06, -0.02270974, 0.99974203, -0.00037719868)
-bones/3/rotation = Quaternion(0.013492774, -7.549085e-08, 1.0249687e-09, 0.99990904)
-bones/4/rotation = Quaternion(0.0045702117, 1.09935004e-13, 4.27261e-13, 0.99998957)
-bones/5/rotation = Quaternion(-0.00031983553, -3.2942982e-13, 1.4666546e-11, 0.99999994)
-bones/6/rotation = Quaternion(-0.002371107, 2.282272e-13, 3.6560119e-13, 0.99999726)
-bones/6/scale = Vector3(1, 1.0000001, 1.0000001)
-bones/7/rotation = Quaternion(-3.638856e-05, -0.0005923834, -0.3528806, 0.9356682)
-bones/8/rotation = Quaternion(-3.638843e-05, 0.0005923837, 0.3528806, 0.9356682)
+bones/2/rotation = Quaternion(-7.490644e-08, -0.16984978, 0.98546994, -9.431704e-09)
+bones/3/rotation = Quaternion(0.011861706, -7.5492586e-08, 8.9553553e-10, 0.99992967)
+bones/4/rotation = Quaternion(0.0020714472, -1.1614582e-13, -2.0563334e-15, 0.9999979)
+bones/5/rotation = Quaternion(-0.0007649332, -3.348415e-16, 9.722902e-16, 0.9999997)
+bones/6/rotation = Quaternion(-0.0060280524, -4.5523315e-16, 1.5445576e-15, 0.9999819)
+bones/6/scale = Vector3(1, 0.99999994, 0.99999994)
+bones/7/rotation = Quaternion(-3.6389865e-05, -0.00059238693, -0.3528806, 0.9356682)
+bones/8/rotation = Quaternion(-3.637894e-05, 0.000592379, 0.3528806, 0.9356682)
 bones/9/rotation = Quaternion(-6.4599774e-08, 0.5175554, 0.8556497, -3.9074347e-08)
 bones/10/rotation = Quaternion(-0.2110277, -2.0934916e-08, 0.0021970286, 0.9774776)
-bones/11/rotation = Quaternion(2.9802322e-08, 3.75206e-12, -0.00012589824, 1)
-bones/12/rotation = Quaternion(0, 0, -0.00013807844, 1)
-bones/13/rotation = Quaternion(-0.05607197, 1.9830177e-06, 2.333362e-05, 0.99842674)
+bones/11/rotation = Quaternion(0.0059934394, 0, 0, 0.99998206)
+bones/12/rotation = Quaternion(0.0030370918, 0, 0, 0.9999954)
+bones/13/rotation = Quaternion(-0.05222268, 6.7032937e-07, -4.0238724e-08, 0.9986355)
 bones/14/rotation = Quaternion(-0.105744794, -0.26148325, 0.63437325, 0.71973276)
 bones/15/rotation = Quaternion(-0.05099803, 0.010258514, 0.09328163, 0.9942799)
 bones/16/rotation = Quaternion(-0.027596125, -0.02207325, 0.15085422, 0.9879242)

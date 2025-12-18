@@ -173,7 +173,9 @@ func _handle_collision(body: Node3D) -> void:
 		else:
 			_die()
 		return
-		
+	
+	if body is IcebergBase:
+		velocity += Vector3(0.0, -15.0, 0.0)
 	
 	_die()
 
