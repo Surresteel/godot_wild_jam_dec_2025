@@ -9,8 +9,8 @@ extends RigidBody3D
 #	NODE INITIALISATION:
 #===============================================================================
 # CONSTANTS:
-const SAMPLE_POINTS: int = 9
-const BUOYANCY_COEF: float = 60_000.0 / SAMPLE_POINTS
+const SAMPLE_COUNT: int = 9
+const BUOYANCY_COEF: float = 60_000.0 / SAMPLE_COUNT
 #const DAMPING_COEF: float = 400.0
 const DAMPING_COEF: float = 250.0
 const MAX_DEPTH: float = 3.0 
@@ -115,7 +115,7 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 					highest_wave.vel.length() * highest_wave.vel.length() \
 					* 5000 * highest_wave.amp * 10 + Vector3(0, 1000, 0) * \
 					highest_wave.amp
-			wave_force /= SAMPLE_POINTS
+			wave_force /= SAMPLE_COUNT
 			state.apply_force(wave_force, pos_glb_point - state.transform.origin)
 		
 		# Dampening forces:
@@ -125,9 +125,9 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 					pos_glb_point - state.transform.origin)
 			var vertical_velocity := point_velocity.dot(Vector3.UP)
 			damping_force = -vertical_velocity * DAMPING_COEF
-		var point_force: Vector3 = Vector3.UP * (buoyancy_force + damping_force)
 		
 		# Apply forces
+		var point_force: Vector3 = Vector3.UP * (buoyancy_force + damping_force)
 		state.apply_force(point_force, pos_glb_point - state.transform.origin)
 
 
