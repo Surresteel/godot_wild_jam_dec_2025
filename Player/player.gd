@@ -15,8 +15,9 @@ var is_interacting: bool = false
 
 @export_category("Internal Nodes")
 @export var camera: PlayerCamera
+@onready var camera_position: Node3D = $"Camera Position"
 @export var animation_player: AnimationPlayer
-@export var snowball_action: SnowballAction
+@export var snowball_action: SnowballAction 
 @export var Skeleton_root_node: Node3D
 
 var target: Node3D
@@ -41,14 +42,12 @@ func _ready() -> void:
 	movement_state_machine.get_current_state_object().enter()
 
 func _process(_delta: float) -> void:
-	camera.position = position + camera.pos
-	
 	if movement_state_machine.current_state == movement_state_machine.state.INTERACTING:
 		return
 	
 	camera.rotate_camera_x()
 	rotation_degrees.y += camera.mouse_input.y
-	camera.rotation_degrees.y = rotation_degrees.y
+	#camera.rotation_degrees.y = rotation_degrees.y
 	camera.mouse_input = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
@@ -111,6 +110,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 						Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				if event.keycode == KEY_ENTER:
 					get_tree().reload_current_scene()
+
+
+func teleport_to_position(pos: Vector3, rot: Vector3) -> void:
+	#camera.global_position = global_position
+	global_position = pos
+	global_rotation = rot
+	print("teleported")
 
 
 func play_animaiton_queue(anim_name: String) -> void:

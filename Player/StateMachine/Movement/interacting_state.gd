@@ -11,7 +11,7 @@ func exit() -> void:
 	player.Skeleton_root_node.visible = true
 
 func pre_update() -> void:
-	if not player.is_interacting:
+	if not player.is_interacting and not player.camera.transitioning:
 		transition.emit(player.movement_state_machine.state.WALKING)
 
 func update(delta: float) -> void:

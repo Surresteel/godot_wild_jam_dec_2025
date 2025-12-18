@@ -614,9 +614,7 @@ libraries = {
 }
 
 [node name="Camera_positon" type="Node3D" parent="Mesh/Cannon Rack/Barrel/Cannon Barrel"]
-transform = Transform3D(1, 0, 0, 0, 0.99717987, 0.07505175, 0, -0.07505175, 0.99717987, 0.00037045736, 0.29034406, 0.38740355)
-
-[node name="Camera3D" type="Camera3D" parent="Mesh/Cannon Rack/Barrel/Cannon Barrel/Camera_positon"]
+transform = Transform3D(1, 0, 0, 0, 0.99718004, 0.07505174, 0, -0.07505174, 0.99718004, 0.00037045736, 0.29034424, 0.3874035)
 
 [node name="CannonInteract" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)

@@ -26,18 +26,16 @@ func toggle_interaction() -> void:
 	if cannon.is_active: #Turn Off
 		player.is_interacting = false
 		if change_camera:
-			player.camera.current = true
-			cannon.camera.current = false
+			player.camera.transfer_camera(player.camera_position)
 		cannon.player = null
 		cannon.deactivate()
+		cannon.cannon_exit.disconnect(player.teleport_to_position)
 		
 	else:                          #Turn On
 		player.is_interacting = true
 		if change_camera:
-			cannon.camera.current = true
-			player.camera.current = false
-			cannon.camera.global_position = player.camera.global_position
-			cannon.camera.global_rotation = player.camera.global_rotation
+			player.camera.transfer_camera(cannon.camera_positon)
 		cannon.player = player
+		cannon.cannon_exit.connect(player.teleport_to_position)
 		cannon.activate()
 	

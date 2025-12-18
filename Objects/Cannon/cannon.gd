@@ -6,7 +6,7 @@ class_name Cannon
 @onready var wheels_back: MeshInstance3D = $"Mesh/Cannon Rack/Wheels/Wheel Joiner Back"
 @onready var cannon_barrel: MeshInstance3D = $"Mesh/Cannon Rack/Barrel/Cannon Barrel"
 
-@onready var camera: Camera3D = $"Mesh/Cannon Rack/Barrel/Cannon Barrel/Camera_positon/Camera3D"
+@onready var camera_positon: Node3D = $"Mesh/Cannon Rack/Barrel/Cannon Barrel/Camera_positon"
 
 const CANNONBALL = preload("uid://jifqhmqqi4ym")
 
@@ -35,13 +35,17 @@ var reloaded: bool = true
 @export var max_angle_x: float = 10.0
 
 
+signal cannon_exit(pos: Vector3, rot: Vector3)
+
 func activate() -> void:
 	is_active = true
 	animaiton_mesh_parent.visible = true
 
 func deactivate() -> void:
 	is_active = false
-	animaiton_mesh_parent.visible = false
+	animaiton_mesh_parent.visible = false                      #Player Height
+	cannon_exit.emit(0.65 * global_basis.z + global_position,
+			 global_rotation)
 
 func _ready() -> void:
 	power_timer.wait_time = charge_time
@@ -61,9 +65,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if is_active:
 		
-		#Camera shenanigans
-		camera.position = camera.position.move_toward(Vector3.ZERO, delta * 2)
-		camera.rotation = camera.rotation.slerp(Vector3.ZERO, delta * 5)
+		##camera_positon shenanigans
+		#camera_positon.position = camera_positon.position.move_toward(Vector3.ZERO, delta * 2)
+		#camera_positon.rotation = camera_positon.rotation.slerp(Vector3.ZERO, delta * 5)
 		
 		Velocity = (global_position - last_pos) / delta
 		last_pos = global_position
