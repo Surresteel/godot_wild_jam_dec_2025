@@ -17,16 +17,15 @@ const ICEBERG_DEFAULT = preload("uid://eu78vs6xjcuh")
 const ICEBERG_SMALL = preload("uid://bcjxtpv4c6v00")
 const ICEBERG_MEDIUM = preload("uid://diu5nca8q3pvn")
 const ICEBERG_BIG = preload("uid://c4r781xe2va0x")
-#static var iceberg_types: Array = [ICEBERG_DEFAULT, ICEBERG_SMALL, 
-#		ICEBERG_MEDIUM, ICEBERG_BIG]
-static var iceberg_types: Array = [ICEBERG_DEFAULT]
+static var iceberg_types: Array = [ICEBERG_DEFAULT, ICEBERG_SMALL, 
+		ICEBERG_MEDIUM, ICEBERG_BIG]
 
 const spawn_radius_min_enemy: float = 500.0
 const spawn_radius_max_enemy: float = 1000.0
 const MAX_COUNT_ENEMIES: int = 10
 
-const spawn_radius_min_iceberg: float = 50.0
-const spawn_radius_max_iceberg: float = 100.0
+const SPAWN_RADIUS_MIN_ICEBERG: float = 50.0
+const SPAWN_RADIUS_MAX_ICEBERG: float = 300.0
 const MAX_COUNT_ICEBERGS: int = 100
 const TARGET_COUNT_ICEBERGS: int = 50
 
@@ -39,7 +38,7 @@ const TARGET_COUNT_ICEBERGS: int = 50
 @export var wave_manager: WaveManager = null
 @export var target: Node3D = null
 @export var _interval_enemy: float = 30.0
-@export var _interval_iceberg: float = 5.0
+@export var _interval_iceberg: float = 1.0
 @export var enabled: = false
 #@export var _target_count_icebergs: int = 100
 
@@ -123,8 +122,8 @@ func _spawn_enemy() -> void:
 	enemy.global_position = target.global_position + dir * dist
 
 
-func _spawn_iceberg(max_layer_size: int = IcebergBase.HIGHEST_LAYER, 
-		pos_override: Variant = null, hemisphere_size: float = 0.1) -> void:
+func _spawn_iceberg(max_layer_size: int = -1, 
+		pos_override: Variant = null) -> void:
 	if _count_icebergs >= MAX_COUNT_ICEBERGS:
 		return
 		
@@ -142,7 +141,7 @@ func _spawn_iceberg(max_layer_size: int = IcebergBase.HIGHEST_LAYER,
 			printerr("Spawning iceberg failed; unable to create instance.")
 			return
 		
-		if iceberg.onion_layers <= max_layer_size:
+		if max_layer_size == -1 or iceberg.onion_layers == max_layer_size:
 			iceberg_found = true
 		else:
 			iceberg.queue_free()
@@ -164,9 +163,18 @@ func _spawn_iceberg(max_layer_size: int = IcebergBase.HIGHEST_LAYER,
 	if pos_override and pos_override is Vector3:
 		pos = pos_override
 	else:
+		var hemisphere_size: float = 1.0
+		if target is RigidBody3D:
+			hemisphere_size = remap(target.linear_velocity.length(), 0.0, 5.0, 
+					1.0, 0.4)
 		var dir = -target.global_basis.z.rotated(Vector3.UP, 
 				(((randi() & 1 )* 2) - 1) * randf() * PI * hemisphere_size)
-		var dist = randf_range(spawn_radius_min_iceberg, spawn_radius_max_iceberg)
+		var shift = 100
+		var lower = remap(target.linear_velocity.length(), 0.0, 5.0, 
+				SPAWN_RADIUS_MIN_ICEBERG, SPAWN_RADIUS_MIN_ICEBERG + shift)
+		var upper = remap(target.linear_velocity.length(), 0.0, 5.0, 
+				SPAWN_RADIUS_MAX_ICEBERG - 2 * shift, SPAWN_RADIUS_MAX_ICEBERG)
+		var dist = randf_range(lower, upper)
 		pos = target.global_position + dir * dist
 	
 	pos.y = -10.0

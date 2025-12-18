@@ -29,6 +29,8 @@ var scene_icicle := preload("res://Particle_Effects/Icicles.tscn")
 
 var _target: RigidBody3D = null
 
+var is_sinking: bool = false
+
 
 #===============================================================================
 #	CALLBACKS:
@@ -74,7 +76,8 @@ func _handle_lifecycle() -> void:
 	var tgt_to_self = global_position - _target.global_position
 	var project = _target.linear_velocity.normalized().dot(
 			tgt_to_self.normalized())
-	if project < -0.5 and tgt_to_self.length_squared() > \
+	var allowance = remap(_target.linear_velocity.length(), 0.0, 5.0, -1, -0.5)
+	if project < allowance and tgt_to_self.length_squared() > \
 			DIST_DESPAWN * DIST_DESPAWN:
 		sink_and_melt()
 
@@ -83,9 +86,12 @@ func set_target(t: Node3D) -> void:
 	_target = t
 
 
-func sink_and_melt() -> void:
+func sink_and_melt(split: int = -1) -> void:
+	is_sinking = true
 	_buoyancy_coef = 0.0
-	await get_tree().create_timer(3.0).timeout
+	await get_tree().create_timer(2.0).timeout
+	if split != -1:
+		_mitosis(split)
 	_break_apart()
 
 
@@ -96,15 +102,15 @@ func _handle_collisions(body: Node) -> void:
 	if body is CannonBall:
 		_play_hit_effect()
 		if onion_layers > 0:
-			_mitosis(onion_layers - 1)
-		
-		_break_apart()
+			sink_and_melt(onion_layers - 1)
+		else:
+			sink_and_melt()
 	
 	if body is Ship:
 		var tgt_to_self = global_position - _target.global_position
 		var vel_to_self = body.linear_velocity.dot(tgt_to_self.normalized())
 		print(vel_to_self)
-		if vel_to_self > break_velocity:
+		if is_sinking or vel_to_self > break_velocity:
 			_play_hit_effect()
 			_mitosis(onion_layers - 1)
 			_break_apart()
