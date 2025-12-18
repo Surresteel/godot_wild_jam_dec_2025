@@ -7,33 +7,38 @@ extends RigidBody3D
 signal iceberg_split(layers_rem: Vector3, pos: Vector3, mult: int)
 signal iceberg_destroyed()
 
-const HIGHEST_LATER: int = 4
+const HIGHEST_LAYER: int = 4
 const MAX_DEPTH: float = 3.0
+const DIST_DESPAWN: float = 50.0
 
 @export var _buoyancy_total: float = 15_000.0
 @export var _buoyancy_width: float = 4.0
 @export var _buoyancy_height: float = -1.0
 @export var _buoyancy_damping: float = 250.0
 
-var _buoyancy_point_1 := Vector3(_buoyancy_width, _buoyancy_height, 0.0)
-var _buoyancy_point_2 := Vector3(-_buoyancy_width, _buoyancy_height, 0.0)
-var _buoyancy_point_3 := Vector3(0.0, _buoyancy_height, _buoyancy_width)
-var _buoyancy_point_4 := Vector3(0.0, _buoyancy_height, -_buoyancy_width)
 var _buoyancy_array: PackedVector3Array
 var _buoyancy_coef: float
 
 var _noise_drift := FastNoiseLite.new()
 var _drift_amount: float = 1.0
 
+@export var break_velocity: float = 5.0
 @export var onion_layers: int = 2
 
 var scene_icicle := preload("res://Particle_Effects/Icicles.tscn")
+
+var _target: RigidBody3D = null
 
 
 #===============================================================================
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+
+	var _buoyancy_point_1 := Vector3(_buoyancy_width, _buoyancy_height, 0.0)
+	var _buoyancy_point_2 := Vector3(-_buoyancy_width, _buoyancy_height, 0.0)
+	var _buoyancy_point_3 := Vector3(0.0, _buoyancy_height, _buoyancy_width)
+	var _buoyancy_point_4 := Vector3(0.0, _buoyancy_height, -_buoyancy_width)
 	contact_monitor = true
 	max_contacts_reported = 4
 	
@@ -51,8 +56,38 @@ func _ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	_handle_lifecycle()
 	_apply_buoyancy(state)
 	_apply_drift(state)
+
+
+#===============================================================================
+#	LIFECYCLE:
+#===============================================================================
+func _handle_lifecycle() -> void:
+	if not _target:
+		return
+	
+	if _target.linear_velocity.length_squared() < 9.0:
+		return
+	
+	var tgt_to_self = global_position - _target.global_position
+	var project = _target.linear_velocity.normalized().dot(
+			tgt_to_self.normalized())
+	if project < -0.5 and tgt_to_self.length_squared() > \
+			DIST_DESPAWN * DIST_DESPAWN:
+		sink_and_melt()
+
+
+func set_target(t: Node3D) -> void:
+	_target = t
+
+
+func sink_and_melt() -> void:
+	_buoyancy_coef = 0.0
+	await get_tree().create_timer(3.0).timeout
+	_break_apart()
+
 
 #===============================================================================
 #	COLLISION:
@@ -64,6 +99,15 @@ func _handle_collisions(body: Node) -> void:
 			_mitosis(onion_layers - 1)
 		
 		_break_apart()
+	
+	if body is Ship:
+		var tgt_to_self = global_position - _target.global_position
+		var vel_to_self = body.linear_velocity.dot(tgt_to_self.normalized())
+		print(vel_to_self)
+		if vel_to_self > break_velocity:
+			_play_hit_effect()
+			_mitosis(onion_layers - 1)
+			_break_apart()
 
 
 func _play_hit_effect() -> void:

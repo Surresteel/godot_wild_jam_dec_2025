@@ -13,8 +13,9 @@ mass = 1500.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -3, 0)
 script = ExtResource("1_so27i")
-_buoyancy_total = 40000.0
+_buoyancy_total = 25000.0
 _buoyancy_width = 8.0
+break_velocity = 4.0
 onion_layers = 3
 
 [node name="Mesh" parent="." instance=ExtResource("1_yinao")]
