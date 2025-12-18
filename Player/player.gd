@@ -17,7 +17,7 @@ var is_interacting: bool = false
 @export var target: Node3D
 
 #ship stuff
-@onready var ship: Ship = $"../Ship"
+@export var ship: Ship
 var ship_last_rotation_y: float
 
 signal Interact
@@ -99,4 +99,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				if event.keycode == KEY_ESCAPE:
 					get_tree().quit()
 				if event.keycode == KEY_TAB:
-					Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+					if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+						Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+					else:
+						Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+				if event.keycode == KEY_R:
+					get_tree().reload_current_scene()
