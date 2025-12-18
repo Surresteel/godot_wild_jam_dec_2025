@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b4cx3tlbyekhu"
-path="res://.godot/imported/P_Pirate_Static.blend-fcae7802d530fe049905165af9b998b1.scn"
+uid="uid://dvcvymyswhctw"
+path="res://.godot/imported/P_Baby_Animated.blend-40fa8651de0e5436ec138702038aa4b1.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/P_Pirate_Static.blend"
-dest_files=["res://.godot/imported/P_Pirate_Static.blend-fcae7802d530fe049905165af9b998b1.scn"]
+source_file="res://Penguins/Assets/Baby/P_Baby_Animated.blend"
+dest_files=["res://.godot/imported/P_Baby_Animated.blend-40fa8651de0e5436ec138702038aa4b1.scn"]
 
 [params]
 

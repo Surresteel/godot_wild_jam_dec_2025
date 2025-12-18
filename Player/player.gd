@@ -12,7 +12,8 @@ var floor_velocity: Vector3
 var is_interacting: bool = false
 
 @onready var camera: Camera3D = $Camera3D
-@onready var mesh: MeshInstance3D = $P_Generic_Static
+@onready var mesh: MeshInstance3D = $FPArms/Skeleton3D/Arms
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var target: Node3D
 
@@ -104,3 +105,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 						Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 				if event.keycode == KEY_R:
 					get_tree().reload_current_scene()
+
+func main_action() -> void:
+	pass

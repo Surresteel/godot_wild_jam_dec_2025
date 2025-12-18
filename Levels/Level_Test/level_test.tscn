@@ -48,3 +48,6 @@ environment = ExtResource("1_koan3")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.63281345, 0.77430433, 0, -0.77430433, 0.63281345, 0, 3.7851057, 0)
 directional_shadow_blend_splits = true
+
+[editable path="Ship"]
+[editable path="Ship/Mesh"]

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c3lq00ojnes4"
-path="res://.godot/imported/P_Muscle_Static.blend-fd00f33baa2a1ed6915c4952d16439ee.scn"
+uid="uid://dn500lp5tthkd"
+path="res://.godot/imported/P_Baby_Rigged.blend-4d60ca87d81276cee4ae8a5c1ffe590f.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/P_Muscle_Static.blend"
-dest_files=["res://.godot/imported/P_Muscle_Static.blend-fd00f33baa2a1ed6915c4952d16439ee.scn"]
+source_file="res://Penguins/Assets/Baby/P_Baby_Rigged.blend"
+dest_files=["res://.godot/imported/P_Baby_Rigged.blend-4d60ca87d81276cee4ae8a5c1ffe590f.scn"]
 
 [params]
 

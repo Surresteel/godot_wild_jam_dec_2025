@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://qt5kfl46mcur"
-path="res://.godot/imported/P_Hat_Static.blend-e262b3ce4a4950b30b6e5a20e998ddd9.scn"
+uid="uid://bpjxuxa7r6qx6"
+path="res://.godot/imported/P_Baby_Generic_Rigged.blend-33b574c2bba63cc23ea0a1b8824f082c.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/P_Hat_Static.blend"
-dest_files=["res://.godot/imported/P_Hat_Static.blend-e262b3ce4a4950b30b6e5a20e998ddd9.scn"]
+source_file="res://Penguins/Assets/Baby/P_Baby_Generic_Rigged.blend"
+dest_files=["res://.godot/imported/P_Baby_Generic_Rigged.blend-33b574c2bba63cc23ea0a1b8824f082c.scn"]
 
 [params]
 

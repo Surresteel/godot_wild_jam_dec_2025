@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cp4g4jc2bvqju"
-path="res://.godot/imported/Penguin_Idle.blend-820d3023b3db21e6d44d40152fd82723.scn"
+uid="uid://bh7xx5gepq7il"
+path="res://.godot/imported/P_Baby_Static.blend-0c82a632ae182eee8c6e1dfe09e3db6b.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/Penguin_Idle.blend"
-dest_files=["res://.godot/imported/Penguin_Idle.blend-820d3023b3db21e6d44d40152fd82723.scn"]
+source_file="res://Penguins/Assets/Baby/P_Baby_Static.blend"
+dest_files=["res://.godot/imported/P_Baby_Static.blend-0c82a632ae182eee8c6e1dfe09e3db6b.scn"]
 
 [params]
 

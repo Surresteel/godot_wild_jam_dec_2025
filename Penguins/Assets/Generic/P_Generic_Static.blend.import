@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://76de02yu0xa7"
-path="res://.godot/imported/P_Generic_Static.blend-fc76158503db64827f709f6ddaa17039.scn"
+path="res://.godot/imported/P_Generic_Static.blend-ee137740c9f8f17cd4be84ae3f7d2f9a.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/P_Generic_Static.blend"
-dest_files=["res://.godot/imported/P_Generic_Static.blend-fc76158503db64827f709f6ddaa17039.scn"]
+source_file="res://Penguins/Assets/Generic/P_Generic_Static.blend"
+dest_files=["res://.godot/imported/P_Generic_Static.blend-ee137740c9f8f17cd4be84ae3f7d2f9a.scn"]
 
 [params]
 

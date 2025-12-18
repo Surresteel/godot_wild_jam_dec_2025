@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bh7xx5gepq7il"
-path="res://.godot/imported/P_Baby_Static.blend-607d4e02011c70df2ac4f2bc90223de8.scn"
+uid="uid://bnq4php8m2io"
+path="res://.godot/imported/Penguin_ChasedWaddleCycle.blend-3b1058402670bb16a34ca8ec27d2d087.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/P_Baby_Static.blend"
-dest_files=["res://.godot/imported/P_Baby_Static.blend-607d4e02011c70df2ac4f2bc90223de8.scn"]
+source_file="res://Penguins/Assets/Penguin_ChasedWaddleCycle.blend"
+dest_files=["res://.godot/imported/Penguin_ChasedWaddleCycle.blend-3b1058402670bb16a34ca8ec27d2d087.scn"]
 
 [params]
 

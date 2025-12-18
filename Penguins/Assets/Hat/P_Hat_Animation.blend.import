@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cigox3onnvsjb"
-path="res://.godot/imported/P_Hat_Animation.blend-8d8ad48ab08d0ca232728e12a0124648.scn"
+path="res://.godot/imported/P_Hat_Animation.blend-cedf15f275006d3cd9a98a71b4ce0f68.scn"
 
 [deps]
 
-source_file="res://Penguins/Assets/P_Hat_Animation.blend"
-dest_files=["res://.godot/imported/P_Hat_Animation.blend-8d8ad48ab08d0ca232728e12a0124648.scn"]
+source_file="res://Penguins/Assets/Hat/P_Hat_Animation.blend"
+dest_files=["res://.godot/imported/P_Hat_Animation.blend-cedf15f275006d3cd9a98a71b4ce0f68.scn"]
 
 [params]
 

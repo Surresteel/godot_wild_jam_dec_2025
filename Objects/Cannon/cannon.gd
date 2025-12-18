@@ -27,6 +27,9 @@ var is_active: bool = false
 @export var max_angle_x: float = 10.0
 
 
+signal fire_cannon
+signal reload_cannon
+
 func _ready() -> void:
 	power_timer.wait_time = charge_time
 	last_pos = global_position
@@ -59,6 +62,8 @@ func _physics_process(delta: float) -> void:
 			if power_timer.is_stopped():
 				current_power = max_power
 			else:
-				current_power = lerpf(5, max_power, 1 - (power_timer.time_left / power_timer.wait_time))
+				current_power = lerpf(5, max_power, #Min-Max Power based on powertimer
+						 1 - (power_timer.time_left / power_timer.wait_time))
 			new_cannonball.fire(current_power, -cannon_barrel.global_basis.z, Velocity)
+			fire_cannon.emit()
 			#print(current_power)
