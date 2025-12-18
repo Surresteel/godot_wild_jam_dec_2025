@@ -69,7 +69,7 @@ var _inv_height := -1.0
 
 
 # Collision stuff:
-const IMPACT_DEATH_THRESH: float = 2
+const IMPACT_DEATH_THRESH: float = 4
 
 
 #===============================================================================
@@ -163,21 +163,30 @@ func _update_state_characteristics() -> void:
 #	COLLISION HANDLING:
 #===============================================================================
 func _handle_collision(body: Node3D) -> void:
+	# If they hit a ship and the velocity transfers, it kills them.
 	if body is Ship:
-		var to_ship = (global_position - body.global_position).normalized()
-		var vel_transfer = body.linear_velocity.dot(to_ship)
-		print(vel_transfer)
-		if vel_transfer < IMPACT_DEATH_THRESH:
+		var to_self = (body.global_position - global_position).normalized()
+		var fvel_own := Vector3(velocity.x, 0.0, velocity.z)
+		fvel_own.y = 0.0
+		var fvel := Vector3(body.linear_velocity.x, 0.0, body.linear_velocity.z)
+		fvel = fvel - fvel_own
+		var vel_transfer = fvel.dot(to_self)
+		if vel_transfer >= IMPACT_DEATH_THRESH:
 			velocity += Vector3(0.0, 15.0, 0.0)
 			_allow_pitch = true
 		else:
 			_die()
 		return
 	
+	# If a cannonball hits them, they die:
+	if body is CannonBall:
+		_die()
+	
+	# If they hit an iceberg, they go underwater:
 	if body is IcebergBase:
 		velocity += Vector3(0.0, -15.0, 0.0)
 	
-	_die()
+
 
 func _die() -> void:
 	var blood: Node3D = scene_death.instantiate()

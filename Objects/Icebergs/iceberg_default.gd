@@ -89,9 +89,9 @@ func set_target(t: Node3D) -> void:
 func sink_and_melt(split: int = -1) -> void:
 	is_sinking = true
 	_buoyancy_coef = 0.0
-	await get_tree().create_timer(2.0).timeout
 	if split != -1:
 		_mitosis(split)
+	await get_tree().create_timer(2.0).timeout
 	_break_apart()
 
 
@@ -109,10 +109,9 @@ func _handle_collisions(body: Node) -> void:
 	if body is Ship:
 		var tgt_to_self = global_position - _target.global_position
 		var vel_to_self = body.linear_velocity.dot(tgt_to_self.normalized())
-		print(vel_to_self)
 		if is_sinking or vel_to_self > break_velocity:
 			_play_hit_effect()
-			_mitosis(onion_layers - 1)
+			#_mitosis(onion_layers - 1)
 			_break_apart()
 
 

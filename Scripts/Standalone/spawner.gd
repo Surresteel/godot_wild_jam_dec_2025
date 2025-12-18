@@ -24,8 +24,8 @@ const spawn_radius_min_enemy: float = 500.0
 const spawn_radius_max_enemy: float = 1000.0
 const MAX_COUNT_ENEMIES: int = 10
 
-const SPAWN_RADIUS_MIN_ICEBERG: float = 50.0
-const SPAWN_RADIUS_MAX_ICEBERG: float = 300.0
+const RAD_MIN_ICEBERG: float = 100.0
+const RAD_MAX_ICEBERG: float = 400.0
 const MAX_COUNT_ICEBERGS: int = 100
 const TARGET_COUNT_ICEBERGS: int = 50
 
@@ -109,7 +109,6 @@ func _spawn_enemy() -> void:
 	if not enemy:
 		return
 	
-	#get_tree().get_root().add_child(enemy)
 	get_tree().current_scene.add_child(enemy)
 	_enemies.push_back(enemy)
 	
@@ -122,17 +121,20 @@ func _spawn_enemy() -> void:
 	enemy.global_position = target.global_position + dir * dist
 
 
-func _spawn_iceberg(max_layer_size: int = -1, 
-		pos_override: Variant = null) -> void:
+## Spawns an iceberg around target, or pos_override, if set:
+func _spawn_iceberg(layer_size: int = -1, pos_override: Variant = null) -> void:
+	# GATE - max icebergs can't be reached:
 	if _count_icebergs >= MAX_COUNT_ICEBERGS:
 		return
-		
+	
+	# Prepare for loop below:
 	var index: int = randi() % iceberg_types.size()
 	var iceberg: IcebergBase = null
 	var iceberg_found = false
 	var attempts := 0
 	var count := iceberg_types.size()
 	
+	# Find iceberg equal to layer_size:
 	while not iceberg_found and attempts < count:
 		var iceberg_type: Resource = iceberg_types[index]
 		iceberg = iceberg_type.instantiate()
@@ -141,41 +143,65 @@ func _spawn_iceberg(max_layer_size: int = -1,
 			printerr("Spawning iceberg failed; unable to create instance.")
 			return
 		
-		if max_layer_size == -1 or iceberg.onion_layers == max_layer_size:
+		if layer_size == -1 or iceberg.onion_layers == layer_size:
 			iceberg_found = true
 		else:
 			iceberg.queue_free()
 			index = (index + 1) % count
 			attempts += 1
 	
+	# GATE: - Valid iceberg must be found:
 	if not iceberg_found:
 		return
 	
+	# Connect to signals
 	_count_icebergs += 1
 	iceberg.iceberg_destroyed.connect(_handle_iceberg_destroyed)
 	iceberg.iceberg_split.connect(_handle_iceberg_split)
-	#get_tree().get_root().add_child(iceberg)
 	get_tree().current_scene.add_child(iceberg)
 	iceberg.set_target(target)
-	#_icebergs.push_back(iceberg)
 	
-	var pos: Vector3
+	# Get iceberg spawn position:
+	var pos := Vector3.ZERO
 	if pos_override and pos_override is Vector3:
-		pos = pos_override
-	else:
-		var hemisphere_size: float = 1.0
-		if target is RigidBody3D:
-			hemisphere_size = remap(target.linear_velocity.length(), 0.0, 5.0, 
-					1.0, 0.4)
-		var dir = -target.global_basis.z.rotated(Vector3.UP, 
-				(((randi() & 1 )* 2) - 1) * randf() * PI * hemisphere_size)
-		var shift = 100
-		var lower = remap(target.linear_velocity.length(), 0.0, 5.0, 
-				SPAWN_RADIUS_MIN_ICEBERG, SPAWN_RADIUS_MIN_ICEBERG + shift)
-		var upper = remap(target.linear_velocity.length(), 0.0, 5.0, 
-				SPAWN_RADIUS_MAX_ICEBERG - 2 * shift, SPAWN_RADIUS_MAX_ICEBERG)
-		var dist = randf_range(lower, upper)
-		pos = target.global_position + dir * dist
-	
+		pos = _rand_pos_rel(pos_override, 5.0, 10.0)
+	elif target is RigidBody3D:
+		pos = _get_spawn_pos_rel(target as RigidBody3D)
 	pos.y = -10.0
+	
+	# Set iceberg position:
 	iceberg.global_position = pos
+
+
+## Gets a random position relative to another once between r_min and r_max dist:
+func _rand_pos_rel(pos: Vector3, r_min: float, r_max: float) -> Vector3:
+	var dir = Vector3.FORWARD.rotated(Vector3.UP, randf() * TAU)
+	var dist = randf_range(r_min, r_max)
+	return pos + dir * dist
+
+
+## Get a spawn position for icebergs around target:
+func _get_spawn_pos_rel(tgt: RigidBody3D) -> Vector3:
+	# Shape spawn arc by target's linear velocity:
+	var tgt_speed = tgt.linear_velocity.length()
+	var spawn_arc_size = remap(tgt_speed, 0.0, 5.0, 1.0, 0.4)
+	spawn_arc_size = clampf(spawn_arc_size, 0.4, 1.0)
+	
+	# Randomly generate spawn direction:
+	var tgt_fwd := -tgt.global_basis.z
+	var spawn_side := (((randi() & 1 )* 2) - 1)
+	var spawn_offset = spawn_side * randf() * PI * spawn_arc_size
+	var dir = tgt_fwd.rotated(Vector3.UP, spawn_offset)
+	
+	# Randomly generate spawn distance:
+	var shift = 100
+	var lower = remap(tgt_speed, 0.0, 5.0, RAD_MIN_ICEBERG, RAD_MIN_ICEBERG 
+			+ shift)
+	var upper = remap(tgt_speed, 0.0, 5.0, RAD_MAX_ICEBERG - 2 * shift, 
+			RAD_MAX_ICEBERG)
+	lower = clampf(lower, RAD_MIN_ICEBERG, RAD_MAX_ICEBERG)
+	upper = clampf(lower, RAD_MIN_ICEBERG, RAD_MAX_ICEBERG)
+	var dist = randf_range(lower, upper)
+	
+	# Return position:
+	return tgt.global_position + dir * dist

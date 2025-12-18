@@ -51,7 +51,6 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("interact"):
 		emit_signal("Interact")
-		print(is_interacting," on frame ", Engine.get_frames_drawn())
 		#if works, sets is_interacting to true
 
 
