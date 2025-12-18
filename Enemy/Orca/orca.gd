@@ -168,13 +168,10 @@ func _update_state_characteristics() -> void:
 func _handle_collision(body: Node3D) -> void:
 	# If they hit a ship and the velocity transfers, it kills them.
 	if body is Ship:
-		var to_self = (body.global_position - global_position).normalized()
-		var fvel_own := Vector3(velocity.x, 0.0, velocity.z)
-		fvel_own.y = 0.0
-		var fvel := Vector3(body.linear_velocity.x, 0.0, body.linear_velocity.z)
-		fvel = fvel + fvel_own
-		var vel_transfer = fvel.dot(to_self)
-		print(vel_transfer)
+		var to_self = (global_position - body.global_position).normalized()
+		var vel := Vector3(body.linear_velocity.x, 0.0, body.linear_velocity.z)
+		var vel_transfer = vel.dot(to_self)
+		
 		if vel_transfer < IMPACT_DEATH_THRESH:
 			velocity += Vector3(0.0, 15.0, 0.0)
 			_allow_pitch = true
@@ -192,7 +189,6 @@ func _handle_collision(body: Node3D) -> void:
 	
 	if body is Orca:
 		_play_anim("Surface")
-	
 
 
 func _die() -> void:

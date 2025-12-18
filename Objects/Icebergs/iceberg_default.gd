@@ -99,7 +99,7 @@ func sink_and_melt(split: int = -1) -> void:
 #	COLLISION:
 #===============================================================================
 func _handle_collisions(body: Node) -> void:
-	if body is CannonBall:
+	if body is CannonBall and not is_sinking:
 		_play_hit_effect()
 		if onion_layers > 0:
 			sink_and_melt(onion_layers - 1)
