@@ -13,13 +13,13 @@ var floor_velocity: Vector3
 var is_interacting: bool = false
 
 
+@export_category("Internal Nodes")
+@export var camera: PlayerCamera
+@export var animation_player: AnimationPlayer
+@export var snowball_action: SnowballAction
+@export var Skeleton_root_node: Node3D
 
-@onready var camera: PlayerCamera = $Camera3D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var Skeleton_root_node: Node3D = $FPArms
-@onready var snowball_action: SnowballAction = $Camera3D/Snowball_action
-
-@export var target: Node3D
+var target: Node3D
 
 #ship stuff
 @onready var ship: Ship = $"../Ship"
