@@ -20,7 +20,8 @@ wave_speed = 0.6
 
 [node name="Spawner" type="Node3D" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("2_vnhy5")
-init_iceberg_count = 50
+init_count_iceberg = 0
+target_count_icebergs = 0
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
 enabled = true
@@ -29,7 +30,6 @@ enabled = true
 
 [node name="Ship" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("3_nomhl")]
 wave_manager = NodePath("../WaveManager")
-initial_waypoint = Vector3(0, 0, -1000)
 
 [node name="Player" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("4_dq315")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -7.1545486)

@@ -27,6 +27,7 @@ static var scene_death := preload(
 #@export var debug: Node3D
 
 @onready var _area_3d: Area3D = $CollisionArea
+@onready var _anim_player: AnimationPlayer = $Orca_AnimatedDone/AnimationPlayer
 
 # State stuff:
 var _state: STATES = STATES.IDLE
@@ -51,18 +52,18 @@ var _dir_follow := Vector3.RIGHT
 
 # Attack stuff:
 var _dist_attack_start = 200.0
-var _dist_attack_jump = 110.0
+var _dist_attack_jump = 150.0
 var _dist_attack_dive = 40.0
 var _can_attack = false
 var _jump_triggered = false;
 var _is_jumping = false
-var _jump_impulse := Vector3(0.0, 15.0, 0.0) 
+var _jump_impulse := Vector3(0.0, 20.0, 0.0) 
 var _dive_timeout: float
 
 # Buoyancy PID controller:
-const KP := 10.0
-const KI := 1.0
-const KD := 4.0
+const KP := 5.0
+const KI := 2.0
+const KD := 8.0
 var _integral := 0.0
 var _last_error := 0.0
 var _inv_height := -1.0
@@ -134,8 +135,10 @@ func set_target(t: Node3D) -> void:
 	_target = t
 
 
-func _set_state(s: STATES, reset_timeout: bool = false) -> void:
-	if reset_timeout:
+func _set_state(s: STATES, reset_TO: bool = false, anim: String = "") -> void:
+	if anim != "":
+		_play_anim(anim)
+	if reset_TO:
 		_state_timeout = Time.get_ticks_msec() + _state_interval * 1000
 	
 	_set_orientation = Vector3.ZERO
@@ -145,7 +148,7 @@ func _set_state(s: STATES, reset_timeout: bool = false) -> void:
 
 func _set_state_rand(s_arr: Array[STATES], reset_timeout: bool = false) -> void:
 	var item = s_arr[randi() % s_arr.size()] 
-	_set_state(item, reset_timeout)
+	_set_state(item, reset_timeout, "Swimming")
 
 
 func _update_state_characteristics() -> void:
@@ -169,9 +172,10 @@ func _handle_collision(body: Node3D) -> void:
 		var fvel_own := Vector3(velocity.x, 0.0, velocity.z)
 		fvel_own.y = 0.0
 		var fvel := Vector3(body.linear_velocity.x, 0.0, body.linear_velocity.z)
-		fvel = fvel - fvel_own
+		fvel = fvel + fvel_own
 		var vel_transfer = fvel.dot(to_self)
-		if vel_transfer >= IMPACT_DEATH_THRESH:
+		print(vel_transfer)
+		if vel_transfer < IMPACT_DEATH_THRESH:
 			velocity += Vector3(0.0, 15.0, 0.0)
 			_allow_pitch = true
 		else:
@@ -186,6 +190,9 @@ func _handle_collision(body: Node3D) -> void:
 	if body is IcebergBase:
 		velocity += Vector3(0.0, -15.0, 0.0)
 	
+	if body is Orca:
+		_play_anim("Surface")
+	
 
 
 func _die() -> void:
@@ -196,6 +203,14 @@ func _die() -> void:
 
 
 #===============================================================================
+#	ANIMATIONS:
+#===============================================================================
+func _play_anim(anim: String, blend: float = 1, speed: float = 1.0) -> void:
+	_anim_player.play(anim, blend, speed)
+	_anim_player.queue("Swimming")
+
+
+#===============================================================================
 #	STATES:
 #===============================================================================
 func _handle_state() -> void:
@@ -203,7 +218,7 @@ func _handle_state() -> void:
 		return
 	
 	if Time.get_ticks_msec() > _attack_timeout:
-		_set_state(STATES.ATTACK)
+		_set_state(STATES.ATTACK, false, "Surface")
 		return
 	
 	if Time.get_ticks_msec() > _state_timeout:
@@ -241,8 +256,9 @@ func _do_state_follow(delta: float, target: Node3D) -> void:
 	if (wp - global_position).length() < 1:
 		var lookat_point = target.global_position + -target.global_basis.z * 50
 		_set_orientation = (lookat_point - global_position).normalized()
-		global_position.x = wp.x
-		global_position.z = wp.z
+		#global_position.x = wp.x
+		#global_position.z = wp.z
+		_go_to_point(delta, wp)
 		_allow_pitch = true
 		#_go_to_point(delta, wp, SPEED_ORBIT_MAX, false)
 	else:
@@ -252,6 +268,11 @@ func _do_state_follow(delta: float, target: Node3D) -> void:
 
 
 func _do_state_circle(delta: float, target: Vector3) -> void:
+	if (_target.global_position - global_position).length_squared() < 100:
+		_set_swim_height(10)
+	else:
+		_set_swim_height(1)
+	
 	var to_point := global_position - target
 	var dir := to_point.normalized()
 	
@@ -323,6 +344,7 @@ func _do_atk_state_jump(target: Node3D) -> void:
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
 	if not _jump_triggered:
+		_play_anim("Dive Bomb", -1, 1.5)
 		_set_swim_height(4)
 		_allow_pitch = true
 		velocity += _jump_impulse
@@ -360,13 +382,14 @@ func _do_atk_state_charge(delta: float, target: Node3D) -> void:
 	if to_target.length_squared() <= _dist_attack_dive * _dist_attack_dive \
 		or to_target.length_squared() > _dist_attack_jump * _dist_attack_jump:
 		_dive_timeout = Time.get_ticks_msec() + 5000
+		_play_anim("Dive")
 		_state_atk = STATES_ATK.DIVE
 	
 	return
 
 
 func _do_atk_state_dive(delta: float) -> void:
-	_set_swim_height(3)
+	_set_swim_height(5)
 	_go_to_point(delta, global_position + -global_basis.z * 100)
 	
 	if Time.get_ticks_msec() > _dive_timeout:

@@ -27,13 +27,13 @@ const MAX_COUNT_ENEMIES: int = 10
 const RAD_MIN_ICEBERG: float = 100.0
 const RAD_MAX_ICEBERG: float = 400.0
 const MAX_COUNT_ICEBERGS: int = 100
-const TARGET_COUNT_ICEBERGS: int = 50
 
 
 #===============================================================================
 #	MEMBERS:
 #===============================================================================
-@export var init_iceberg_count: int = 10
+@export var init_count_iceberg: int = 10
+@export var target_count_icebergs: int = 25
 
 @export var wave_manager: WaveManager = null
 @export var target: Node3D = null
@@ -58,7 +58,7 @@ func _ready() -> void:
 
 
 func _post_ready() -> void:
-	for i in init_iceberg_count:
+	for i in init_count_iceberg:
 		_spawn_iceberg()
 
 
@@ -75,7 +75,7 @@ func _process(_delta: float) -> void:
 		_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000
 	
 	if Time.get_ticks_msec() >= _timeout_iceberg:
-		if _count_icebergs >= TARGET_COUNT_ICEBERGS:
+		if _count_icebergs >= target_count_icebergs:
 			return
 		_spawn_iceberg()
 		_timeout_iceberg = Time.get_ticks_msec() + _interval_iceberg * 1000
