@@ -14,9 +14,9 @@ height = 10.0
 [node name="Level_Test" type="Node3D" node_paths=PackedStringArray("gen_point")]
 script = ExtResource("1_0pb8u")
 gen_point = NodePath("Ship")
-wave_freq = 0.4
-wave_amp = 1.25
-wave_speed = 1.0
+wave_freq = 1.0
+wave_amp = 0.8
+wave_speed = 0.6
 
 [node name="Spawner" type="Node3D" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("2_vnhy5")
@@ -27,7 +27,7 @@ target = NodePath("../Ship")
 
 [node name="Ship" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("3_nomhl")]
 wave_manager = NodePath("../WaveManager")
-initial_waypoint = Vector3(1500, 0, 0)
+initial_waypoint = Vector3(0, 0, -1000)
 
 [node name="Player" parent="." instance=ExtResource("4_dq315")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4749956, -1.6553528)

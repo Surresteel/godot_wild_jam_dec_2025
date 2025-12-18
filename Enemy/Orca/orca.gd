@@ -15,7 +15,8 @@ const SPEED_ORBIT_MAX: float = 7.0
 const ACC_MAX: float = 5.0
 const DRAG: float = 1.0
 static var scene_wave := preload("res://Objects/Wave/wave.tscn")
-static var scene_death := preload("res://Particle_Effects/death_chunks_generic.tscn")
+static var scene_death := preload(
+		"res://Particle_Effects/death_chunks_generic.tscn")
 
 
 #===============================================================================
@@ -45,7 +46,7 @@ var _set_orientation := Vector3.ZERO
 
 # Follow stuff:
 var _dist_follow: float = 30.0
-var _variance_follow: float = 5.0
+var _var_follow: float = 5.0
 var _dir_follow := Vector3.RIGHT
 
 # Attack stuff:
@@ -65,6 +66,10 @@ const KD := 4.0
 var _integral := 0.0
 var _last_error := 0.0
 var _inv_height := -1.0
+
+
+# Collision stuff:
+const IMPACT_DEATH_THRESH: float = 2
 
 
 #===============================================================================
@@ -159,10 +164,20 @@ func _update_state_characteristics() -> void:
 #===============================================================================
 func _handle_collision(body: Node3D) -> void:
 	if body is Ship:
-		velocity += Vector3(0.0, 15.0, 0.0)
-		_allow_pitch = true
+		var to_ship = (global_position - body.global_position).normalized()
+		var vel_transfer = body.linear_velocity.dot(to_ship)
+		print(vel_transfer)
+		if vel_transfer < IMPACT_DEATH_THRESH:
+			velocity += Vector3(0.0, 15.0, 0.0)
+			_allow_pitch = true
+		else:
+			_die()
 		return
+		
 	
+	_die()
+
+func _die() -> void:
 	var blood: Node3D = scene_death.instantiate()
 	get_tree().get_root().add_child(blood)
 	blood.global_position = global_position
@@ -206,8 +221,8 @@ func _do_state_follow(delta: float, target: Node3D) -> void:
 	
 	# Apply variation to the follow position:
 	var t = Time.get_ticks_msec() / 1000.0
-	var vari_lat = _variance_follow * target.global_basis.x * sin(TAU * t / 10.0)
-	var vari_long = _variance_follow * target.global_basis.z * sin(TAU * t / 12.0)
+	var vari_lat = _var_follow * target.global_basis.x * sin(TAU * t / 10.0)
+	var vari_long = _var_follow * target.global_basis.z * sin(TAU * t / 12.0)
 	wp += vari_lat + vari_long
 	wp.y = global_position.y
 	
@@ -247,7 +262,6 @@ func _do_state_circle(delta: float, target: Vector3) -> void:
 
 
 func _do_state_attack(delta: float, target: Node3D) -> void:
-	
 	match _state_atk:
 		STATES_ATK.OUT:
 			_do_atk_state_out(delta, target)
@@ -329,7 +343,8 @@ func _do_atk_state_charge(delta: float, target: Node3D) -> void:
 	_set_swim_height(1)
 	var to_target := target.global_position - global_position
 	
-	_go_to_point(delta, global_position + -global_basis.z * 100, SPEED_MAX, false)
+	_go_to_point(delta, global_position + -global_basis.z * 100, SPEED_MAX, 
+			false)
 	
 	if to_target.length_squared() <= _dist_attack_dive * _dist_attack_dive \
 		or to_target.length_squared() > _dist_attack_jump * _dist_attack_jump:
@@ -360,8 +375,10 @@ func _compute_wave_solution() -> Vector3:
 	
 	# Get target position and velocity relative to cannon:
 	var pos_self := Vector3(global_position.x, 0.0, global_position.z)
-	var pos_tgt := Vector3(_target.global_position.x, 0.0, _target.global_position.z)
-	var vel_tgt := Vector3(_target.linear_velocity.x, 0.0, _target.linear_velocity.z)
+	var pos_tgt := Vector3(_target.global_position.x, 0.0, 
+			_target.global_position.z)
+	var vel_tgt := Vector3(_target.linear_velocity.x, 0.0, 
+			_target.linear_velocity.z)
 	var pos_tgt_rel: Vector3 = pos_tgt - pos_self
 	var vel_tgt_rel: Vector3 = vel_tgt
 	
@@ -427,7 +444,7 @@ func _update_orientation(delta: float) -> void:
 	transform = transform.interpolate_with(tgt_tform, turn_speed * delta)
 
 
-# Gets turn direction
+## Gets turn direction
 func _get_turn_direction() -> float:
 	if velocity.length_squared() == 0.0:
 		return 0.0
@@ -465,7 +482,7 @@ func _go_to_point(delta:float, point: Vector3, ms: float = SPEED_MAX,
 	return
 
 
-# Handles buoyancy forces when the player is in the water:
+## Handles buoyancy forces when the node is in the water:
 func _handle_buoyancy(delta: float) -> void:
 	var data := Vector3(global_position.x, global_position.z, 
 				(Time.get_ticks_msec() / 1000.0))
@@ -485,11 +502,6 @@ func _handle_buoyancy(delta: float) -> void:
 
 func _set_swim_height(height: float) -> void:
 	_inv_height = -height
-
-
-#===============================================================================
-#	PUBLIC FUNCTIONS:
-#===============================================================================
 
 
 #===============================================================================
