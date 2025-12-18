@@ -14,14 +14,13 @@ height = 10.0
 [node name="Level_Test" type="Node3D" node_paths=PackedStringArray("gen_point")]
 script = ExtResource("1_0pb8u")
 gen_point = NodePath("Ship")
-wave_freq = 1.0
-wave_amp = 0.8
+wave_freq = 0.5
+wave_amp = 1.5
 wave_speed = 0.6
 
 [node name="Spawner" type="Node3D" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("2_vnhy5")
-init_count_iceberg = 0
-target_count_icebergs = 0
+target_count_icebergs = 50
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
 enabled = true
@@ -29,7 +28,10 @@ enabled = true
 [node name="WaveManager" parent="." instance=ExtResource("2_dq315")]
 
 [node name="Ship" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("3_nomhl")]
+contact_monitor = true
+max_contacts_reported = 4
 wave_manager = NodePath("../WaveManager")
+initial_waypoint = Vector3(0, 0, -1000)
 
 [node name="Player" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("4_dq315")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -7.1545486)

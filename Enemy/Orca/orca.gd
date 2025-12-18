@@ -41,7 +41,7 @@ var _attack_timeout: float = 0.0
 var _waypoint := Vector3.ZERO
 var _radius_orbit: float = 50.0
 var _orbit_dir: bool = false
-var _allow_pitch: bool = false
+var _allow_pitch: bool = true
 var _lateral_fraction := 0.01
 var _set_orientation := Vector3.ZERO
 
@@ -354,7 +354,7 @@ func _do_atk_state_jump(target: Node3D) -> void:
 		_is_jumping = true
 	
 	if _is_jumping and global_position.y <= water_height:
-		_allow_pitch = false
+		#_allow_pitch = false
 		_is_jumping = false
 		
 		#var par = get_parent()

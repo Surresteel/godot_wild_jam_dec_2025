@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cm65acr8sbiiu"
+path="res://.godot/imported/Orca Gib Top.obj-6f18523dc3cb73f64c841420a55a31f2.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Orca Gib Top.obj-6f18523dc3cb73f64c841420a55a31f2.mesh"]
+
+source_file="res://Models/Orca_Chunks/Orca Gib Top.obj"
+dest_files=["res://.godot/imported/Orca Gib Top.obj-6f18523dc3cb73f64c841420a55a31f2.mesh", "res://.godot/imported/Orca Gib Top.obj-6f18523dc3cb73f64c841420a55a31f2.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

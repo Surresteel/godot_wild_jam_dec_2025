@@ -70,7 +70,7 @@ func _handle_lifecycle() -> void:
 	if not _target:
 		return
 	
-	if _target.linear_velocity.length_squared() < 9.0:
+	if _target.linear_velocity.length_squared() < 1.0:
 		return
 	
 	var tgt_to_self = global_position - _target.global_position
@@ -127,7 +127,7 @@ func _break_apart() -> void:
 
 
 func _mitosis(layers_rem: int) -> void:
-	var mult := randi_range(2, 4)
+	var mult := randi_range(1, 3)
 	iceberg_split.emit(layers_rem, global_position, mult)
 
 

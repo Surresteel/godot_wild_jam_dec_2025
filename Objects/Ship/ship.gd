@@ -8,6 +8,9 @@ extends RigidBody3D
 #===============================================================================
 #	NODE INITIALISATION:
 #===============================================================================
+# ENUMS:
+enum EVENTS {WAVE, ICEBERG, SEALION}
+
 # CONSTANTS:
 const SAMPLE_COUNT: int = 9
 const BUOYANCY_COEF: float = 60_000.0 / SAMPLE_COUNT
@@ -38,9 +41,21 @@ var _has_destination: bool = false
 var _waypoint: Vector3 = Vector3.ZERO
 
 
-# WAVE INTERACTIONS:
+@export_group("Setup")
 @export var wave_manager: WaveManager
 @export var initial_waypoint := Vector3.ZERO
+
+
+@export_group("Gameplay")
+@export var hitpoints: int = 100
+@export var speed_base: float = 1.0
+@export var momentum_gain: float = 0.01
+
+var _speed_mult: float = 1.0
+var _timeout_hit_wave: float = 0.0
+var _interval_hit_wave: float = 5.0
+var _timeout_hit_icerberg: float = 0.0
+var _interval_hit_iceberg: float = 10.0
 
 
 #===============================================================================
@@ -62,6 +77,8 @@ func _ready() -> void:
 	sample_points.append(Vector3(2.0, -BUOYANCY_OFFSET_AFT, -8.0))
 	sample_points.append(Vector3(0.0, -BUOYANCY_OFFSET_AFT, -8.0))
 	sample_points.append(Vector3(-2.0, -BUOYANCY_OFFSET_AFT, -8.0))
+	
+	body_entered.connect(_handle_collisions)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -69,8 +86,46 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		_go_to_point(_waypoint)
 	
 	_apply_buoyancy_forces(state)
-	#_apply_external_forces(state)
 	_apply_internal_forces(state)
+	_handle_momentum_gain(state)
+
+
+#===============================================================================
+#	GAMEPLAY:
+#===============================================================================
+func _handle_momentum_gain(state: PhysicsDirectBodyState3D) -> void:
+	if _speed_mult >= MAX_SPEED:
+		return
+	
+	_speed_mult += momentum_gain * state.step
+
+
+func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
+	match event:
+		EVENTS.WAVE:
+			if Time.get_ticks_msec() > _timeout_hit_wave:
+				_speed_mult = max(_speed_mult - severity, 1.0)
+				_timeout_hit_wave = Time.get_ticks_msec() + _interval_hit_wave \
+						* 1000
+		EVENTS.ICEBERG:
+			if Time.get_ticks_msec() > _timeout_hit_icerberg:
+				_speed_mult = max(_speed_mult - severity, 1.0)
+				_timeout_hit_icerberg = Time.get_ticks_msec() + \
+						_interval_hit_iceberg * 1000
+		EVENTS.SEALION:
+			pass
+
+
+#===============================================================================
+#	COLLISION HANDLING:
+#===============================================================================
+func _handle_collisions(body: Node) -> void:
+	if body is IcebergBase:
+		var speed_sqr = linear_velocity.length_squared()
+		var berg_strength = body.onion_layers * body.onion_layers
+		var dif = speed_sqr - berg_strength
+		if dif < 0:
+			_handle_events(EVENTS.ICEBERG, abs(dif))
 
 
 #===============================================================================
@@ -111,6 +166,7 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		# Wave forces:
 		var wave_force := Vector3.ZERO
 		if (h1 > h2) and highest_wave:
+			_handle_events(EVENTS.WAVE)
 			wave_force = highest_wave.vel.normalized() * \
 					highest_wave.vel.length() * highest_wave.vel.length() \
 					* 5000 * highest_wave.amp * 10 + Vector3(0, 1000, 0) * \
@@ -151,8 +207,11 @@ func _apply_external_forces(state: PhysicsDirectBodyState3D) -> void:
 # Apply forces internal to the ship (steering, propulsion):
 func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 	var force := _force_to_apply
-	var v := state.linear_velocity
-	if v.length() >= MAX_SPEED and v.length() > 0.001:
+	var v := Vector3(state.linear_velocity.x, 0.0, state.linear_velocity.z)
+	var speed_cap = clampf(speed_base * _speed_mult, 0.0, MAX_SPEED)
+	print(speed_cap)
+	#if v.length() >= MAX_SPEED and v.length() > 0.001:
+	if v.length() >= speed_cap and v.length() > 0.001:
 		var v_dir := v.normalized()
 		var forward_force := v_dir * force.dot(v_dir)
 		force -= forward_force

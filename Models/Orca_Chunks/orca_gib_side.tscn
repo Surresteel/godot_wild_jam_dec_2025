@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccxvowgecb74m"]
+
+[ext_resource type="PackedScene" uid="uid://rk4u0mg88jt3" path="res://Models/Orca_Chunks/Orca Gib Side.blend" id="1_ci8e5"]
+[ext_resource type="ArrayMesh" uid="uid://ddyb17x5ggqwt" path="res://Models/Orca_Chunks/orca_gib_side.tres" id="2_vi0v6"]
+
+[node name="Orca Gib Side" instance=ExtResource("1_ci8e5")]
+
+[node name="Gib Side" parent="." index="0"]
+mesh = ExtResource("2_vi0v6")
