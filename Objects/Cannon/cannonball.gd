@@ -1,3 +1,4 @@
+class_name CannonBall
 extends RigidBody3D
 
 var _has_hit_water: bool = false

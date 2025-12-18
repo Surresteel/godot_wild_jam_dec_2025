@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://eu78vs6xjcuh"]
+
+[ext_resource type="Script" uid="uid://bxlotkbbe831k" path="res://Objects/Icebergs/iceberg_default.gd" id="1_i2nl5"]
+[ext_resource type="PackedScene" uid="uid://da5yyiu4pbkl6" path="res://Models/Icebergs/IceBerg 2Peak1.blend" id="2_tlu4i"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_dybbq"]
+points = PackedVector3Array(0.195, -2.95, 0.35, -1.31, 0, -1.285, 1.985, 0, 1.85, -1.245, 0, 1.93, 1.79, 0, -1.31)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2mqk3"]
+points = PackedVector3Array(0, 0, 0, 1.735, 0, 0.645, -0.145, 0, 1.69, 0.615, 2.28, 0.665)
+
+[node name="IcebergDefault" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 31
+mass = 500.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -2, 0)
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource("1_i2nl5")
+break_velocity = 1.0
+onion_layers = 1
+
+[node name="Mesh" parent="." instance=ExtResource("2_tlu4i")]
+
+[node name="ColMain" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_dybbq")
+
+[node name="ColPeak1" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_2mqk3")
+
+[node name="ColPeak2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.155376, -2.3841858e-07, -1.3142916)
+shape = SubResource("ConvexPolygonShape3D_2mqk3")

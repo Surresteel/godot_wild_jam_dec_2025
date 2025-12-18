@@ -1,0 +1,17 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://dk3uwdpyc80f8"]
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 0.5
+angle_min = -89.99999
+angle_max = 90.000015
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 2.5
+initial_velocity_max = 5.0
+angular_velocity_min = -441.08002
+angular_velocity_max = 397.83997
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 9.999977
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+damping_max = 0.23500001
