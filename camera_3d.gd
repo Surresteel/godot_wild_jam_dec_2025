@@ -1,4 +1,5 @@
 extends Camera3D
+class_name PlayerCamera
 
 @onready var pos: Vector3 = position
 var mouse_input: Vector2

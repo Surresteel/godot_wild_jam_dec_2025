@@ -5,14 +5,14 @@ var last_offset: Vector3
 
 func enter() -> void:
 	player.velocity = Vector3.ZERO
-	player.mesh.visible = false
+	player.Skeleton_root_node.visible = false
 
 func exit() -> void:
-	player.mesh.visible = true
+	player.Skeleton_root_node.visible = true
 
 func pre_update() -> void:
 	if not player.is_interacting:
-		transition.emit(player.state_machine.state.WALKING)
+		transition.emit(player.movement_state_machine.state.WALKING)
 
 func update(delta: float) -> void:
 	player.velocity.y += player.get_gravity().y * delta

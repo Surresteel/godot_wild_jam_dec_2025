@@ -1,15 +1,20 @@
-[gd_scene load_steps=19 format=4 uid="uid://u8ioaod5e2a3"]
+[gd_scene load_steps=25 format=4 uid="uid://u8ioaod5e2a3"]
 
 [ext_resource type="Script" uid="uid://dtxyf75rtamdf" path="res://Player/player.gd" id="1_3qydi"]
 [ext_resource type="Script" uid="uid://bk2kpispy7bje" path="res://camera_3d.gd" id="2_q3lat"]
-[ext_resource type="Script" uid="uid://c8dpo4r8y6xw4" path="res://Player/StateMachine/PlayerStateMachine.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://c8dpo4r8y6xw4" path="res://Player/StateMachine/Movement/PlayerStateMachine.gd" id="3_ddoul"]
 [ext_resource type="Script" uid="uid://ksdsrbtpqxwj" path="res://Player/StateMachine/BasePlayerState.gd" id="4_8g4oa"]
-[ext_resource type="Script" uid="uid://clu5lxjk30u48" path="res://Player/StateMachine/States/swimming_state.gd" id="5_6ysni"]
-[ext_resource type="Script" uid="uid://wwpopkvj3snd" path="res://Player/StateMachine/States/walking_state.gd" id="5_8g4oa"]
-[ext_resource type="Script" uid="uid://4xhspjxqjhey" path="res://Player/StateMachine/States/jumping_state.gd" id="6_vlldt"]
-[ext_resource type="Script" uid="uid://cxoy6ktej14jq" path="res://Player/StateMachine/States/falling_state.gd" id="7_s1rgi"]
-[ext_resource type="Script" uid="uid://c3vqhkdek2srf" path="res://Player/StateMachine/States/interacting_state.gd" id="8_j23h2"]
-[ext_resource type="AnimationLibrary" uid="uid://dvyv6qfn48ber" path="res://Penguins/Assets/Animations/Library/Penguin_FirstPerson.res" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://clu5lxjk30u48" path="res://Player/StateMachine/Movement/swimming_state.gd" id="5_6ysni"]
+[ext_resource type="Script" uid="uid://wwpopkvj3snd" path="res://Player/StateMachine/Movement/walking_state.gd" id="5_8g4oa"]
+[ext_resource type="Script" uid="uid://4xhspjxqjhey" path="res://Player/StateMachine/Movement/jumping_state.gd" id="6_vlldt"]
+[ext_resource type="Script" uid="uid://cxoy6ktej14jq" path="res://Player/StateMachine/Movement/falling_state.gd" id="7_s1rgi"]
+[ext_resource type="Script" uid="uid://c3vqhkdek2srf" path="res://Player/StateMachine/Movement/interacting_state.gd" id="8_j23h2"]
+[ext_resource type="AnimationLibrary" uid="uid://bcq6hig7by472" path="res://Penguins/Assets/Animations/Library/Penguin_FirstPerson_Player.res" id="10_0j2ni"]
+[ext_resource type="Script" uid="uid://b8pv0643i3fks" path="res://Player/StateMachine/Weapons/WeaponStateMachine.gd" id="10_5wa8t"]
+[ext_resource type="Script" uid="uid://b6jil7gd3xyqu" path="res://Player/StateMachine/Weapons/nothing_state.gd" id="11_p7tob"]
+[ext_resource type="Script" uid="uid://bbob78v8gein3" path="res://Player/snowball_action.gd" id="11_v0k0e"]
+[ext_resource type="Script" uid="uid://xa6e5trt3dtp" path="res://Player/StateMachine/Weapons/snowball_state.gd" id="12_dm7nj"]
+[ext_resource type="Script" uid="uid://dq6v5w8cwmteg" path="res://Player/on_cannon_state.gd" id="13_3mea3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3qydi"]
 radius = 0.22802734
@@ -124,6 +129,8 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mea3"]
+
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 4
 collision_mask = 18
@@ -141,24 +148,41 @@ top_level = true
 current = true
 script = ExtResource("2_q3lat")
 
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("parent")]
+[node name="Snowball_action" type="Node3D" parent="Camera3D"]
+transform = Transform3D(0.9961947, 0.015134434, 0.08583164, 0, 0.98480767, -0.17364818, -0.08715574, 0.17298739, 0.98106027, 0.19670129, 0.017453074, -0.0062252283)
+script = ExtResource("11_v0k0e")
+
+[node name="MovementStateMachine" type="Node" parent="." node_paths=PackedStringArray("parent")]
 script = ExtResource("3_ddoul")
 parent = NodePath("..")
 
-[node name="WalkingState" type="Node" parent="StateMachine"]
+[node name="WalkingState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("5_8g4oa")
 
-[node name="SwimmingState" type="Node" parent="StateMachine"]
+[node name="SwimmingState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("5_6ysni")
 
-[node name="JumpingState" type="Node" parent="StateMachine"]
+[node name="JumpingState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("6_vlldt")
 
-[node name="FallingState" type="Node" parent="StateMachine"]
+[node name="FallingState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("7_s1rgi")
 
-[node name="InteractingState" type="Node" parent="StateMachine"]
+[node name="InteractingState" type="Node" parent="MovementStateMachine"]
 script = ExtResource("8_j23h2")
+
+[node name="WeaponStateMachine" type="Node" parent="." node_paths=PackedStringArray("parent")]
+script = ExtResource("10_5wa8t")
+parent = NodePath("..")
+
+[node name="NothingState" type="Node" parent="WeaponStateMachine"]
+script = ExtResource("11_p7tob")
+
+[node name="SnowballState" type="Node" parent="WeaponStateMachine"]
+script = ExtResource("12_dm7nj")
+
+[node name="OnCannonState" type="Node" parent="WeaponStateMachine"]
+script = ExtResource("13_3mea3")
 
 [node name="BaseState - Do Not Use" type="Node" parent="."]
 script = ExtResource("4_8g4oa")
@@ -199,30 +223,30 @@ bones/4/name = "Arm_01.R"
 bones/4/parent = 0
 bones/4/rest = Transform3D(-0.6682801, -0.7439097, -5.9604645e-08, -1.1920929e-07, 2.3841858e-07, -1, 0.7439097, -0.6682801, -2.3841858e-07, -0.09725596, 0, 0.4766959)
 bones/4/enabled = true
-bones/4/position = Vector3(-0.097255975, -6.948432e-09, 0.40350914)
-bones/4/rotation = Quaternion(-0.16922109, 0.05610392, -0.9632558, -0.20088527)
+bones/4/position = Vector3(-0.09725595, 0.095090866, 0.4219202)
+bones/4/rotation = Quaternion(0.07209576, 0.7857667, -0.5314444, -0.30812305)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "Arm_02.R"
 bones/5/parent = 4
 bones/5/rest = Transform3D(0.9991573, -0.041044533, 2.6626125e-08, 0.04104453, 0.9991574, -1.8057746e-07, -1.9191972e-08, 1.8151817e-07, 1, 2.2351735e-08, 0.11070363, 4.440892e-15)
 bones/5/enabled = true
 bones/5/position = Vector3(2.2351735e-08, 0.11070363, 4.440892e-15)
-bones/5/rotation = Quaternion(0.26084873, 0.036792863, 0.15117335, 0.9527596)
+bones/5/rotation = Quaternion(0.14864537, 0.141555, 0.46924362, 0.85888135)
 bones/5/scale = Vector3(1, 1.0000001, 1)
 bones/6/name = "Arm_03.R"
 bones/6/parent = 5
 bones/6/rest = Transform3D(0.9998351, -0.01816088, -2.5681845e-07, 0.01816088, 0.9998351, -5.6143885e-09, 2.5687802e-07, 9.494137e-10, 1, -7.660539e-15, 0.123007685, -1.5987212e-14)
 bones/6/enabled = true
 bones/6/position = Vector3(-7.660539e-15, 0.123007685, -1.5987212e-14)
-bones/6/rotation = Quaternion(0.24801596, -0.074563526, 0.23787937, 0.93613136)
+bones/6/rotation = Quaternion(-0.030725976, 0.5521047, -0.06060032, 0.8310018)
 bones/6/scale = Vector3(0.99999994, 0.99999994, 1)
 bones/7/name = "Snowball"
 bones/7/parent = 0
 bones/7/rest = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.18105242, 0.32509798, 0.35377014)
 bones/7/enabled = true
-bones/7/position = Vector3(0.18105242, 0.32509798, 0.35377014)
-bones/7/rotation = Quaternion(0.7071068, 0, 0, 0.7071068)
-bones/7/scale = Vector3(1, 1, 1)
+bones/7/position = Vector3(-0.075083286, 0.05264175, 0.24754411)
+bones/7/rotation = Quaternion(0.99846363, 0, 0, 0.055410862)
+bones/7/scale = Vector3(0.7790116, 0.77901155, 0.77901155)
 bones/8/name = "CannonHatch"
 bones/8/parent = 0
 bones/8/rest = Transform3D(0.0017976761, -0.9999983, 0, -1.1920929e-07, 5.9604645e-08, -0.99999994, 0.9999983, 0.0017976165, 0, -0.072939806, 0.3124728, 0.39800152)
@@ -245,5 +269,8 @@ skin = SubResource("Skin_5wa8t")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"Penguin_FirstPerson": ExtResource("10_0j2ni")
+&"": SubResource("AnimationLibrary_3mea3"),
+&"FirstPerson_Player": ExtResource("10_0j2ni")
 }
+
+[connection signal="signal_animation" from="Camera3D/Snowball_action" to="." method="play_animaiton_interupt"]

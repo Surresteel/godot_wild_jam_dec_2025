@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://jifqhmqqi4ym"]
+[gd_scene load_steps=6 format=4 uid="uid://pj5t3u2p6vi2"]
 
-[ext_resource type="Script" uid="uid://c4qfj6lcbrdhv" path="res://Objects/Cannon/cannonball.gd" id="1_l2xo0"]
+[ext_resource type="Script" uid="uid://c4qfj6lcbrdhv" path="res://Objects/SnowBalls/cannonball.gd" id="1_78ixa"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jm0fv"]
 resource_name = "Snowball.001"
@@ -40,19 +40,18 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_l2xo0")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_l2xo0"]
-radius = 0.053
+[sub_resource type="SphereShape3D" id="SphereShape3D_0jlh0"]
+radius = 0.05704964
 
-[node name="CannonBall" type="RigidBody3D"]
+[node name="snowball" type="RigidBody3D"]
 collision_layer = 8
 collision_mask = 31
 continuous_cd = true
-script = ExtResource("1_l2xo0")
+script = ExtResource("1_78ixa")
 
 [node name="SnowBall_001" type="MeshInstance3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 mesh = SubResource("ArrayMesh_05mlj")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_l2xo0")
+shape = SubResource("SphereShape3D_0jlh0")

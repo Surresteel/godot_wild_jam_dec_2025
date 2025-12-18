@@ -4,7 +4,7 @@ class_name PlayerStateMachine
 @export var parent: Player
 
 enum state {WALKING, SWIMMING, JUMPING, FALLING, INTERACTING} # should be in order of nodes
-var current_state: int = 0
+var current_state: state
 var all_states: Array[PlayerState]
 
 func get_current_state_object() -> PlayerState:
@@ -18,7 +18,7 @@ func _ready() -> void:
 		states.player = parent
 		states.transition.connect(change_state)
 	#get_current_state_object().enter()
-	change_state(state.FALLING)
+	current_state = state.FALLING
 
 func _physics_process(delta: float) -> void:
 	get_current_state_object().pre_update()

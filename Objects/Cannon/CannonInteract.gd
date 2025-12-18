@@ -1,12 +1,13 @@
 extends Area3D
-class_name Interactable
+class_name CannonInteract
 
 var player: Player = null
-@export var interactable_node: Node3D
+var cannon: Cannon
 @export var change_camera: bool = false
 
+
 func _process(_delta: float) -> void:
-	global_position = interactable_node.global_position
+	global_position = cannon.global_position
 
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
@@ -22,16 +23,21 @@ func _on_body_exited(body: Node3D) -> void:
 		player = null
 
 func toggle_interaction() -> void:
-	if interactable_node.is_active: #Turn Off
-		interactable_node.is_active = false
+	if cannon.is_active: #Turn Off
 		player.is_interacting = false
 		if change_camera:
 			player.camera.current = true
-			interactable_node.camera.current = false
-			
+			cannon.camera.current = false
+		cannon.player = null
+		cannon.deactivate()
+		
 	else:                          #Turn On
-		interactable_node.is_active = true
 		player.is_interacting = true
 		if change_camera:
-			interactable_node.camera.current = true
+			cannon.camera.current = true
 			player.camera.current = false
+			cannon.camera.global_position = player.camera.global_position
+			cannon.camera.global_rotation = player.camera.global_rotation
+		cannon.player = player
+		cannon.activate()
+	

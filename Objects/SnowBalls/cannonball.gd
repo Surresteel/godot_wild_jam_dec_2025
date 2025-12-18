@@ -11,7 +11,6 @@ func onHit() -> void:
 func fire(power: float, dir: Vector3, initial_velocity: Vector3) -> void:
 	linear_velocity = initial_velocity
 	apply_central_impulse(dir * power)
-	await get_tree().create_timer(5).timeout
 
 
 func _physics_process(_delta: float) -> void:

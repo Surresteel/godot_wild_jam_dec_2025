@@ -7,18 +7,22 @@ var inertia: Vector3 = Vector3.ZERO
 var floor_velocity: Vector3
 
 #state machine variables
-@onready var state_machine: PlayerStateMachine = $StateMachine
+@onready var movement_state_machine: PlayerStateMachine = $MovementStateMachine
+@onready var weapon_state_machine: WeaponStateMachine = $WeaponStateMachine
 
 var is_interacting: bool = false
 
-@onready var camera: Camera3D = $Camera3D
-@onready var mesh: MeshInstance3D = $FPArms/Skeleton3D/Arms
+
+
+@onready var camera: PlayerCamera = $Camera3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var Skeleton_root_node: Node3D = $FPArms
+@onready var snowball_action: SnowballAction = $Camera3D/Snowball_action
 
 @export var target: Node3D
 
 #ship stuff
-@export var ship: Ship
+@onready var ship: Ship = $"../Ship"
 var ship_last_rotation_y: float
 
 signal Interact
@@ -33,11 +37,13 @@ var last_error := 0.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	weapon_state_machine.get_current_state_object().enter()
+	movement_state_machine.get_current_state_object().enter()
 
 func _process(_delta: float) -> void:
 	camera.position = position + camera.pos
 	
-	if state_machine.current_state == state_machine.state.INTERACTING:
+	if movement_state_machine.current_state == movement_state_machine.state.INTERACTING:
 		return
 	
 	camera.rotate_camera_x()
@@ -103,8 +109,20 @@ func _unhandled_key_input(event: InputEvent) -> void:
 						Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 					else:
 						Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-				if event.keycode == KEY_R:
+				if event.keycode == KEY_ENTER:
 					get_tree().reload_current_scene()
 
-func main_action() -> void:
-	pass
+
+func play_animaiton_queue(anim_name: String) -> void:
+	animation_player.queue("FirstPerson_Player/" + anim_name)
+
+func play_animaiton_interupt(anim_name: String, replay_current: bool = false,
+		 blend_speed: float = -1) -> void:
+	var current_animation:= animation_player.current_animation
+	animation_player.play("FirstPerson_Player/" + anim_name, blend_speed)
+	if replay_current:
+		animation_player.queue(current_animation)
+
+func play_animation_no_interupt(anim_name: String) -> void: #intended in process
+	if not animation_player.is_playing():
+		animation_player.play("FirstPerson_Player/" + anim_name)

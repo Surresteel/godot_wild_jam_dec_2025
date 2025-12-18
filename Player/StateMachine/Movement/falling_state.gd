@@ -12,10 +12,10 @@ func exit() -> void:
 func pre_update() -> void:
 	if player.is_on_floor():
 		player.velocity = Vector3.ZERO
-		transition.emit(player.state_machine.state.WALKING)
+		transition.emit(player.movement_state_machine.state.WALKING)
 	
 	if player.global_position.y - 0.5 < player.get_water_height():
-		transition.emit(player.state_machine.state.SWIMMING)
+		transition.emit(player.movement_state_machine.state.SWIMMING)
 
 func update(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector("left","right","forward","backward")

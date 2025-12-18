@@ -8,7 +8,7 @@ func exit() -> void:
 	pass
 
 func pre_update() -> void:
-	transition.emit(player.state_machine.state.FALLING)
+	transition.emit(player.movement_state_machine.state.FALLING)
 
 func update(_delta: float) -> void:
 	pass
