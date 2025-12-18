@@ -12,7 +12,7 @@ func enter(sealion: Sealion) -> void:
 	#Set NavigationAgentLayer
 	sealion.nav_agent.set_navigation_layer_value(1,true)
 	
-	#sealion.animation_player.play("Penguin_Base/Penguin_Waddle") #TODO get sealion animations
+	sealion.animation_player.play("weehaw/Penguin_Waddle") #TODO get sealion animations
 
 func exit(_sealion: Sealion) -> void:
 	pass
@@ -20,6 +20,8 @@ func exit(_sealion: Sealion) -> void:
 func pre_update(sealion: Sealion) -> void:
 	if sealion.velocity == Vector3.ZERO and sealion.nav_agent.is_navigation_finished():
 		sealion.change_state(SealionStates.TARGETING)
+	if sealion.global_position.y < sealion.get_water_height():
+		sealion.change_state(SealionStates.CIRCLING)
 
 func update(sealion: Sealion, delta) -> void:
 	#Move The Sealion towards it's target

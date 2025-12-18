@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c1ifo34ieuf57" path="res://Objects/IceBerg/ice_berg.gd" id="1_672ou"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_khwfy"]
-points = PackedVector3Array(-0.5, -0.96, -0.41, -0.5, -0.96, 0.41, 0.19998044, 0.9600001, -0.41, 0.5, -0.96, -0.41, 0.5, -0.96, 0.41, 0.19998044, 0.9600001, 0.41)
-
 [sub_resource type="PrismMesh" id="PrismMesh_khwfy"]
 left_to_right = 0.7
-size = Vector3(1, 1.92, 0.82)
+size = Vector3(2, 5, 2)
 subdivide_width = 6
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ijjku"]
+points = PackedVector3Array(-1, -2.5, -1, -1, -2.5, 1, 0.39996088, 2.5, -1, 1, -2.5, -1, 1, -2.5, 1, 0.39996088, 2.5, 1)
 
 [node name="IceBerg" type="RigidBody3D"]
 collision_mask = 2
@@ -18,13 +18,13 @@ contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_672ou")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44371772, 0)
-shape = SubResource("ConvexPolygonShape3D_khwfy")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44371772, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7049177, 0)
 mesh = SubResource("PrismMesh_khwfy")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7049177, 0)
+shape = SubResource("ConvexPolygonShape3D_ijjku")
 
 [connection signal="body_entered" from="." to="." method="OnCollision"]

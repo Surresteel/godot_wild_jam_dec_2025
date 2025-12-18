@@ -18,7 +18,7 @@ const MAX_DEPTH: float = 3.0
 const BUOYANCY_OFFSET_FOR: float = 0.4
 const BUOYANCY_OFFSET_MID: float = 0.3
 const BUOYANCY_OFFSET_AFT: float = 0.2
-const MAX_SPEED: float = 5.0
+const MAX_SPEED: float = 10.0
 const MAX_ROTATION: float = 10.0
 const WP_RADIUS: float = 10.0
 

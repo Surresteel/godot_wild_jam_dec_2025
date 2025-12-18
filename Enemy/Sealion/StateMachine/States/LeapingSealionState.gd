@@ -5,12 +5,21 @@ var missed: bool = false
 
 
 func enter(sealion: Sealion) -> void:
+	var b:= Basis.looking_at((sealion.ship.global_position - sealion.global_position).normalized(), Vector3.UP)
+	sealion.transform.basis = b
+	#sealion.look_at(sealion.ship.global_position + sealion.ship.global_basis.z * Vector3(0, 0, -10))
+	sealion.do_buoy = false
 	missed = false
 	print("entered leaping state")
-	sealion.velocity.y = 7.5              #Up and Backwards Vector - default(7.5,4.5) 
-	sealion.velocity += sealion.transform.basis * Vector3(0,0,4.5)
+			   #Up and Backwards Vector - default(7.5,4.5) 
+	sealion.velocity = (sealion.ship.global_position 
+			- sealion.global_position).normalized() * 5.25 + sealion.ship.linear_velocity
+	sealion.velocity.y = 9.5  
 	
-	await sealion.get_tree().create_timer(5).timeout
+	await sealion.get_tree().create_timer(0.1).timeout
+	sealion.do_buoy = true
+	
+	await sealion.get_tree().create_timer(3).timeout
 	missed = true
 	
 

@@ -294,4 +294,6 @@ transform = Transform3D(1, 0, 0, 0, 0.93062216, -0.36598155, 0, 0.36598155, 0.93
 visible = false
 shape = SubResource("BoxShape3D_xenj3")
 
+[node name="Node3D" type="Node3D" parent="."]
+
 [editable path="Mesh"]

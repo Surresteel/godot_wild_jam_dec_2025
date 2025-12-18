@@ -31,10 +31,9 @@ func update(delta: float) -> void:
 		var offset = player.global_position - player.ship.global_position
 		var rotational_velocity = player.ship.angular_velocity.cross(offset)
 		#Slow/Speed the Player to the ships velocity
-		horizontal_velocity = horizontal_velocity.move_toward(player.get_ship_velocity() 
-																+ rotational_velocity,
-																delta * 5) 
-														#should stick to the ship even with rotation
+		horizontal_velocity = horizontal_velocity.move_toward(
+				player.get_ship_velocity() + rotational_velocity,delta * 5) 
+				#should stick to the ship even with rotation
 		
 		player.velocity.x = horizontal_velocity.x
 		player.velocity.z = horizontal_velocity.z

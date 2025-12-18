@@ -2,10 +2,11 @@ extends CharacterBody3D
 class_name Sealion
 
 
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 #movement code related
 var target_node: Node3D
 var target_pos: Vector3
-
+var dot_sealion_to_ship: float
 #nav agent things
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var next_target_pos: Vector3
@@ -13,14 +14,14 @@ var next_target_pos: Vector3
 #References To Ship
 @onready var ship: Ship = $"../Ship"
 
-
+var do_buoy: bool = true
 
 var state: SealionBaseState = SealionStates.CIRCLING
 
 # Buoyancy PID controller:
-const KP := 20.0
-const KI := 2.0
-const KD := 8.0
+const KP := 5.0
+const KI := 1.0
+const KD := 2.0
 var integral := 0.0
 var last_error := 0.0
 
@@ -32,6 +33,7 @@ func _ready() -> void:
 	state.enter(self)
 
 func _physics_process(delta: float) -> void:
+	#print(dot_sealion_to_ship)
 	#update the Nav Agent
 	if target_node != null:
 		next_target_pos = nav_agent.get_next_path_position()
@@ -42,13 +44,15 @@ func _physics_process(delta: float) -> void:
 	#states update function
 	state.update(self, delta)
 	
-	_handle_buoyancy(delta)
+	if do_buoy:
+		_handle_buoyancy(delta)
 	
 	#Apply Gravity - Always want to apply gravity so its here
 	if not is_on_floor():
 		velocity.y += get_gravity().y * delta
 	
 	move_and_slide()
+	
 	
 
 func change_state(new_state: SealionBaseState) -> void:
@@ -76,3 +80,7 @@ func _handle_buoyancy(delta: float) -> void:
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
 		
+func get_water_height() -> float:
+	var data := Vector3(global_position.x, global_position.z, 
+				(Time.get_ticks_msec() / 1000.0))
+	return NoiseFunc.sample_at_pos_time(data)
