@@ -26,10 +26,10 @@ var _drift_amount: float = 1.0
 @export var onion_layers: int = 2
 
 var scene_icicle := preload("res://Particle_Effects/Icicles.tscn")
-
 var _target: RigidBody3D = null
-
 var is_sinking: bool = false
+
+@onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 
 
 #===============================================================================
@@ -116,6 +116,8 @@ func _handle_collisions(body: Node) -> void:
 
 
 func _play_hit_effect() -> void:
+	audio_emitter.stream = AudioManager.ICE_SOUNDS.pick_random()
+	audio_emitter.play()
 	var ice: Node3D = scene_icicle.instantiate()
 	get_tree().get_root().add_child(ice)
 	ice.global_position = global_position

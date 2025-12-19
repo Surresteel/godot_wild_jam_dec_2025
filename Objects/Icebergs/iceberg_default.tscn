@@ -34,3 +34,7 @@ shape = SubResource("ConvexPolygonShape3D_2mqk3")
 [node name="ColPeak2" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.155376, -2.3841858e-07, -1.3142916)
 shape = SubResource("ConvexPolygonShape3D_2mqk3")
+
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+unit_size = 20.0
+bus = &"SFX_3D"

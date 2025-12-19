@@ -24,3 +24,7 @@ transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_so27i")
+
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+unit_size = 20.0
+bus = &"SFX_3D"

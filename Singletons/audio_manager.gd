@@ -33,6 +33,14 @@ const SHIP_SOUNDS: Array[AudioStream] = \
 	preload("uid://cmknb1yvd72gd"),
 	preload("uid://cm0y2alb3c2tb"),
 ]
+const ICE_SOUNDS: Array[AudioStream] = \
+[
+	preload("uid://j2os3y5ufsn7"),
+	preload("uid://cbjskdewriwkg"),
+	preload("uid://dgqqobq05wlur"),
+	preload("uid://dt0y64gfpibsc"),
+	
+]
 
 const ORCA_ATTACK_START = preload("uid://bh3t15t0du644")
 const ORCA_JUMP = preload("uid://cigmoe7aughst")

@@ -72,7 +72,7 @@ height = 3.6628418
 size = Vector3(0.3637085, 0.3720703, 5.4956055)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xuvaw"]
-size = Vector3(0.38964844, 0.9789276, 3.1840057)
+size = Vector3(0.38964844, 0.33073997, 3.1840057)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_skpsb"]
 size = Vector3(0.31323242, 0.35253906, 2.4470215)
@@ -236,12 +236,12 @@ visible = false
 shape = SubResource("BoxShape3D_0a1j2")
 
 [node name="col_rail_main_FL" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.96963346, 0, -0.24456283, 0, 1, 0, 0.24456283, 0, 0.96963346, -2.3899236, 2.6495442, -5.0011578)
+transform = Transform3D(0.96963346, 0, -0.24456283, 0, 1, 0, 0.24456283, 0, 0.96963346, -2.3899236, 2.4831977, -5.0011578)
 visible = false
 shape = SubResource("BoxShape3D_xuvaw")
 
 [node name="col_rail_main_FR" type="CollisionShape3D" parent="."]
-transform = Transform3D(-0.96944535, 0, -0.24530731, 0, 1, 0, 0.24530731, 0, -0.96944535, 2.480487, 2.7294948, -5.0591974)
+transform = Transform3D(-0.96944535, 0, -0.24530731, 0, 1, 0, 0.24530731, 0, -0.96944535, 2.480487, 2.4581516, -5.0591974)
 visible = false
 shape = SubResource("BoxShape3D_xuvaw")
 
@@ -277,10 +277,12 @@ shape = SubResource("BoxShape3D_ipcsp")
 
 [node name="col_rail_for_R" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.8248669, 0, 0.565327, 0, 1, 0, -0.565327, 0, 0.8248669, 1.2969878, 3.2983742, -8.144239)
+visible = false
 shape = SubResource("BoxShape3D_ugeoi")
 
 [node name="col_rail_for_L" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.82511353, 0, -0.564967, 0, 1, 0, 0.564967, 0, 0.82511353, -1.297, 3.285039, -8.144)
+visible = false
 shape = SubResource("BoxShape3D_riav2")
 
 [node name="col_rail_for_CL" type="CollisionShape3D" parent="."]
