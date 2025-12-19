@@ -110,3 +110,6 @@ func take_damage_real() -> void:
 
 func take_damage(body: Node3D) -> void:
 	take_damage_real()
+
+func set_target(t: RigidBody3D) -> void:
+	ship = t
