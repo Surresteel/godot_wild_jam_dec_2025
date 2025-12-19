@@ -29,6 +29,7 @@ const WP_RADIUS: float = 10.0
 
 # SIGNALS:
 signal bow_hit_water()
+signal wave_inbound()
 
 # BUOYANCY PRIVATE
 var _buoyancy_coef: float = BUOYANCY_MAX / SAMPLE_COUNT
@@ -44,6 +45,7 @@ var _waypoint: Vector3 = Vector3.ZERO
 
 # SETUP PUBLIC:
 @export_group("Setup")
+@export var spawner: Spawner
 @export var wave_manager: WaveManager
 @export var initial_waypoint := Vector3.ZERO
 
@@ -61,6 +63,10 @@ var _timeout_hit_wave: float = 0.0
 var _interval_hit_wave: float = 5.0
 var _timeout_hit_icerberg: float = 0.0
 var _interval_hit_iceberg: float = 30.0
+
+# ENEMY LOOKOUT:
+@onready var lookout: PenguinLookout = $PenguinLookout
+var _callout_radius: float = 50.0
 
 
 #===============================================================================
@@ -84,6 +90,11 @@ func _ready() -> void:
 	_sample_points.append(Vector3(-2.0, -BUOYANCY_OFFSET_AFT, -8.0))
 	
 	body_entered.connect(_handle_collisions)
+	
+	if not spawner:
+		return
+	
+	lookout.setup(self, spawner)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -162,6 +173,7 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 			for wave in w_data:
 				var offset = Vector2(pos_glb_point.x - wave.pos.x,
 						pos_glb_point.z - wave.pos.y)
+				_callout_wave(offset, wave.dir)
 				var h_temp = WaveFunc.sample_wave_height(wave.pos, offset, 
 						wave.dir, wave.amp)
 				if h_temp != 0 and h_temp > h1:
@@ -177,7 +189,6 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		
 		# Audio Stuff:
 		if point == _sample_points[1] and water_height > 2.5:
-			print(water_height)
 			bow_hit_water.emit()
 		
 		# Wave forces:
@@ -202,6 +213,14 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		# Apply forces
 		var point_force: Vector3 = Vector3.UP * (buoyancy_force + damping_force)
 		state.apply_force(point_force, pos_glb_point - state.transform.origin)
+
+
+func _callout_wave(to_wave: Vector2, wave_dir: Vector2) -> void:
+	if to_wave.length_squared() > _callout_radius * _callout_radius:
+		return
+	
+	if wave_dir.dot(-to_wave) > 0.7:
+		wave_inbound.emit()
 
 
 # Apply forces internal to the ship (steering, propulsion):

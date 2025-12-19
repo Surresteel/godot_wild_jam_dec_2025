@@ -6,7 +6,7 @@ var speed:= 2
 var walk_target: Node3D
 
 func enter(sealion: Sealion) -> void:
-	print("entered Walking state")
+	#print("entered Walking state")
 	sealion.change_target_node(sealion.get_tree().get_first_node_in_group("SealionInteractables")) #TODO the sealion should go to targeting to get a new target, either the player or the helmsmen and maybe the baby penguins
 	
 	#Set NavigationAgentLayer

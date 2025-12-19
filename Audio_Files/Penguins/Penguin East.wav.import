@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dib6iqe6dh6lp"
+path="res://.godot/imported/Penguin East.wav-836b63a3961666571dacaf5d6cecdf4c.sample"
+
+[deps]
+
+source_file="res://Audio_Files/Penguins/Penguin East.wav"
+dest_files=["res://.godot/imported/Penguin East.wav-836b63a3961666571dacaf5d6cecdf4c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -31,11 +31,13 @@ enabled = true
 
 [node name="WaveManager" parent="." instance=ExtResource("2_dq315")]
 
-[node name="Ship" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("3_nomhl")]
+[node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager") instance=ExtResource("3_nomhl")]
 contact_monitor = true
 max_contacts_reported = 4
+spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -1000)
+momentum_gain = 0.1
 
 [node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("4_dq315")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -7.1545486)

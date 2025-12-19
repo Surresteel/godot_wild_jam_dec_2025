@@ -120,7 +120,7 @@ func teleport_to_position(pos: Vector3, rot: Vector3) -> void:
 	#camera.global_position = global_position
 	global_position = pos
 	global_rotation = rot
-	print("teleported")
+	#print("teleported")
 
 
 func play_animaiton_queue(anim_name: String) -> void:

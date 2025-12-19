@@ -10,7 +10,7 @@ func enter(sealion: Sealion) -> void:
 	#sealion.look_at(sealion.ship.global_position + sealion.ship.global_basis.z * Vector3(0, 0, -10))
 	sealion.do_buoy = false
 	missed = false
-	print("entered leaping state")
+	#print("entered leaping state")
 			   #Up and Backwards Vector - default(7.5,4.5) 
 	sealion.velocity = (sealion.ship.global_position 
 			- sealion.global_position).normalized() * 5.25 + sealion.ship.linear_velocity

@@ -10,6 +10,8 @@ extends Node3D
 #===============================================================================
 #	STATIC MEMBERS:
 #===============================================================================
+signal enemy_spawned(pos: Vector3, dir: Vector3)
+
 const ENEMY_ORCA = preload("uid://m46fqntcnrhl")
 const ENEMY_SEALION = preload("uid://b1nfl17a80wwi")
 static var enemy_types: Array = [ENEMY_ORCA, ENEMY_SEALION]
@@ -132,7 +134,9 @@ func _spawn_enemy() -> void:
 	
 	var dir = Vector3.FORWARD.rotated(Vector3.UP, randf() * TAU)
 	var dist = randf_range(spawn_radius_min_enemy, spawn_radius_max_enemy)
-	enemy.global_position = target.global_position + dir * dist
+	var pos = target.global_position + dir * dist
+	enemy.global_position = pos
+	enemy_spawned.emit(pos, dir)
 
 
 ## Spawns an iceberg around target, or pos_override, if set:

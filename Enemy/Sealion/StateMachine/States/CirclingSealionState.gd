@@ -7,7 +7,7 @@ var swimming_distance_drain_speed:= 2.0
 var clockwise:bool = false
 
 func enter(_sealion: Sealion) -> void:
-	print("circling")
+	#print("circling")
 	swimming_distance = randf_range(25, 80)
 	swimming_distance_drain_speed = randf_range(1, 3)
 	clockwise = randi() % 2

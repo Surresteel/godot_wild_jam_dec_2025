@@ -41,7 +41,7 @@ const ICE_SOUNDS: Array[AudioStream] = \
 	preload("uid://dt0y64gfpibsc"),
 	
 ]
-const THROW_SOUNDS: Array [AudioStream] = \
+const THROW_SOUNDS: Array[AudioStream] = \
 [
 	preload("uid://q141umn5p5j6"),
 	preload("uid://bi58x13eykke3"),
@@ -51,4 +51,25 @@ const THROW_SOUNDS: Array [AudioStream] = \
 const ORCA_ATTACK_START = preload("uid://bh3t15t0du644")
 const ORCA_JUMP = preload("uid://cigmoe7aughst")
 const ORCA_ARRIVE = preload("uid://l7rskn6rv6vi")
-const ORCA_EXPLOSION = preload("uid://c543dj84lo7iy")
+const ORCA_EXPLOSIONS: Array[AudioStream] = \
+[
+	preload("uid://fa12rdy8fv58"),
+	preload("uid://b8bhqcumd7hmk"),
+	preload("uid://ddqsj6ydywtdx"),
+]
+
+const WAVE_SOUNDS: Array[AudioStream] = \
+[
+	preload("uid://c45cmq7kr3msu"),
+	preload("uid://enl3c2kgppbf"),
+	preload("uid://3gdxg2f22pyw"),
+	preload("uid://b6ov6ngl43w8x"),
+	preload("uid://b0s1xvxorhnj3"),
+	preload("uid://bo75pv62uqpej"),
+]
+
+const PENGUIN_EAST = preload("uid://dib6iqe6dh6lp")
+const PENGUIN_NORTH = preload("uid://bpcpqeeshysop")
+const PENGUIN_SOUTH = preload("uid://cqwfo87w8hsr0")
+const PENGUIN_WEST = preload("uid://k5umegh7rai4")
+const WAVE_INCOMING = preload("uid://ch5fhuuy0sccy")

@@ -6,7 +6,7 @@ var too_long: bool = false
 
 func enter(sealion: Sealion) -> void:
 	too_long = false
-	print("entered Boarding state")
+	#print("entered Boarding state")
 	sealion.change_target_node(sealion.ship)
 	await sealion.get_tree().create_timer(5).timeout
 

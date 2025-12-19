@@ -5,7 +5,7 @@ extends GPUParticles3D
 var _timeout: float
 
 func _ready() -> void:
-	_audio_emitter.stream = AudioManager.ORCA_EXPLOSION
+	_audio_emitter.stream = AudioManager.ORCA_EXPLOSIONS.pick_random()
 	var length = _audio_emitter.stream.get_length()
 	if length > _duration:
 		_duration = length
