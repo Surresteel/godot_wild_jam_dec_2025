@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cv35k8nfgv88o"]
+[gd_scene load_steps=55 format=3 uid="uid://cv35k8nfgv88o"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
 [ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
@@ -7,7 +7,211 @@
 [ext_resource type="Script" uid="uid://cly5pmnbwi55w" path="res://Scripts/Standalone/spawner.gd" id="2_vnhy5"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
+[ext_resource type="Texture2D" uid="uid://bnumyxx1ygv4m" path="res://ShipStatus_Health_Bad.png" id="7_snon8"]
 [ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="8_vnhy5"]
+[ext_resource type="Texture2D" uid="uid://dipyuf0ssxwx1" path="res://ShipStatus_Health_Dire.png" id="8_y80yq"]
+[ext_resource type="Texture2D" uid="uid://bd8kmurdenrre" path="res://ShipStatus_Health_Okay.png" id="9_b4s7c"]
+[ext_resource type="Texture2D" uid="uid://b7fes6yplbqu6" path="res://ShipStatus_Attack_Backing.png" id="10_ebn1q"]
+[ext_resource type="Texture2D" uid="uid://cx5fw0fcrwdnf" path="res://ShipStatus_Attack_Front.png" id="11_1o4l0"]
+[ext_resource type="Texture2D" uid="uid://cdr2eyis5w3xo" path="res://ShipStatus_Attack_Back.png" id="12_4cnrd"]
+[ext_resource type="Texture2D" uid="uid://ddsx2g014rgsh" path="res://ShipStatus_Attack_Right.png" id="13_e4wiq"]
+[ext_resource type="Texture2D" uid="uid://d1iturqsqnfbv" path="res://ShipStatus_Attack_Left.png" id="14_2q31l"]
+[ext_resource type="Texture2D" uid="uid://dbpnp67fg72ld" path="res://BackWaveAnimated-SS.png" id="15_qorau"]
+[ext_resource type="Texture2D" uid="uid://hyeupafgcbtp" path="res://ShipProgressGraphic-SS.png" id="16_jgn4m"]
+[ext_resource type="Texture2D" uid="uid://boij0iqvht3a2" path="res://FrontWaveAnimated-SS.png" id="17_4amtf"]
+[ext_resource type="Texture2D" uid="uid://caela5f2qn07o" path="res://UI/StatusPortrait_Baby.png" id="18_qghoa"]
+[ext_resource type="Texture2D" uid="uid://d3cknqeltt4fa" path="res://UI/StatusPortrait_Helmsman.png" id="19_pde7g"]
+[ext_resource type="Texture2D" uid="uid://cjwp87nhfwvsk" path="res://UI/StatusPortrait_Lookout.png" id="20_wovod"]
+[ext_resource type="Texture2D" uid="uid://bkwl1vrmgfbhv" path="res://UI/StatusPortrait_DistressedAlert.png" id="21_8oobt"]
+[ext_resource type="Texture2D" uid="uid://cdmbwahxuexfd" path="res://UI/Reticle3SB.png" id="22_blaep"]
+[ext_resource type="Texture2D" uid="uid://bha4crb0xeqch" path="res://UI/Reticle2SB.png" id="23_ddn0u"]
+[ext_resource type="Texture2D" uid="uid://dt82k0ic2vppb" path="res://UI/Reticle1SB.png" id="24_m1ufy"]
+[ext_resource type="Texture2D" uid="uid://drkk6ccp7i6oc" path="res://UI/Reticle0SB.png" id="25_4yeya"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50p1x"]
+atlas = ExtResource("15_qorau")
+region = Rect2(0, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kt8fj"]
+atlas = ExtResource("15_qorau")
+region = Rect2(1920, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1edo"]
+atlas = ExtResource("15_qorau")
+region = Rect2(3840, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n8qd"]
+atlas = ExtResource("15_qorau")
+region = Rect2(5760, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3pu1"]
+atlas = ExtResource("15_qorau")
+region = Rect2(7680, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouiuj"]
+atlas = ExtResource("15_qorau")
+region = Rect2(0, 250, 1920, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hof74"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50p1x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kt8fj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1edo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n8qd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3pu1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouiuj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s4gt"]
+atlas = ExtResource("16_jgn4m")
+region = Rect2(0, 0, 358, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kkvb"]
+atlas = ExtResource("16_jgn4m")
+region = Rect2(358, 0, 358, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w2r7"]
+atlas = ExtResource("16_jgn4m")
+region = Rect2(716, 0, 358, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnbpx"]
+atlas = ExtResource("16_jgn4m")
+region = Rect2(1074, 0, 358, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uiaof"]
+atlas = ExtResource("16_jgn4m")
+region = Rect2(1432, 0, 358, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8yr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s4gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2kkvb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7w2r7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnbpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uiaof")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3ibu"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(0, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqj72"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(1920, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5dt8"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(3840, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xams5"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(5760, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocn1p"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(7680, 0, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hc1xd"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(0, 250, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nr1u"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(1920, 250, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsbl4"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(3840, 250, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpris"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(5760, 250, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1dny"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(7680, 250, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_junxx"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(0, 500, 1920, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_simgc"]
+atlas = ExtResource("17_4amtf")
+region = Rect2(1920, 500, 1920, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3m7qw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3ibu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqj72")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5dt8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xams5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocn1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hc1xd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3nr1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gsbl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bpris")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1dny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_junxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_simgc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q246h"]
 radius = 5.0
@@ -39,8 +243,218 @@ wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -1000)
 
 [node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("4_dq315")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -7.1545486)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -5.5325494)
 speed = 2.0
+
+[node name="Skeleton3D" parent="Player/Camera Position/Camera3D/Skeleton and AnimationPlayer/FPArms" index="0"]
+bones/4/rotation = Quaternion(-0.16922109, 0.05610392, -0.9632558, -0.20088527)
+bones/5/rotation = Quaternion(0.26084873, 0.036792863, 0.15117335, 0.9527596)
+bones/6/rotation = Quaternion(0.24801596, -0.074563526, 0.23787937, 0.93613136)
+bones/7/position = Vector3(0.18105242, 0.32509798, 0.35377014)
+bones/7/scale = Vector3(1, 1, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player/Camera Position/Camera3D" index="2"]
+
+[node name="ShipUI" type="Node" parent="Player/Camera Position/Camera3D/CanvasLayer"]
+
+[node name="OkShipIcon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI"]
+offset_left = 1031.0
+offset_top = 2.0
+offset_right = 2031.0
+offset_bottom = 1827.0
+scale = Vector2(0.11538776, 0.110850714)
+texture = ExtResource("7_snon8")
+
+[node name="BadShipIcon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI/OkShipIcon"]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 1825.0
+texture = ExtResource("8_y80yq")
+
+[node name="GoodShipIcon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI/OkShipIcon"]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 1825.0
+texture = ExtResource("9_b4s7c")
+
+[node name="ShipAttackBacking" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI"]
+offset_left = 1031.0
+offset_top = 2.0
+offset_right = 2031.0
+offset_bottom = 1827.0
+scale = Vector2(0.11538776, 0.110850714)
+texture = ExtResource("10_ebn1q")
+
+[node name="ShipAttackFront" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI/ShipAttackBacking"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("11_1o4l0")
+
+[node name="ShipAttackBack" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI/ShipAttackBacking"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("12_4cnrd")
+
+[node name="ShipAttackRight" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI/ShipAttackBacking"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("13_e4wiq")
+
+[node name="ShipAttackLeft" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ShipUI/ShipAttackBacking"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("14_2q31l")
+
+[node name="ProgressUI" type="Node" parent="Player/Camera Position/Camera3D/CanvasLayer"]
+
+[node name="BackWaveBar" type="AnimatedSprite2D" parent="Player/Camera Position/Camera3D/CanvasLayer/ProgressUI"]
+position = Vector2(591, 45.25)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_hof74")
+
+[node name="ShipProgressBar" type="AnimatedSprite2D" parent="Player/Camera Position/Camera3D/CanvasLayer/ProgressUI/BackWaveBar"]
+position = Vector2(-847.99994, 19.000006)
+sprite_frames = SubResource("SpriteFrames_h8yr3")
+
+[node name="FrontWaveBar" type="AnimatedSprite2D" parent="Player/Camera Position/Camera3D/CanvasLayer/ProgressUI"]
+position = Vector2(591, 55)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_3m7qw")
+
+[node name="PenguinStatusesUI" type="Node" parent="Player/Camera Position/Camera3D/CanvasLayer"]
+
+[node name="BabyP_Icon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/PenguinStatusesUI"]
+offset_left = 26.0
+offset_top = 34.0
+offset_right = 66.0
+offset_bottom = 74.0
+scale = Vector2(2.8193955, 2.7622254)
+texture = ExtResource("18_qghoa")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HelsmanP_Icon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/PenguinStatusesUI"]
+offset_left = 111.0
+offset_top = 86.0
+offset_right = 151.0
+offset_bottom = 126.0
+scale = Vector2(2.8193955, 2.7622254)
+texture = ExtResource("19_pde7g")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="LookoutP_Icon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/PenguinStatusesUI"]
+offset_left = 25.0
+offset_top = 135.0
+offset_right = 65.0
+offset_bottom = 175.0
+scale = Vector2(2.8193955, 2.7622254)
+texture = ExtResource("20_wovod")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DistressSweatBaby_Icon" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/PenguinStatusesUI"]
+offset_left = 19.0
+offset_top = 40.000004
+offset_right = 59.0
+offset_bottom = 80.0
+scale = Vector2(2.8193955, 2.7622254)
+texture = ExtResource("21_8oobt")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DistressSweatHelms_Icon2" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/PenguinStatusesUI"]
+offset_left = 104.99999
+offset_top = 89.0
+offset_right = 144.99998
+offset_bottom = 129.0
+scale = Vector2(2.8193955, 2.7622254)
+texture = ExtResource("21_8oobt")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="DistressSweatLookout_Icon3" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/PenguinStatusesUI"]
+offset_left = 18.0
+offset_top = 138.0
+offset_right = 58.0
+offset_bottom = 178.0
+scale = Vector2(2.8193955, 2.7622254)
+texture = ExtResource("21_8oobt")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ReticleUI" type="Node" parent="Player/Camera Position/Camera3D/CanvasLayer"]
+
+[node name="Recticle3" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ReticleUI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = -101.0
+offset_right = 190.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("22_blaep")
+
+[node name="Recticle2" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ReticleUI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -99.0
+offset_right = 188.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("23_ddn0u")
+
+[node name="Recticle1" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ReticleUI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -99.0
+offset_right = 188.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("24_m1ufy")
+
+[node name="Recticle0" type="TextureRect" parent="Player/Camera Position/Camera3D/CanvasLayer/ReticleUI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -99.0
+offset_right = 188.0
+offset_bottom = 201.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("25_4yeya")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
@@ -55,3 +469,5 @@ directional_shadow_blend_splits = true
 
 [node name="Sealion" parent="." instance=ExtResource("8_vnhy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.664204, 0, 16.049044)
+
+[editable path="Player"]
