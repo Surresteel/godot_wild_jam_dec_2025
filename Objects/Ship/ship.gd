@@ -27,6 +27,9 @@ const MAX_ROTATION: float = 10.0
 const WP_RADIUS: float = 10.0
 
 
+# SIGNALS:
+signal bow_hit_water()
+
 # BUOYANCY PRIVATE
 var _buoyancy_coef: float = BUOYANCY_MAX / SAMPLE_COUNT
 var _sample_points: PackedVector3Array
@@ -171,6 +174,11 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		var depth: float = water_height - pos_glb_point.y
 		var depth_fraction = clamp(depth / MAX_DEPTH, 0.0, 1.0)
 		var buoyancy_force = _buoyancy_coef * depth_fraction
+		
+		# Audio Stuff:
+		if point == _sample_points[1] and water_height > 2.5:
+			print(water_height)
+			bow_hit_water.emit()
 		
 		# Wave forces:
 		var wave_force := Vector3.ZERO
