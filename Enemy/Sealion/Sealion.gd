@@ -12,7 +12,8 @@ var dot_sealion_to_ship: float
 var next_target_pos: Vector3
 
 #References To Ship
-@onready var ship: Ship = $"../Ship"
+#@onready var ship: Ship = $"../Ship"
+@export var ship: Ship
 
 var do_buoy: bool = true
 
@@ -84,3 +85,7 @@ func get_water_height() -> float:
 	var data := Vector3(global_position.x, global_position.z, 
 				(Time.get_ticks_msec() / 1000.0))
 	return NoiseFunc.sample_at_pos_time(data)
+
+
+func set_target(t: RigidBody3D) -> void:
+	ship = t

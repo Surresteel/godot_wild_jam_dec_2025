@@ -51,3 +51,4 @@ const THROW_SOUNDS: Array [AudioStream] = \
 const ORCA_ATTACK_START = preload("uid://bh3t15t0du644")
 const ORCA_JUMP = preload("uid://cigmoe7aughst")
 const ORCA_ARRIVE = preload("uid://l7rskn6rv6vi")
+const ORCA_EXPLOSION = preload("uid://c543dj84lo7iy")

@@ -11,7 +11,8 @@ extends Node3D
 #	STATIC MEMBERS:
 #===============================================================================
 const ENEMY_ORCA = preload("uid://m46fqntcnrhl")
-static var enemy_types: Array = [ENEMY_ORCA]
+const ENEMY_SEALION = preload("uid://b1nfl17a80wwi")
+static var enemy_types: Array = [ENEMY_ORCA, ENEMY_SEALION]
 
 const ICEBERG_DEFAULT = preload("uid://eu78vs6xjcuh")
 const ICEBERG_SMALL = preload("uid://bcjxtpv4c6v00")
@@ -29,7 +30,7 @@ static var iceberg_types: Array = [ICEBERG_BIG_SIMPLE, ICEBERG_DEFAULT_SIMPLE,
 
 const spawn_radius_min_enemy: float = 500.0
 const spawn_radius_max_enemy: float = 1000.0
-const MAX_COUNT_ENEMIES: int = 10
+const MAX_COUNT_ENEMIES: int = 20
 
 const RAD_MIN_ICEBERG: float = 100.0
 const RAD_MAX_ICEBERG: float = 400.0
@@ -39,6 +40,8 @@ const MAX_COUNT_ICEBERGS: int = 100
 #===============================================================================
 #	MEMBERS:
 #===============================================================================
+@export var target_count_enemties: int = 10
+
 @export var init_count_iceberg: int = 10
 @export var target_count_icebergs: int = 25
 
@@ -70,8 +73,6 @@ func _post_ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	print(get_tree().current_scene.get_child_count())
-	
 	if not enabled:
 		return
 	
@@ -79,6 +80,8 @@ func _process(_delta: float) -> void:
 		return
 	
 	if Time.get_ticks_msec() >= _timeout_enemy:
+		if _enemies.size() >= target_count_enemties:
+			return
 		_cleaup_enemies()
 		_spawn_enemy()
 		_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000
@@ -124,6 +127,8 @@ func _spawn_enemy() -> void:
 	if enemy is Orca:
 		enemy.set_target(target)
 		enemy.assign_wave_manager(wave_manager)
+	if enemy is Sealion:
+		enemy.set_target(target)
 	
 	var dir = Vector3.FORWARD.rotated(Vector3.UP, randf() * TAU)
 	var dist = randf_range(spawn_radius_min_enemy, spawn_radius_max_enemy)
