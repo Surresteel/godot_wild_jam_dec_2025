@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cs10h4g0n4jk" path="res://Objects/Boat/Boat.gd" id="1_76qmm"]
 [ext_resource type="PackedScene" uid="uid://cdwtcgl5bsf5f" path="res://Objects/Cannon/cannon.tscn" id="2_wpqwl"]
-[ext_resource type="PackedScene" uid="uid://c3lq00ojnes4" path="res://Penguins/Assets/P_Muscle_Static.blend" id="3_y4hw4"]
-[ext_resource type="PackedScene" uid="uid://qt5kfl46mcur" path="res://Penguins/Assets/P_Hat_Static.blend" id="4_oe0k8"]
-[ext_resource type="PackedScene" uid="uid://b4cx3tlbyekhu" path="res://Penguins/Assets/P_Pirate_Static.blend" id="5_oe0k8"]
+[ext_resource type="PackedScene" uid="uid://c3lq00ojnes4" path="res://Penguins/Assets/Muscle/P_Muscle_Static.blend" id="3_y4hw4"]
+[ext_resource type="PackedScene" uid="uid://qt5kfl46mcur" path="res://Penguins/Assets/Hat/P_Hat_Static.blend" id="4_oe0k8"]
+[ext_resource type="PackedScene" uid="uid://b4cx3tlbyekhu" path="res://Penguins/Assets/Pirate/P_Pirate_Static.blend" id="5_oe0k8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htt6r"]
 resource_name = "WoodMain"
