@@ -90,7 +90,7 @@ func _physics_process(delta: float) -> void:
 				audio_emitter.play(0.5)
 		else:
 			#if is_active then player shouldnt be null
-			if Input.is_action_just_pressed("Reload"):
+			if Input.is_action_just_pressed("Reload") or Input.is_action_just_pressed("Main Action"):
 				cannon_reload.emit()
 	
 
