@@ -41,6 +41,12 @@ const ICE_SOUNDS: Array[AudioStream] = \
 	preload("uid://dt0y64gfpibsc"),
 	
 ]
+const THROW_SOUNDS: Array [AudioStream] = \
+[
+	preload("uid://q141umn5p5j6"),
+	preload("uid://bi58x13eykke3"),
+	preload("uid://c82jlpj43wi0m"),
+]
 
 const ORCA_ATTACK_START = preload("uid://bh3t15t0du644")
 const ORCA_JUMP = preload("uid://cigmoe7aughst")

@@ -29,8 +29,6 @@ var ship_last_rotation_y: float
 signal Interact
 
 # AUDIO STUFF:
-var timeout_step: float = 0.0
-var interval_step: float = 0.4
 @onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 
 # Buoyancy PID controller:
@@ -42,7 +40,7 @@ var last_error := 0.0
 
 
 func _ready() -> void:
-	audio_emitter.pitch_scale = 0.6
+	#audio_emitter.pitch_scale = 0.6
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	weapon_state_machine.get_current_state_object().enter()
 	movement_state_machine.get_current_state_object().enter()
@@ -130,6 +128,7 @@ func play_animaiton_queue(anim_name: String) -> void:
 
 func play_animaiton_interupt(anim_name: String, replay_current: bool = false,
 		 blend_speed: float = -1) -> void:
+	
 	var current_animation:= animation_player.current_animation
 	animation_player.play("FirstPerson_Player/" + anim_name, blend_speed)
 	if replay_current:
@@ -138,3 +137,8 @@ func play_animaiton_interupt(anim_name: String, replay_current: bool = false,
 func play_animation_no_interupt(anim_name: String) -> void: #intended in process
 	if not animation_player.is_playing():
 		animation_player.play("FirstPerson_Player/" + anim_name)
+
+
+func _play_throw_sound() -> void:
+	audio_emitter.stream = AudioManager.THROW_SOUNDS.pick_random()
+	audio_emitter.play()

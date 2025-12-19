@@ -283,6 +283,8 @@ script = ExtResource("13_3mea3")
 script = ExtResource("4_8g4oa")
 
 [node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+max_polyphony = 5
 bus = &"SFX_3D"
 
 [connection signal="signal_animation" from="Camera Position/Camera3D/Snowball_action" to="." method="play_animaiton_interupt"]
+[connection signal="signal_throw" from="Camera Position/Camera3D/Snowball_action" to="." method="_play_throw_sound"]

@@ -325,6 +325,8 @@ bus = &"SFX_3D"
 
 [node name="BowSounds" type="AudioStreamPlayer3D" parent="AudioEmitters"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0730786, -9.623024)
+panning_strength = 0.8
 bus = &"SFX_3D"
+attenuation_filter_db = -3.0
 
 [editable path="Mesh"]
