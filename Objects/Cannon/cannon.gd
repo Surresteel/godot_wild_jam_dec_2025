@@ -81,10 +81,14 @@ func _physics_process(delta: float) -> void:
 			var new_cannonball = instance_new_cannonball()
 			shoot(new_cannonball)
 			reloaded = false
+			# Audio stuff:
+			audio_emitter.stream = AudioManager.CANNON_SOUNDS.pick_random()
+			audio_emitter.play(0.5)
 		
 		#if is_active then player shouldnt be null
 		if Input.is_action_just_pressed("Reload"):
 			reload_start()
+			
 
 func instance_new_cannonball() -> CannonBall:
 	var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
