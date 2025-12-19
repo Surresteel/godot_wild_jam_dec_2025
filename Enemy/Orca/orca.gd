@@ -189,7 +189,7 @@ func _handle_collision(body: Node3D) -> void:
 		_die()
 	
 	# If they hit an iceberg, they go underwater:
-	if body is IcebergBase:
+	if body is IcebergBase or body is IcebergBaseSimple:
 		velocity += Vector3(0.0, -15.0, 0.0)
 	
 	if body is Orca:

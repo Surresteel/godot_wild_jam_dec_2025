@@ -138,7 +138,7 @@ func _spawn_iceberg(layer_size: int = -1, pos_override: Variant = null) -> void:
 	
 	# Prepare for loop below:
 	var index: int = randi() % iceberg_types.size()
-	var iceberg: IcebergBase = null
+	var iceberg: Variant = null
 	var iceberg_found = false
 	var attempts := 0
 	var count := iceberg_types.size()

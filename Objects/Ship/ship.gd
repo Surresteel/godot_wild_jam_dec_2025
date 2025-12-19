@@ -133,7 +133,7 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 #	COLLISION HANDLING:
 #===============================================================================
 func _handle_collisions(body: Node) -> void:
-	if body is IcebergBase:
+	if body is IcebergBase or body is IcebergBaseSimple:
 		var speed_sqr = linear_velocity.length_squared()
 		var berg_strength = body.onion_layers * body.onion_layers
 		var dif = speed_sqr - berg_strength

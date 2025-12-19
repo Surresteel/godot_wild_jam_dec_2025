@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://veevvnfjh4wu"]
 
-[ext_resource type="Script" uid="uid://bxlotkbbe831k" path="res://Objects/Icebergs/iceberg_default.gd" id="1_q5tn1"]
+[ext_resource type="Script" uid="uid://bqvxye080vjdh" path="res://Objects/Icebergs/iceberg_default_simple.gd" id="1_q5tn1"]
 [ext_resource type="PackedScene" uid="uid://d244258y7m8c7" path="res://Models/Icebergs/IceBerg 4 Peak1.blend" id="2_mxvs0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q5tn1"]
@@ -16,7 +16,6 @@ contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_q5tn1")
 _buoyancy_total = 80000.0
-_buoyancy_width = 20.0
 break_velocity = 6.0
 onion_layers = 3
 
