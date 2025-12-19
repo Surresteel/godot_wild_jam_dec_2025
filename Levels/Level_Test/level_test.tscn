@@ -23,7 +23,8 @@ wave_speed = 0.6
 
 [node name="Spawner" type="Node3D" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("2_vnhy5")
-target_count_icebergs = 50
+init_count_iceberg = 0
+target_count_icebergs = 0
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
 enabled = true

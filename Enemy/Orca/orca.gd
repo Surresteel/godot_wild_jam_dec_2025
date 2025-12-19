@@ -28,6 +28,7 @@ static var scene_death := preload(
 
 @onready var _area_3d: Area3D = $CollisionArea
 @onready var _anim_player: AnimationPlayer = $Orca_AnimatedDone/AnimationPlayer
+@onready var _audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 
 # State stuff:
 var _state: STATES = STATES.IDLE
@@ -39,6 +40,7 @@ var _attack_timeout: float = 0.0
 
 # Navigation stuff:
 var _waypoint := Vector3.ZERO
+var _waypoint_radius: float = 100.0
 var _radius_orbit: float = 50.0
 var _orbit_dir: bool = false
 var _allow_pitch: bool = true
@@ -128,11 +130,14 @@ func assign_wave_manager(wm: WaveManager) -> void:
 	_wave_manager = wm
 
 
-func set_target(t: Node3D) -> void:
+func set_target(t: Node3D, go_to: bool = true) -> void:
 	_jump_triggered = false
 	_is_jumping = false
 	_state_atk = STATES_ATK.OUT
 	_target = t
+	
+	if go_to:
+		_set_state(STATES.SWIM)
 
 
 func _set_state(s: STATES, reset_TO: bool = false, anim: String = "") -> void:
@@ -210,10 +215,12 @@ func _play_anim(anim: String, blend: float = 1, speed: float = 1.0) -> void:
 #	STATES:
 #===============================================================================
 func _handle_state() -> void:
-	if _state == STATES.ATTACK:
+	if _state == STATES.ATTACK or _state == STATES.SWIM:
 		return
 	
 	if Time.get_ticks_msec() > _attack_timeout:
+		_audio_emitter.stream = AudioManager.ORCA_ATTACK_START
+		_audio_emitter.play()
 		_set_state(STATES.ATTACK, false, "Surface")
 		return
 	
@@ -223,7 +230,9 @@ func _handle_state() -> void:
 
 
 func _do_state_swim(delta: float, destination: Vector3) -> void:
-	if global_position.distance_squared_to(destination) < 9:
+	if global_position.distance_squared_to(destination) < _waypoint_radius * _waypoint_radius:
+		_audio_emitter.stream = AudioManager.ORCA_ARRIVE
+		_audio_emitter.play()
 		_state = STATES.IDLE
 		return
 	
@@ -340,6 +349,8 @@ func _do_atk_state_jump(target: Node3D) -> void:
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
 	if not _jump_triggered:
+		_audio_emitter.stream = AudioManager.ORCA_JUMP
+		_audio_emitter.play()
 		_play_anim("Dive Bomb", -1, 1.5)
 		_set_swim_height(4)
 		_allow_pitch = true
