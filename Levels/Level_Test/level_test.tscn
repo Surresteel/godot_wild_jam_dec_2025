@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cv35k8nfgv88o"]
+[gd_scene load_steps=11 format=3 uid="uid://cv35k8nfgv88o"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
 [ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
 [ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="8_vnhy5"]
+[ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="9_txrj4"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_q246h"]
 radius = 5.0
@@ -38,8 +39,11 @@ max_contacts_reported = 4
 wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -1000)
 
+[node name="Freezer" type="Node3D" parent="Ship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3191711, 2.619545, -5.545521)
+
 [node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("4_dq315")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -7.1545486)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19108248, 2.9951112, -1.2782485)
 speed = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -55,3 +59,8 @@ directional_shadow_blend_splits = true
 
 [node name="Sealion" parent="." instance=ExtResource("8_vnhy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.664204, 0, 16.049044)
+
+[node name="Baby Penguin" parent="." node_paths=PackedStringArray("player", "freezer") instance=ExtResource("9_txrj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0998201, 2.3160002, -5.4612713)
+player = NodePath("../Player")
+freezer = NodePath("../Ship/Freezer")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ln1r0tal540m"]
+
+[ext_resource type="Script" uid="uid://b84sfjrfighbw" path="res://refill_station.gd" id="1_utxsr"]
+
+[node name="Refill Station" type="Area3D"]
+script = ExtResource("1_utxsr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

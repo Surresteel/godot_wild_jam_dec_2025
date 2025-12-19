@@ -19,7 +19,7 @@ var velocity: Vector3
 func _process(delta: float) -> void:
 	velocity = (global_position - last_pos ) / delta
 	last_pos = global_position
-	print(ammo)
+	#rint(ammo)
 
 func _spawn_snowball() -> RigidBody3D:
 	#var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
