@@ -359,6 +359,10 @@ radius = 0.70038915
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
 script = ExtResource("1_hesxv")
 
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42801136, -0.673012)
+bus = &"SFX_3D"
+
 [node name="Mesh" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.06649999)
 

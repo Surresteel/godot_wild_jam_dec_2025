@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 @onready var cannon_rack: MeshInstance3D = $"Mesh/Cannon Rack"
 @onready var wheels_front: MeshInstance3D = $"Mesh/Cannon Rack/Wheels/Wheel Jointer Front"
 @onready var wheels_back: MeshInstance3D = $"Mesh/Cannon Rack/Wheels/Wheel Joiner Back"
@@ -50,6 +51,10 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_released("Main Action"):
 			var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
 			var new_cannonball: RigidBody3D = CANNONBALL.instantiate()
+			
+			# Audio stuff:
+			audio_emitter.stream = AudioManager.CANNON_SOUNDS.pick_random()
+			audio_emitter.play(0.5)
 			
 			get_tree().get_root().add_child(new_cannonball)
 			new_cannonball.freeze = true

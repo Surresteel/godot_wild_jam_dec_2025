@@ -22,6 +22,11 @@ var ship_last_rotation_y: float
 
 signal Interact
 
+# AUDIO STUFF:
+var timeout_step: float = 0.0
+var interval_step: float = 0.4
+@onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
+
 # Buoyancy PID controller:
 const KP := 20.0
 const KI := 2.0
@@ -31,6 +36,7 @@ var last_error := 0.0
 
 
 func _ready() -> void:
+	audio_emitter.pitch_scale = 0.6
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _process(_delta: float) -> void:

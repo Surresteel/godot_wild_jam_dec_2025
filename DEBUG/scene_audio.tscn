@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdtrx7q1fcfqx"]
+
+[ext_resource type="Script" uid="uid://iixyi0a0x35x" path="res://Scripts/Standalone/scene_audio.gd" id="1_6ksoc"]
+
+[node name="SceneAudio" type="Node"]
+script = ExtResource("1_6ksoc")
+
+[node name="AudioAmbient" type="AudioStreamPlayer" parent="."]
+bus = &"SFX_GLOBAL"
+
+[node name="AudioMusic" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SealionStates="*res://Enemy/Sealion/StateMachine/SealionStates.gd"
+AudioManager="*res://Singletons/audio_manager.gd"
 
 [display]
 

@@ -30,13 +30,10 @@ const WP_RADIUS: float = 10.0
 # BUOYANCY PRIVATE
 var _buoyancy_coef: float = BUOYANCY_MAX / SAMPLE_COUNT
 var _sample_points: PackedVector3Array
-#var area: float = 30.0
-
 
 # FORCE PRIVATE:
 var _force_to_apply := Vector3.ZERO
 var _torque_to_apply := Vector3.ZERO
-
 
 # NAVIGATION PRIVATE:
 var _has_destination: bool = false
@@ -122,9 +119,7 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 		EVENTS.SEALION:
 			pass
 	
-	print(_hitpoints)
 	if _hitpoints < float(max_hitpoints) * 0.5:
-		print("Dropping speed and buoyancy")
 		_speed_limit = remap(_hitpoints, 0, max_hitpoints, 1, MAX_SPEED)
 		var new_buoyancy = remap(_hitpoints, 0, max_hitpoints, 
 				BUOYANCY_MIN, BUOYANCY_MAX)
@@ -172,7 +167,6 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 			
 		
 		var h2: float = NoiseFunc.sample_at_pos_time(data)
-		#var water_height = NoiseFunc.sample_at_pos_time(data)
 		var water_height = maxf(h1, h2)
 		var depth: float = water_height - pos_glb_point.y
 		var depth_fraction = clamp(depth / MAX_DEPTH, 0.0, 1.0)
@@ -202,23 +196,6 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		state.apply_force(point_force, pos_glb_point - state.transform.origin)
 
 
-# Apply forces external to the ship (waves):
-func _apply_external_forces(state: PhysicsDirectBodyState3D) -> void:
-	if not wave_manager:
-		return
-	
-	var w_data: Array[WaveManager.WaveData] = wave_manager.get_waves()
-	var force := Vector3.ZERO
-	for wave in w_data:
-		#print(wave.vel)
-		if wave.pos.distance_to(Vector2(state.transform.origin.x, 
-				state.transform.origin.z)) < 7.0:
-			force += wave.vel.normalized() * wave.vel.length() * wave.vel.length() * 50000 * wave.amp * 10 \
-					+ Vector3(0, 80000, 0) * wave.amp
-	
-	state.apply_force(force, Vector3(center_of_mass.x, center_of_mass.y - 1, center_of_mass.z))
-
-
 # Apply forces internal to the ship (steering, propulsion):
 func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 	var force := _force_to_apply
@@ -241,6 +218,7 @@ func _apply_internal_forces(state: PhysicsDirectBodyState3D) -> void:
 	return
 
 
+# Steers and propels the ship to point 'p':
 func _go_to_point(p: Vector3) -> void:
 	var to_point = global_position - p
 	var dir = to_point.normalized()
