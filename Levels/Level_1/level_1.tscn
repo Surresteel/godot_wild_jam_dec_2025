@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dywfyjaw4g4mb"]
+
+[ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_3nkyk"]
+[ext_resource type="Environment" uid="uid://bfv7g6en5iwsu" path="res://Levels/Level_1/level_1_environment.tres" id="2_01xhp"]
+[ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://Logical/Scene_Audio/SceneAudio.tscn" id="2_7bnrq"]
+[ext_resource type="Script" uid="uid://cly5pmnbwi55w" path="res://Scripts/Standalone/spawner.gd" id="3_ya7ph"]
+[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="4_fh3s5"]
+[ext_resource type="PackedScene" uid="uid://dk61wht8c4fr0" path="res://Objects/Wave/wave_manager.tscn" id="5_ya7ph"]
+[ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="7_7bnrq"]
+
+[node name="Level1" type="Node3D" node_paths=PackedStringArray("gen_point")]
+script = ExtResource("1_3nkyk")
+gen_point = NodePath("Ship")
+wave_freq = 1.0
+wave_speed = 0.5
+sea_colour_dark = Color(0.24761185, 0.00062107923, 0.5884014, 1)
+sea_colour_light = Color(0.3047917, 0.00040526091, 0.8743398, 1)
+sea_colour_foam = Color(0.6667784, 0.36136803, 0.9999961, 1)
+
+[node name="SceneAudio" parent="." instance=ExtResource("2_7bnrq")]
+
+[node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("wave_manager", "target")]
+script = ExtResource("3_ya7ph")
+wave_manager = NodePath("../WaveManager")
+target = NodePath("../Ship")
+enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_01xhp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.9616934, 0.030970275, 0.272372, -7.3034556e-09, -0.99359745, 0.112977795, 0.27412704, -0.10865001, -0.95553625, 0, 0, 0)
+light_color = Color(1, 0.45999998, 0.4870001, 1)
+light_angular_distance = 2.0
+light_specular = 0.3
+shadow_enabled = true
+
+[node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager") instance=ExtResource("4_fh3s5")]
+spawner = NodePath("../Spawner")
+wave_manager = NodePath("../WaveManager")
+initial_waypoint = Vector3(0, 0, -5000)
+
+[node name="WaveManager" parent="." instance=ExtResource("5_ya7ph")]
+
+[node name="Player" parent="." instance=ExtResource("7_7bnrq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.379222, -3.194574)

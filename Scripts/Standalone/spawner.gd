@@ -2,7 +2,7 @@
 #	CLASS PROPERTIES:
 #===============================================================================
 class_name Spawner
-extends Node3D
+extends Node
 
 
 

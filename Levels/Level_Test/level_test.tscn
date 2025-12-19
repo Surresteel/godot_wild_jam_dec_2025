@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
 [ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
 [ext_resource type="PackedScene" uid="uid://dk61wht8c4fr0" path="res://Objects/Wave/wave_manager.tscn" id="2_dq315"]
-[ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://DEBUG/scene_audio.tscn" id="2_q246h"]
+[ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://Logical/Scene_Audio/SceneAudio.tscn" id="2_q246h"]
 [ext_resource type="Script" uid="uid://cly5pmnbwi55w" path="res://Scripts/Standalone/spawner.gd" id="2_vnhy5"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
