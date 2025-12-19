@@ -24,10 +24,11 @@ environment = ExtResource("2_50fuq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.46512, 0, -12.309639)
 mesh = SubResource("CylinderMesh_n3hra")
 
-[node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("3_b55i6")]
+[node name="Player" parent="." node_paths=PackedStringArray("ship") groups=["SealionInteractables"] instance=ExtResource("3_b55i6")]
 transform = Transform3D(-0.9847076, 0, 0.1742153, 0, 1, 0, -0.1742153, 0, -0.9847076, -0.18236256, 2.7892716, -3.4974113)
 wall_min_slide_angle = 1.0471976
 speed = 2.5
+ship = NodePath("../Ship")
 
 [node name="Sealion" parent="." instance=ExtResource("7_50fuq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.092077, 1.5236425, 28.630964)
