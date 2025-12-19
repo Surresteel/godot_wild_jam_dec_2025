@@ -17,8 +17,15 @@ const ICEBERG_DEFAULT = preload("uid://eu78vs6xjcuh")
 const ICEBERG_SMALL = preload("uid://bcjxtpv4c6v00")
 const ICEBERG_MEDIUM = preload("uid://diu5nca8q3pvn")
 const ICEBERG_BIG = preload("uid://c4r781xe2va0x")
-static var iceberg_types: Array = [ICEBERG_DEFAULT, ICEBERG_SMALL, 
-		ICEBERG_MEDIUM, ICEBERG_BIG]
+const ICEBERG_BIG_SIMPLE = preload("uid://veevvnfjh4wu")
+const ICEBERG_DEFAULT_SIMPLE = preload("uid://bhhblklhw1p35")
+const ICEBERG_MEDIUM_SIMPLE = preload("uid://c8xlavimdgrh5")
+const ICEBERG_SMALL_SIMPLE = preload("uid://b52xa181uh7nx")
+
+#static var iceberg_types: Array = [ICEBERG_DEFAULT, ICEBERG_SMALL, 
+#		ICEBERG_MEDIUM, ICEBERG_BIG]
+static var iceberg_types: Array = [ICEBERG_BIG_SIMPLE, ICEBERG_DEFAULT_SIMPLE, 
+		ICEBERG_MEDIUM_SIMPLE, ICEBERG_SMALL_SIMPLE]
 
 const spawn_radius_min_enemy: float = 500.0
 const spawn_radius_max_enemy: float = 1000.0
@@ -63,6 +70,8 @@ func _post_ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	print(get_tree().current_scene.get_child_count())
+	
 	if not enabled:
 		return
 	
