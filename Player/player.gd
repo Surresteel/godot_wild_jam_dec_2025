@@ -11,6 +11,7 @@ var floor_velocity: Vector3
 @onready var weapon_state_machine: WeaponStateMachine = $WeaponStateMachine
 
 var is_interacting: bool = false
+var was_swimming: bool = false
 
 
 @export_category("Internal Nodes")

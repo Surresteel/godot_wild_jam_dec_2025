@@ -28,6 +28,14 @@ var last_error := 0.0
 
 var submerge_amount := 0
 
+#health stuff
+var health: int = 3
+var defeated: bool = false
+
+@warning_ignore("unused_signal")
+signal chaseing_started
+@warning_ignore("unused_signal")
+signal defeated_signal
 
 func _ready() -> void:
 	#states ready function
@@ -86,6 +94,22 @@ func get_water_height() -> float:
 				(Time.get_ticks_msec() / 1000.0))
 	return NoiseFunc.sample_at_pos_time(data)
 
+
+func play_animaiton_interupt(anim_name: String, replay_current: bool = false,
+		 blend_speed: float = -1) -> void:
+	var current_animation:= animation_player.current_animation
+	animation_player.play("FirstPerson_Player/" + anim_name, blend_speed)
+	if replay_current:
+		animation_player.queue(current_animation)
+
+func take_damage_real() -> void:
+	health -=1
+	if health <= 0:
+		defeated = true
+
+
+func take_damage(body: Node3D) -> void:
+	take_damage_real()
 
 func set_target(t: RigidBody3D) -> void:
 	ship = t

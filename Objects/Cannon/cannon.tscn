@@ -465,7 +465,7 @@ blend_shape_mode = 0
 [sub_resource type="SphereShape3D" id="SphereShape3D_hesxv"]
 radius = 0.70038915
 
-[node name="Cannon" type="Node3D"]
+[node name="Cannon" type="Node3D" groups=["Cannon"]]
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
 script = ExtResource("1_hesxv")
 max_power = 60.0
@@ -625,7 +625,7 @@ transform = Transform3D(1, 0, 0, 0, 0.99718004, 0.07505174, 0, -0.07505174, 0.99
 [node name="CannonInteract" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.9993681, -0.03554487, 0, 0.03554487, 0.9993681, 0, 0, 0)
 top_level = true
-collision_layer = 0
+collision_layer = 64
 collision_mask = 4
 script = ExtResource("2_pcunv")
 change_camera = true

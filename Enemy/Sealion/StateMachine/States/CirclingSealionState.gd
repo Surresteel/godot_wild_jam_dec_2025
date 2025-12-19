@@ -6,11 +6,15 @@ var swimming_distance: float = 50.0
 var swimming_distance_drain_speed:= 2.0
 var clockwise:bool = false
 
-func enter(_sealion: Sealion) -> void:
-	#print("circling")
+var animation_timer: float = 20
+var animation_current_time: float = 0
+
+func enter(sealion: Sealion) -> void:
 	swimming_distance = randf_range(25, 80)
 	swimming_distance_drain_speed = randf_range(1, 3)
 	clockwise = randi() % 2
+	
+	sealion.animation_player.play("Swimming")
 
 func exit(sealion: Sealion) -> void:
 	sealion.velocity = Vector3.ZERO
@@ -22,8 +26,17 @@ func pre_update(sealion: Sealion) -> void:
 		#Back to Front = 0 to +- 180, from the second mast
 		if sealion.dot_sealion_to_ship < 0.5:
 			sealion.change_state(SealionStates.BOARDING)
+	if sealion.defeated:
+		sealion.change_state(SealionStates.DEFEATED)
 
 func update(sealion: Sealion, delta) -> void:
+	if animation_current_time < animation_timer:
+		animation_current_time += delta
+	else:
+		animation_current_time = 0
+		animation_timer = randf_range(7,14) 
+		sealion.animation_player.play("Swimming")
+	
 	if swimming_distance > 20:
 		swimming_distance -= delta * swimming_distance_drain_speed
 	
