@@ -1,11 +1,15 @@
 class_name CannonBall
 extends RigidBody3D
 
+func _ready() -> void:
+	await get_tree().create_timer(5).timeout
+	queue_free()
+
 var _has_hit_water: bool = false
 static var scene_splash := preload("res://Particle_Effects/splash.tscn")
 
 func onHit() -> void:
-	await get_tree().create_timer(0.1).timeout
+	pass
 
 
 func fire(power: float, dir: Vector3, initial_velocity: Vector3) -> void:

@@ -28,15 +28,17 @@ var last_pos: Vector3
 var Velocity: Vector3
 var is_active: bool = false
 var reloaded: bool = true
+var shoot_bool: bool = false
 
 @export_category("TurnAngle")
 @onready var initial_angle:Vector3 = rotation
-@export var max_angle_y: float = 28.0
-@export var min_angle_x: float = -6.0
-@export var max_angle_x: float = 10.0
+@export var max_angle_x: float = 28.0
+@export var min_angle_y: float = -6.0
+@export var max_angle_y: float = 10.0
 
 
 signal cannon_exit(pos: Vector3, rot: Vector3)
+signal cannon_reload()
 
 func activate() -> void:
 	is_active = true
@@ -60,8 +62,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and is_active:
 		var new_rotation_x: float = -event.screen_relative.y * rotation_speed * get_process_delta_time()
 		var new_rotation_y: float = -event.screen_relative.x * rotation_speed * get_process_delta_time()
-		cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,min_angle_x,max_angle_x)
-		cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,-max_angle_y,max_angle_y)
+		cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,-6,max_angle_x)
+		cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,min_angle_y,max_angle_y)
 
 func _physics_process(delta: float) -> void:
 	if is_active:
@@ -73,22 +75,24 @@ func _physics_process(delta: float) -> void:
 		Velocity = (global_position - last_pos) / delta
 		last_pos = global_position
 		
+		if reloaded:
 		#check if reloaded on each if, maybe looks nicer doubt it matters
-		if Input.is_action_just_pressed("Main Action") and reloaded:
-			power_timer.start()
-			
-		if Input.is_action_just_released("Main Action") and reloaded:
-			var new_cannonball = instance_new_cannonball()
-			shoot(new_cannonball)
-			reloaded = false
-			# Audio stuff:
-			audio_emitter.stream = AudioManager.CANNON_SOUNDS.pick_random()
-			audio_emitter.play(0.5)
-		
-		#if is_active then player shouldnt be null
-		if Input.is_action_just_pressed("Reload"):
-			reload_start()
-			
+			if Input.is_action_just_pressed("Main Action"):
+				power_timer.start(charge_time)
+				shoot_bool = true
+			elif Input.is_action_just_released("Main Action") and shoot_bool:
+				shoot_bool = false
+				var new_cannonball = instance_new_cannonball()
+				shoot(new_cannonball)
+				reloaded = false
+				# Audio stuff:
+				audio_emitter.stream = AudioManager.CANNON_SOUNDS.pick_random()
+				audio_emitter.play(0.5)
+		else:
+			#if is_active then player shouldnt be null
+			if Input.is_action_just_pressed("Reload"):
+				cannon_reload.emit()
+	
 
 func instance_new_cannonball() -> CannonBall:
 	var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
@@ -112,11 +116,13 @@ func shoot(new_cannonball: RigidBody3D) -> void:
 	
 	power_timer.stop()
 
+func reload() -> void:
+	reloaded = true
+
 func reload_start() -> void:
-	if not reloaded:
-		animation_player.play(&"Cannon/P_FPArms_Cannon_Reload")
+	animation_player.play(&"Cannon/P_FPArms_Cannon_Reload")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == &"Cannon/P_FPArms_Cannon_Reload":
-		reloaded = true
+		#reloaded = true
 		animation_player.play(&"Cannon/P_FPArms_Cannon_Idle")

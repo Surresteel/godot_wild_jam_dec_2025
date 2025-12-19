@@ -12,6 +12,10 @@ func exit() -> void:
 func pre_update() -> void:
 	if player.is_on_floor():
 		transition.emit(player.movement_state_machine.state.WALKING)
+	elif player.global_position.y - 0.5 > player.get_water_height():
+		transition.emit(PlayerStateMachine.state.FALLING)
+	#elif Input.is_action_just_pressed("jump"):
+		#transition.emit(player.movement_state_machine.state.JUMPING)
 
 func update(delta: float) -> void:
 	
@@ -27,6 +31,7 @@ func update(delta: float) -> void:
 		#This preserves direction, before i was shifting to the greater cardinal direction
 		player.velocity.x = horizontal_velocity.x
 		player.velocity.z = horizontal_velocity.z
-
 	
+	if Input.is_action_just_pressed("jump"):
+		player.velocity.y += 8
 	player.velocity.y += player.get_gravity().y * delta

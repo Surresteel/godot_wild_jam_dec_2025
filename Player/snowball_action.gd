@@ -4,10 +4,11 @@ class_name SnowballAction
 const SNOWBALL = preload("uid://pj5t3u2p6vi2")
 
 signal signal_animation(anim_name: StringName)
+signal cannon_reload
 
 var ammo: int = 3
 var snowball_ready: bool = true
-@export var power: float = 15
+@export var power: float = 5
 
 var throw_direction: Vector3
 
@@ -18,7 +19,7 @@ var velocity: Vector3
 func _process(delta: float) -> void:
 	velocity = (global_position - last_pos ) / delta
 	last_pos = global_position
-	
+	print(ammo)
 
 func _spawn_snowball() -> RigidBody3D:
 	#var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
@@ -48,3 +49,9 @@ func _ready_snowball() -> void:
 	snowball_ready = true
 	if ammo > 0:
 		signal_animation.emit("P_FPArms__Snowball_Equip")
+
+
+func reload_cannon() -> void:
+	if ammo > 0:
+		cannon_reload.emit()
+		ammo -= 1

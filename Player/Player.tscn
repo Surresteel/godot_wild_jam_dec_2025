@@ -156,6 +156,7 @@ script = ExtResource("2_q3lat")
 [node name="Snowball_action" type="Node3D" parent="Camera Position/Camera3D"]
 transform = Transform3D(0.9961947, 0.015134434, 0.08583164, 0, 0.98480767, -0.17364818, -0.08715574, 0.17298739, 0.98106027, 0.19670129, 0.017453074, -0.0062252283)
 script = ExtResource("11_v0k0e")
+power = 10.0
 
 [node name="Skeleton and AnimationPlayer" type="Node3D" parent="Camera Position/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.62, 0)
