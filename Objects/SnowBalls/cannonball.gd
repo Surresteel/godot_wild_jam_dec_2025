@@ -8,9 +8,6 @@ func _ready() -> void:
 var _has_hit_water: bool = false
 static var scene_splash := preload("res://Particle_Effects/splash.tscn")
 
-func onHit() -> void:
-	pass
-
 
 func fire(power: float, dir: Vector3, initial_velocity: Vector3) -> void:
 	linear_velocity = initial_velocity

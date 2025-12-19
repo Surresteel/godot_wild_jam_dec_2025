@@ -39,8 +39,11 @@ wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -1000)
 momentum_gain = 0.1
 
+[node name="Freezer" type="Node3D" parent="Ship"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3191711, 2.619545, -5.545521)
+
 [node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("4_dq315")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4080439, 3.3304687, -7.1545486)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19108248, 2.9951112, -1.2782485)
 speed = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

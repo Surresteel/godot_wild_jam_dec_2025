@@ -13,6 +13,7 @@ func pre_update() -> void:
 	if player.is_on_floor():
 		transition.emit(player.movement_state_machine.state.WALKING)
 	elif player.global_position.y - 0.5 > player.get_water_height():
+		player.was_swimming = true
 		transition.emit(PlayerStateMachine.state.FALLING)
 	#elif Input.is_action_just_pressed("jump"):
 		#transition.emit(player.movement_state_machine.state.JUMPING)
