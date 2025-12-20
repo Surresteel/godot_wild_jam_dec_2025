@@ -8,6 +8,8 @@ extends Node3D
 #===============================================================================
 #	CLASS MEMBERS:
 #===============================================================================
+enum DIRECTIONS {FORWARD, AFT, LEFT, RIGHT}
+
 @onready var _audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 @onready var _anim_player: AnimationPlayer = \
 		$PenguinAlertScoutSteer/AnimationPlayer
@@ -106,13 +108,17 @@ func _track_target() -> void:
 	
 	if abs(dot_fwd) >= abs(dot_right):
 		if dot_fwd > 0.0:
+			_ship.emit_spotted(DIRECTIONS.FORWARD)
 			_play_sound(AudioManager.PENGUIN_NORTH)
 		else:
+			_ship.emit_spotted(DIRECTIONS.AFT)
 			_play_sound(AudioManager.PENGUIN_SOUTH)
 	else:
 		if dot_right > 0.0:
+			_ship.emit_spotted(DIRECTIONS.RIGHT)
 			_play_sound(AudioManager.PENGUIN_EAST)
 		else:
+			_ship.emit_spotted(DIRECTIONS.LEFT)
 			_play_sound(AudioManager.PENGUIN_WEST)
 	
 	_play_anim("Alert")

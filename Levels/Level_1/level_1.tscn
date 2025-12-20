@@ -21,13 +21,8 @@ sea_colour_foam = Color(0.6667784, 0.36136803, 0.9999961, 1)
 
 [node name="Spawner" type="Node" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("3_ya7ph")
-target_count_enemties = 0
-init_count_iceberg = 50
-target_count_icebergs = 100
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
-_interval_enemy = 60.0
-enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_01xhp")
@@ -44,7 +39,6 @@ spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -5000)
 momentum_gain = 0.1
-callout_distance = 200.0
 
 [node name="WaveManager" parent="." instance=ExtResource("5_ya7ph")]
 

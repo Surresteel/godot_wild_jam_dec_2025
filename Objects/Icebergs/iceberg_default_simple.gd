@@ -100,13 +100,14 @@ func _handle_collisions(body: Node) -> void:
 		else:
 			sink_and_melt()
 	
-	if body is Ship:
+	if body is Ship and _target:
 		var tgt_to_self = global_position - _target.global_position
 		var vel_to_self = body.linear_velocity.dot(tgt_to_self.normalized())
 		if is_sinking or vel_to_self > break_velocity:
 			_play_hit_effect()
 			#_mitosis(onion_layers - 1)
-			_break_apart()
+			#_break_apart()
+			sink_and_melt()
 
 
 func _play_hit_effect() -> void:

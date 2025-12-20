@@ -30,6 +30,7 @@ const WP_RADIUS: float = 50.0
 # SIGNALS:
 signal bow_hit_water()
 signal wave_inbound()
+signal enemy_spotted(sector: PenguinLookout.DIRECTIONS)
 
 # BUOYANCY PRIVATE
 var _buoyancy_coef: float = BUOYANCY_MAX / SAMPLE_COUNT
@@ -69,7 +70,7 @@ var _interval_hit_iceberg: float = 30.0
 
 # ENEMY LOOKOUT:
 @onready var lookout: PenguinLookout = $PenguinLookout
-var _callout_radius: float = 50.0
+var _callout_radius_wave: float = 50.0
 
 
 #===============================================================================
@@ -223,7 +224,7 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 
 
 func _callout_wave(to_wave: Vector2, wave_dir: Vector2) -> void:
-	if to_wave.length_squared() > _callout_radius * _callout_radius:
+	if to_wave.length_squared() > _callout_radius_wave * _callout_radius_wave:
 		return
 	
 	if wave_dir.dot(-to_wave) > 0.7:
@@ -317,6 +318,10 @@ func get_progress_total() -> float:
 	var prog = 1.0 - (dist_ship / dist_wp)
 	prog = clampf(prog, 0.0, 1.0)
 	return prog
+
+
+func emit_spotted(sector: PenguinLookout.DIRECTIONS) -> void:
+	enemy_spotted.emit(sector)
 
 
 #===============================================================================
