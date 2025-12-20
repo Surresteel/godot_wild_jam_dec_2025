@@ -284,6 +284,7 @@ func _go_to_point(p: Vector3) -> void:
 	if to_point.length_squared() <= WP_RADIUS:
 		_has_destination = false
 		print("WP reached")
+		ProgressionManager.mission_complete()
 	else:
 		move_forwards()
 

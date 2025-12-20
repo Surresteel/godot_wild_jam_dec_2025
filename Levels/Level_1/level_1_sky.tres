@@ -1,6 +1,6 @@
-[gd_resource type="Sky" load_steps=2 format=3 uid="uid://b6yurw1shvgcy"]
+[gd_resource type="Sky" load_steps=2 format=3 uid="uid://oqidwrtumwrc"]
 
-[ext_resource type="Material" uid="uid://othg1pinvwgy" path="res://Levels/Level_1/level_1_sky_material.tres" id="1_mgoyv"]
+[ext_resource type="Material" uid="uid://dp8auec45cim0" path="res://Levels/Level_1/level_1_sky_material.tres" id="1_2od7h"]
 
 [resource]
-sky_material = ExtResource("1_mgoyv")
+sky_material = ExtResource("1_2od7h")

@@ -27,7 +27,7 @@ func _spawn_snowball() -> RigidBody3D:
 	#var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
 	var new_snowball: RigidBody3D = SNOWBALL.instantiate()
 	
-	get_tree().get_root().add_child(new_snowball)
+	get_tree().current_scene.add_child(new_snowball)
 	new_snowball.freeze = true
 	new_snowball.global_position = global_position#cannon_barrel.global_position + local_offset
 	new_snowball.freeze = false

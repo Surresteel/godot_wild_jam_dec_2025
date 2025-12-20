@@ -98,7 +98,7 @@ func instance_new_cannonball() -> CannonBall:
 	var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
 	var new_cannonball: RigidBody3D = CANNONBALL.instantiate()
 	
-	get_tree().get_root().add_child(new_cannonball)
+	get_tree().current_scene.add_child(new_cannonball)
 	new_cannonball.freeze = true
 	new_cannonball.global_position = cannon_barrel.global_position + local_offset
 	new_cannonball.rotate_x(randf() * TAU)

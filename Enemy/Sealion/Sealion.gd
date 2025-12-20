@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name Sealion
 
 
-const SCENE_DEATH = preload("uid://cxd6d1hf0chd0")
+const SCENE_DEATH = preload("uid://dx7qtwbmcd1er")
 
 
 @onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
