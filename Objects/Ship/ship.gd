@@ -304,6 +304,10 @@ func set_waypoint(wp: Vector3) -> void:
 	_waypoint = wp
 
 
+func get_ship_health() -> float:
+	return clampf(float(_hitpoints) / float(max_hitpoints), 0.0, 1.0)
+
+
 func get_progress_wp() -> float:
 	if not _has_destination:
 		return 1.0
