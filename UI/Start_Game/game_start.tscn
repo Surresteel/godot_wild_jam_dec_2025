@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0ib2yxsxyfn1"]
+[gd_scene load_steps=5 format=3 uid="uid://b0ib2yxsxyfn1"]
 
 [ext_resource type="Script" uid="uid://cqmd70q2na4jp" path="res://UI/Start_Game/game_start.gd" id="1_70sux"]
-[ext_resource type="Texture2D" uid="uid://tgfmav85mfwn" path="res://Images/LoadingScreenV1.png" id="1_r07u1"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_70sux"]
-font_size = 64
+[ext_resource type="Texture2D" uid="uid://i4wdjeon5va" path="res://UI/Start_Game/InfoScreen.png" id="2_y0ck2"]
+[ext_resource type="Texture2D" uid="uid://bof5d3jgqdk2r" path="res://UI/Start_Game/StartButton01.png" id="3_vsl01"]
+[ext_resource type="Texture2D" uid="uid://8bks2bof2ggj" path="res://UI/Start_Game/StartButton02.png" id="4_bm0q0"]
 
 [node name="GameStart" type="CanvasLayer"]
 script = ExtResource("1_70sux")
@@ -39,35 +38,15 @@ offset_bottom = 755.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_r07u1")
+texture = ExtResource("2_y0ck2")
 
-[node name="Button" type="Button" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -187.0
-offset_top = 147.0
-offset_right = 210.23999
-offset_bottom = 233.345
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="Control/Button"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -133.5
-offset_top = -44.0
-offset_right = 133.5
-offset_bottom = 44.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "START GAME"
-label_settings = SubResource("LabelSettings_70sux")
-horizontal_alignment = 1
+[node name="TextureButton" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 258.0
+offset_right = 1116.0
+offset_bottom = 468.0
+scale = Vector2(0.325, 0.325)
+texture_normal = ExtResource("3_vsl01")
+texture_pressed = ExtResource("4_bm0q0")
+texture_hover = ExtResource("4_bm0q0")
