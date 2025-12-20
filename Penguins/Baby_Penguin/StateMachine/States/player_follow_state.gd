@@ -8,7 +8,6 @@ func enter() -> void:
 	baby.reload_area.set_collision_mask_value(7,0)
 	
 	baby.animation_player.play("Baby_Run",0.2)
-	print("entering")
 
 func exit() -> void:
 	pass
@@ -23,4 +22,8 @@ func pre_update() -> void:
 	
 
 func update(delta: float) -> void:
+		#gravity
+	if not baby.is_on_floor():
+		baby.velocity.y += baby.get_gravity().y * delta
+		
 	baby.move(delta)

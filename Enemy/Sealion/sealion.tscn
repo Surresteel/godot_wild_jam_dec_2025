@@ -873,7 +873,7 @@ _data = {
 size = Vector3(1, 0.8358154, 1.5753174)
 
 [node name="Sealion" type="CharacterBody3D"]
-collision_mask = 3
+collision_mask = 2
 floor_max_angle = 1.0471976
 script = ExtResource("1_0fx28")
 
@@ -885,6 +885,7 @@ shape = SubResource("CapsuleShape3D_myrwn")
 path_max_distance = 1.01
 navigation_layers = 0
 path_postprocessing = 1
+avoidance_mask = 0
 debug_enabled = true
 
 [node name="Armature" type="Node3D" parent="."]

@@ -4,6 +4,7 @@ class_name BabyPenguin
 
 @onready var statemachine: BabyPenguinStateMachine = $BabyPenguinStateMachine
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var skeleton_no_arms: Skeleton3D = $Armature_001/Skeleton3D
 
 @export_category("Stats")
 @export var speed: float = 2
@@ -36,16 +37,10 @@ signal reload_signal()
 func _ready() -> void:
 	statemachine.get_current_state_object().enter()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#Nav Agent Update
 	set_next_target_position()
 	
-	#gravity
-	if not is_on_floor():
-		velocity.y += get_gravity().y * delta
-	
-	#Move
-	move_and_slide()
 	
 
 #Set Next Target Position For Nav Agent
@@ -70,6 +65,8 @@ func move(delta: float, speed_modifier:float = 1) -> void:
 	var radians_to_turn: float = atan2(-dir.x, -dir.z)
 	var turn_amount = lerp_angle(global_rotation.y, radians_to_turn, 0.5)
 	global_rotation.y = turn_amount
+	
+	move_and_slide()
 
 func set_closest_unloaded_cannon() -> void:
 	var cannon_array = get_tree().get_nodes_in_group("Cannon")
@@ -93,6 +90,9 @@ func set_chased(state: bool) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Baby_GrabbingSnowball":
 		animation_player.play("Baby_HoldingSnowballIdle")
+		set_reload_ready()
+	if anim_name == "Baby_HidingSnowball":
+		animation_player.play("Baby_HidingSnowbalIdle")
 		set_reload_ready()
 
 
