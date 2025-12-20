@@ -46,9 +46,6 @@ helmsman = NodePath("../HelmsmenPenguin")
 initial_waypoint = Vector3(0, 0, -1000)
 momentum_gain = 0.1
 
-[node name="Freezer" type="Node3D" parent="Ship"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.3191711, 2.619545, -6.094961)
-
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false
 
@@ -102,3 +99,7 @@ ship = NodePath("../Ship")
 player = NodePath("../Player")
 baby = NodePath("../Baby Penguin")
 helms = NodePath("../HelmsmenPenguin")
+
+[editable path="Ship"]
+[editable path="Ship/Cannons/Cannon4"]
+[editable path="Ship/Cannons/Cannon5"]

@@ -51,9 +51,6 @@ wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -1000)
 momentum_gain = 0.1
 
-[node name="Freezer" type="Node3D" parent="Ship"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.3267467, 2.279879, -6.213766)
-
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false
 

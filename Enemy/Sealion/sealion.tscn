@@ -886,7 +886,6 @@ shape = SubResource("CapsuleShape3D_myrwn")
 navigation_layers = 0
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
 debug_use_custom = true
 
 [node name="Armature" type="Node3D" parent="."]

@@ -98,13 +98,18 @@ light_angular_distance = 0.5
 shadow_enabled = true
 shadow_blur = 4.647
 
-[node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player") instance=ExtResource("9_g8hy2")]
+[node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player", "freezer") instance=ExtResource("9_g8hy2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
 ship = NodePath("../Ship")
 player = NodePath("../Player")
+freezer = NodePath("../Ship/Freezer")
 
 [node name="CanvasLayer" parent="." node_paths=PackedStringArray("ship", "player", "baby", "helms") instance=ExtResource("10_rwvcs")]
 ship = NodePath("../Ship")
 player = NodePath("../Player")
 baby = NodePath("../Baby Penguin")
 helms = NodePath("../HelmsmenPenguin")
+
+[editable path="Ship"]
+[editable path="Ship/Cannons/Cannon4"]
+[editable path="Ship/Cannons/Cannon5"]

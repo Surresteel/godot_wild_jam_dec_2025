@@ -103,9 +103,14 @@ shadow_blur = 4.647
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 5.506114, -4.476364)
 ship = NodePath("../Ship")
 player = NodePath("../Player")
+freezer = NodePath("../Ship/Freezer")
 
 [node name="CanvasLayer" parent="." node_paths=PackedStringArray("ship", "player", "baby", "helms") instance=ExtResource("10_xmakh")]
 ship = NodePath("../Ship")
 player = NodePath("../Player")
 baby = NodePath("../Baby Penguin")
 helms = NodePath("../HelmsmenPenguin")
+
+[editable path="Ship"]
+[editable path="Ship/Cannons/Cannon4"]
+[editable path="Ship/Cannons/Cannon5"]
