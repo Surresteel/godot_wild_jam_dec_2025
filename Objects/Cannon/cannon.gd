@@ -22,6 +22,7 @@ var player: Player
 var current_power: float = 0.0
 @onready var power_timer: Timer = $PowerTimer
 @export_range(0.5, 10, 0.5, "suffix:Seconds") var charge_time: float = 1.5
+@export var exit_range: float = 0.65
 
 var projectile_Offset := Vector3(0,0,-1).length()
 var last_pos: Vector3
@@ -52,7 +53,7 @@ func activate() -> void:
 func deactivate() -> void:
 	is_active = false
 	animaiton_mesh_parent.visible = false                      #Player Height
-	cannon_exit.emit(0.65 * global_basis.z + global_position,
+	cannon_exit.emit(exit_range * global_basis.z + global_position,
 			 global_rotation)
 	ui_cannon_exit.emit()
 
