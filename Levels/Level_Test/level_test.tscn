@@ -105,10 +105,7 @@ directional_shadow_blend_splits = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14835966, 4.054515, 5.9928074)
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
-<<<<<<< HEAD
 
 [node name="Sealion" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.16885, 0, -4.8407764)
 ship = NodePath("../Ship")
-=======
->>>>>>> 48b6cf538cbded48feb0eb712746afef0308f79c
