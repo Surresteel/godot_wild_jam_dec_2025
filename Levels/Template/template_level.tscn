@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwdq4qvh5hryc"]
+[gd_scene load_steps=12 format=3 uid="uid://dwdq4qvh5hryc"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_dmh22"]
 [ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://Logical/Scene_Audio/SceneAudio.tscn" id="2_5opb2"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dk61wht8c4fr0" path="res://Objects/Wave/wave_manager.tscn" id="6_pngnf"]
 [ext_resource type="Environment" uid="uid://b5jo5v8jluau1" path="res://Levels/Template/template_environment.tres" id="7_f6ga3"]
 [ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_5opb2"]
+[ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="10_6k4ig"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5opb2"]
 radius = 0.1
@@ -94,3 +95,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
+
+[node name="Sealion" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_6k4ig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.290134, 0, -0.67087936)
+ship = NodePath("../Ship")

@@ -2,6 +2,13 @@ extends CharacterBody3D
 class_name Sealion
 
 
+const SCENE_DEATH = preload("uid://cxd6d1hf0chd0")
+
+
+@onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
+var timeout_grunt: float = 0.0
+var interval_grunt: float = 5.0 * 1000.0
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 #movement code related
 var target_node: Node3D
@@ -102,14 +109,30 @@ func play_animaiton_interupt(anim_name: String, replay_current: bool = false,
 	if replay_current:
 		animation_player.queue(current_animation)
 
-func take_damage_real() -> void:
-	health -=1
+func take_damage_real(damage: int = 1) -> void:
+	if health <= 0:
+		return
+	
+	audio_emitter.stream = AudioManager.PUNCH
+	audio_emitter.play()
+	health -= damage
 	if health <= 0:
 		defeated = true
+		await get_tree().create_timer(0.25).timeout
+		audio_emitter.stream = AudioManager.SEALION_DEATH
+		audio_emitter.play()
 
 
-func take_damage(_body: Node3D) -> void:
-	take_damage_real()
+func take_damage(body: Node3D) -> void:
+	if body is CannonBall:
+		var vel = body.linear_velocity.length()
+		if target_node and target_node is RigidBody3D and state == SealionStates.WALKING:
+			vel -= target_node.linear_velocity.length()
+		if vel > 10.0:
+			take_damage_real(3)
+		else:
+			take_damage_real()
+	
 
 func set_target(t: RigidBody3D) -> void:
 	ship = t

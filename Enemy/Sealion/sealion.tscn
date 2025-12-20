@@ -1088,4 +1088,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37631667, 0.119966984)
 shape = SubResource("BoxShape3D_0fx28")
 debug_fill = false
 
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+bus = &"SFX_3D"
+
 [connection signal="body_entered" from="hitbox" to="." method="take_damage"]

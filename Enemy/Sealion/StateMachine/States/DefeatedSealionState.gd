@@ -10,6 +10,10 @@ func enter(sealion: Sealion) -> void:
 	sealion.chaseing_started.emit(false)
 	await sealion.animation_player.animation_finished
 	
+	var blood: Node3D = Sealion.SCENE_DEATH.instantiate()
+	sealion.get_tree().current_scene.add_child(blood)
+	blood.global_position = sealion.global_position
+	
 	sealion.defeated_signal.emit()
 	sealion.queue_free()
 

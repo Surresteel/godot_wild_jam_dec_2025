@@ -38,6 +38,13 @@ func update(sealion: Sealion, _delta) -> void:
 	else:
 		sealion.velocity = Vector3.ZERO
 		sealion.animation_player.play("Attack")
+		
+		if Time.get_ticks_msec() > sealion.timeout_grunt:
+			sealion.audio_emitter.stream = AudioManager.SEALION_GRUNT
+			sealion.audio_emitter.play()
+			sealion.timeout_grunt = Time.get_ticks_msec() \
+					+ sealion.interval_grunt
+		
 		if sealion.target_node.has_method("take_damage"):
 			sealion.target_node.take_damage()
 		if sealion.target_node is BabyPenguin:

@@ -79,3 +79,7 @@ const PENGUIN_NORTH = preload("uid://bpcpqeeshysop")
 const PENGUIN_SOUTH = preload("uid://cqwfo87w8hsr0")
 const PENGUIN_WEST = preload("uid://k5umegh7rai4")
 const WAVE_INCOMING = preload("uid://ch5fhuuy0sccy")
+const PUNCH = preload("uid://sa1xkciyy3ls")
+
+const SEALION_GRUNT = preload("uid://cu425cdlsei3t")
+const SEALION_DEATH = preload("uid://cn06xh0157jie")
