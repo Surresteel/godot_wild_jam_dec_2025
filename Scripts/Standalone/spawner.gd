@@ -10,7 +10,7 @@ extends Node
 #===============================================================================
 #	STATIC MEMBERS:
 #===============================================================================
-signal enemy_spawned(pos: Vector3, dir: Vector3)
+signal enemy_spawned(enemy: Node3D)
 
 const ENEMY_ORCA = preload("uid://m46fqntcnrhl")
 const ENEMY_SEALION = preload("uid://b1nfl17a80wwi")
@@ -50,8 +50,10 @@ const MAX_COUNT_ICEBERGS: int = 100
 @export var wave_manager: WaveManager = null
 @export var target: Node3D = null
 @export var _interval_enemy: float = 30.0
+@export var _interval_enemy_random: float = 30.0
 @export var _interval_iceberg: float = 1.0
 @export var enabled: = false
+@export var _initial_delay: float = 20.0
 #@export var _target_count_icebergs: int = 100
 
 
@@ -66,6 +68,7 @@ var _count_icebergs: int = 0
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	_initial_delay = Time.get_ticks_msec() + _initial_delay * 1000.0
 	call_deferred("_post_ready")
 
 
@@ -81,12 +84,16 @@ func _process(_delta: float) -> void:
 	if not target:
 		return
 	
+	if Time.get_ticks_msec() < _initial_delay:
+		return
+	
 	if Time.get_ticks_msec() >= _timeout_enemy:
 		if _enemies.size() >= target_count_enemties:
 			return
 		_cleaup_enemies()
 		_spawn_enemy()
-		_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000
+		_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000 \
+				+ randf() * _interval_enemy_random
 	
 	if Time.get_ticks_msec() >= _timeout_iceberg:
 		if _count_icebergs >= target_count_icebergs:
@@ -136,7 +143,7 @@ func _spawn_enemy() -> void:
 	var dist = randf_range(spawn_radius_min_enemy, spawn_radius_max_enemy)
 	var pos = target.global_position + dir * dist
 	enemy.global_position = pos
-	enemy_spawned.emit(pos, dir)
+	enemy_spawned.emit(enemy)
 
 
 ## Spawns an iceberg around target, or pos_override, if set:

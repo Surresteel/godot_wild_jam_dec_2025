@@ -24,6 +24,6 @@ func _physics_process(_delta: float) -> void:
 	
 	if global_position.y <= water_height:
 		var splash: Node3D = scene_splash.instantiate()
-		get_tree().get_root().add_child(splash)
+		get_tree().current_scene.add_child(splash)
 		splash.global_position = global_position
 		_has_hit_water = true

@@ -10,8 +10,12 @@ extends Node3D
 #===============================================================================
 @onready var _audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 
+var dist_callout: float = 500
+var dist_callout_sqr: float
+
 var _ship: Ship
 var _spawner: Spawner
+var _target: Node3D = null
 
 var _timeout_wave_callout: float = 0.0
 var _interval_wave_callout: float = 10.0 * 1000.0
@@ -25,28 +29,25 @@ func _ready() -> void:
 		_spawner.enemy_spawned.connect(_callout_enemy)
 	
 	if _ship:
+		dist_callout = _ship.callout_distance
 		_ship.wave_inbound.connect(_callout_wave)
+	
+	dist_callout_sqr = dist_callout * dist_callout
+
+
+func _process(_delta: float) -> void:
+	if not _target:
+		return
+	
+	_track_target()
 
 
 ## Executes code based on the quadrant that an enemy is in relative to the ship:
-func _callout_enemy(_pos: Vector3, dir: Vector3) -> void:
-	if not _ship:
+func _callout_enemy(enemy: Node3D) -> void:
+	if not _ship and not _target:
 		return
 	
-	var to_enemy = dir.normalized()
-	var dot_fwd = to_enemy.dot(-_ship.global_basis.z)
-	var dot_right = to_enemy.dot(_ship.global_basis.x)
-	
-	if abs(dot_fwd) >= abs(dot_right):
-		if dot_fwd > 0.0:
-			_play_sound(AudioManager.PENGUIN_NORTH)
-		else:
-			_play_sound(AudioManager.PENGUIN_SOUTH)
-	else:
-		if dot_right > 0.0:
-			_play_sound(AudioManager.PENGUIN_EAST)
-		else:
-			_play_sound(AudioManager.PENGUIN_WEST)
+	_target = enemy
 
 
 func _callout_wave() -> void:
@@ -81,3 +82,26 @@ func _play_sound(stream: AudioStream) -> void:
 	if not _audio_emitter.playing:
 		_audio_emitter.stream = stream
 		_audio_emitter.play()
+
+
+func _track_target() -> void:
+	var to_enemy := _target.global_position - global_position
+	if to_enemy.length_squared() > dist_callout_sqr:
+		return
+	
+	var dir = to_enemy.normalized()
+	var dot_fwd = dir.dot(-_ship.global_basis.z)
+	var dot_right = dir.dot(_ship.global_basis.x)
+	
+	if abs(dot_fwd) >= abs(dot_right):
+		if dot_fwd > 0.0:
+			_play_sound(AudioManager.PENGUIN_NORTH)
+		else:
+			_play_sound(AudioManager.PENGUIN_SOUTH)
+	else:
+		if dot_right > 0.0:
+			_play_sound(AudioManager.PENGUIN_EAST)
+		else:
+			_play_sound(AudioManager.PENGUIN_WEST)
+	
+	_target = null

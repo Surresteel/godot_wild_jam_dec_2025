@@ -23,6 +23,7 @@ sea_colour_foam = Color(0.6667784, 0.36136803, 0.9999961, 1)
 script = ExtResource("3_ya7ph")
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
+_interval_enemy = 60.0
 enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -30,7 +31,7 @@ environment = ExtResource("2_01xhp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(0.9616934, 0.030970275, 0.272372, -7.3034556e-09, -0.99359745, 0.112977795, 0.27412704, -0.10865001, -0.95553625, 0, 0, 0)
-light_color = Color(1, 0.45999998, 0.4870001, 1)
+light_color = Color(1, 0.7, 0.7049999, 1)
 light_angular_distance = 2.0
 light_specular = 0.3
 shadow_enabled = true
@@ -39,8 +40,11 @@ shadow_enabled = true
 spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 initial_waypoint = Vector3(0, 0, -5000)
+momentum_gain = 0.1
+callout_distance = 200.0
 
 [node name="WaveManager" parent="." instance=ExtResource("5_ya7ph")]
 
 [node name="Player" parent="." instance=ExtResource("7_7bnrq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.379222, -3.194574)
+speed = 2.0

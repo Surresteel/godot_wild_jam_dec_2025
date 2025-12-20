@@ -54,6 +54,7 @@ var _waypoint: Vector3 = Vector3.ZERO
 @export var max_hitpoints: int = 100
 @export var speed_base: float = 1.0
 @export var momentum_gain: float = 0.01
+@export var callout_distance: float = 500
 
 # GAMEPLAY PRIVATE:
 var _hitpoints: int = 100
@@ -200,7 +201,8 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 					* 5000 * highest_wave.amp * 10 + Vector3(0, 1000, 0) * \
 					highest_wave.amp
 			wave_force /= SAMPLE_COUNT
-			state.apply_force(wave_force, pos_glb_point - state.transform.origin)
+			state.apply_force(wave_force, pos_glb_point - 
+					state.transform.origin)
 		
 		# Dampening forces:
 		var damping_force := 0.0

@@ -198,7 +198,7 @@ func _handle_collision(body: Node3D) -> void:
 
 func _die() -> void:
 	var blood: Node3D = scene_death.instantiate()
-	get_tree().get_root().add_child(blood)
+	get_tree().current_scene.add_child(blood)
 	blood.global_position = global_position
 	queue_free()
 
@@ -367,7 +367,7 @@ func _do_atk_state_jump(target: Node3D) -> void:
 		#var par = get_parent()
 		var to_target := target.global_position - global_position
 		var wave: Wave = scene_wave.instantiate()
-		get_tree().get_root().add_child(wave)
+		get_tree().current_scene.add_child(wave)
 		var pos := Vector3(global_position.x, 0.0, global_position.z)
 		var dir := Vector3(-basis.z.x, 0.0, -basis.z.z).normalized()
 		var tgt_point: Vector3 = pos + dir * to_target.length()
