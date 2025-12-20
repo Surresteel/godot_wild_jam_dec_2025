@@ -98,7 +98,7 @@ light_angular_distance = 0.5
 shadow_enabled = true
 
 [node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player", "freezer") instance=ExtResource("9_r3bwj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 4.596369, -4.476364)
 ship = NodePath("../Ship")
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
