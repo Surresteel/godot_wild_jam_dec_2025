@@ -30,6 +30,7 @@ const WP_RADIUS: float = 50.0
 # SIGNALS:
 signal bow_hit_water()
 signal wave_inbound()
+signal iceberg_hit(did_damage: bool)
 signal enemy_spotted(sector: PenguinLookout.DIRECTIONS)
 
 # BUOYANCY PRIVATE
@@ -167,11 +168,11 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 #===============================================================================
 func _handle_collisions(body: Node) -> void:
 	if body is IcebergBase or body is IcebergBaseSimple:
-		var speed_sqr = linear_velocity.length_squared()
-		var berg_strength = body.onion_layers * body.onion_layers
-		var dif = speed_sqr - berg_strength
+		var speed = linear_velocity.length()
+		var dif = speed - body.break_velocity
 		if dif < 0:
 			_handle_events(EVENTS.ICEBERG, abs(dif))
+		iceberg_hit.emit(dif < 0)
 
 
 #===============================================================================

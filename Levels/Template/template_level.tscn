@@ -22,6 +22,7 @@ wave_amp = 2.0
 [node name="SceneAudio" parent="." instance=ExtResource("2_5opb2")]
 
 [node name="Spawner" parent="." node_paths=PackedStringArray("wave_manager", "target") instance=ExtResource("3_7my36")]
+init_count_iceberg = 20
 target_count_icebergs = 40
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
@@ -33,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
 speed = 2.0
 
 [node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("5_7my36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.179257, 3.0615563)
 wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
 chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
 
@@ -44,7 +46,7 @@ initial_waypoint = Vector3(0, 0, -1000)
 momentum_gain = 0.1
 
 [node name="Freezer" type="Node3D" parent="Ship"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3191711, 2.619545, -5.545521)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.3191711, 2.619545, -6.094961)
 
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false

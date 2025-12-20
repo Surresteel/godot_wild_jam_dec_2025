@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var bow_emitter: AudioStreamPlayer3D = $BowSounds
+@onready var crash_emitter: AudioStreamPlayer3D = $CrashSounds
 var _emitters_wood: Array[AudioStreamPlayer3D] = []
 var _emitters_wave: Array[AudioStreamPlayer3D] = []
 var _timeouts_wood: Array[float]
@@ -11,6 +12,8 @@ var _ship: Ship
 
 var _timeout_bow_splash: float = 0.0
 var _interval_bow_splash: float = 5.0 * 1000.0
+var _timeout_crash: float = 0.0
+var _interval_crash: float = 10.0 * 1000.0
 
 
 func _ready() -> void:
@@ -34,6 +37,7 @@ func _ready() -> void:
 	bow_emitter.stream = AudioManager.SEA_SPRAY
 	if _ship:
 		_ship.bow_hit_water.connect(_bow_splash)
+		_ship.iceberg_hit.connect(_ice_hit)
 
 
 func _process(_delta: float) -> void:
@@ -74,3 +78,10 @@ func _bow_splash() -> void:
 	if Time.get_ticks_msec() > _timeout_bow_splash:
 		bow_emitter.play()
 		_timeout_bow_splash = Time.get_ticks_msec() + _interval_bow_splash
+
+
+func _ice_hit(did_damage: bool = false) -> void:
+	if did_damage and Time.get_ticks_msec() > _timeout_crash:
+		crash_emitter.stream = AudioManager.CRASH_SOUNDS.pick_random()
+		crash_emitter.play()
+		_timeout_crash = Time.get_ticks_msec() + _interval_crash

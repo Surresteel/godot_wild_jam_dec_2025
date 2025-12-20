@@ -68,6 +68,12 @@ const WAVE_SOUNDS: Array[AudioStream] = \
 	preload("uid://bo75pv62uqpej"),
 ]
 
+const CRASH_SOUNDS: Array[AudioStream] = \
+[
+	preload("uid://ckvditi8elblg"),
+	preload("uid://b7f4lbcopm3yv"),
+]
+
 const PENGUIN_EAST = preload("uid://dib6iqe6dh6lp")
 const PENGUIN_NORTH = preload("uid://bpcpqeeshysop")
 const PENGUIN_SOUTH = preload("uid://cqwfo87w8hsr0")
