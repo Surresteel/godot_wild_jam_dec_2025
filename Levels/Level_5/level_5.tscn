@@ -38,15 +38,16 @@ enabled = true
 _initial_delay = 0.0
 
 [node name="Player" parent="." instance=ExtResource("4_qc7gq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4871483, 5.0755663)
 speed = 2.0
 
 [node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("5_jdhsl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.179257, 3.0615563)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5082154, 3.0615563)
 wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
 chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
 
 [node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager", "helmsman") instance=ExtResource("6_j3e5n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3289585, 0)
 spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 helmsman = NodePath("../HelmsmenPenguin")
@@ -97,7 +98,7 @@ light_angular_distance = 0.5
 shadow_enabled = true
 
 [node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player") instance=ExtResource("9_r3bwj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 4.802823, -4.476364)
 ship = NodePath("../Ship")
 player = NodePath("../Player")
 

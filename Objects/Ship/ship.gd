@@ -70,6 +70,7 @@ var _interval_hit_wave: float = 5.0
 var _timeout_hit_icerberg: float = 0.0
 var _interval_hit_iceberg: float = 30.0
 var _has_driver: bool = true
+var _has_failed: bool = false
 
 # ENEMY LOOKOUT:
 @onready var lookout: PenguinLookout = $PenguinLookout
@@ -133,6 +134,8 @@ func _post_ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	_check_upside_down()
+	
 	if _has_driver and _has_destination:
 		_go_to_point(_waypoint)
 	elif not _has_driver and _has_destination:
@@ -323,7 +326,21 @@ func _driver_off() -> void:
 
 
 func _game_over() -> void:
+	_has_failed = true
+	_fail_mission()
+
+
+func _check_upside_down() -> void:
+	if self.global_basis.y.dot(Vector3.DOWN) > 0.4 and not _has_failed:
+		_has_failed = true
+		print("Upside down.")
+		_fail_mission()
+
+
+func _fail_mission() -> void:
+	await get_tree().create_timer(10.0).timeout
 	ProgressionManager.mission_failed()
+	
 
 
 #===============================================================================

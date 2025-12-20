@@ -22,6 +22,8 @@ extends CanvasLayer
 @onready var distress_sweat_baby_icon: TextureRect = $PenguinStatusesUI/DistressSweatBaby_Icon
 @onready var cannon_power: ProgressBar = $ReticleUI/CannonPower
 
+@onready var warning_cannons: Label = $Notifications/WarningCannons
+
 
 const PROGRESS_START: float = -211.0
 const PROGRESS_END: float = 218.0
@@ -31,6 +33,7 @@ var _is_panicking_helms: bool = false
 
 
 func _ready() -> void:
+	_show_warning()
 	call_deferred("_post_ready")
 
 
@@ -139,6 +142,13 @@ func _penguin_helms_panic(toggle: bool) -> void:
 	_is_panicking_helms = toggle
 	if not toggle:
 		helsman_p_icon.rotation = 0
+
+
+func _show_warning() -> void:
+	await get_tree().create_timer(1).timeout
+	warning_cannons.visible = true
+	await get_tree().create_timer(5).timeout
+	warning_cannons.visible = false
 
 
 func _animate_baby_icon() -> void:
