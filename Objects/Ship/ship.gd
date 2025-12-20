@@ -50,6 +50,7 @@ var _waypoint_prev: Vector3 = Vector3.ZERO
 @export_group("Setup")
 @export var spawner: Spawner
 @export var wave_manager: WaveManager
+@export var helmsman: HelmsmenPenguin
 @export var initial_waypoint := Vector3.ZERO
 
 # GAMEPLAY PUBLIC:
@@ -67,6 +68,7 @@ var _timeout_hit_wave: float = 0.0
 var _interval_hit_wave: float = 5.0
 var _timeout_hit_icerberg: float = 0.0
 var _interval_hit_iceberg: float = 30.0
+var _has_driver: bool = true
 
 # ENEMY LOOKOUT:
 @onready var lookout: PenguinLookout = $PenguinLookout
@@ -108,11 +110,18 @@ func _ready() -> void:
 func _post_ready() -> void:
 	_hitpoints = max_hitpoints
 	print(_hitpoints)
+	
+	if helmsman:
+		helmsman.steering_started.connect(_driver_on)
+		helmsman.steering_stopped.connect(_driver_off)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if _has_destination:
+	if _has_driver and _has_destination:
 		_go_to_point(_waypoint)
+	elif not _has_driver and _has_destination:
+		move_forwards()
+		turn_left()
 	
 	_apply_buoyancy_forces(state)
 	_apply_internal_forces(state)
@@ -266,7 +275,7 @@ func _go_to_point(p: Vector3) -> void:
 	var angle = dir.signed_angle_to(global_basis.z, Vector3.UP)
 	
 	if angle < -0.05 or angle > 0.05:
-		if angle > 0:
+		if angle < 0:
 			turn_left()
 		else:
 			turn_right()
@@ -276,6 +285,13 @@ func _go_to_point(p: Vector3) -> void:
 		print("WP reached")
 	else:
 		move_forwards()
+
+
+func _driver_on() -> void:
+	_has_driver = true
+	
+func _driver_off() -> void:
+	_has_driver = false
 
 
 #===============================================================================
@@ -289,13 +305,13 @@ func move_forwards() -> void:
 func turn_left(torque: float = 250.0) -> void:
 	var vel_forward = linear_velocity.dot(global_basis.z)
 	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
-	_torque_to_apply += torque * Vector3.UP * momentum
+	_torque_to_apply -= torque * Vector3.UP * momentum
 
 
 func turn_right(torque: float = 250.0) -> void:
 	var vel_forward = linear_velocity.dot(global_basis.z)
 	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
-	_torque_to_apply -= torque * Vector3.UP * momentum
+	_torque_to_apply += torque * Vector3.UP * momentum
 
 
 func set_waypoint(wp: Vector3) -> void:

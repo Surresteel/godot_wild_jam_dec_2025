@@ -29,15 +29,17 @@ wave_speed = 0.6
 
 [node name="Spawner" type="Node3D" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("2_vnhy5")
+target_count_enemties = 0
+init_count_iceberg = 0
+target_count_icebergs = 0
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
 
 [node name="WaveManager" parent="." instance=ExtResource("2_dq315")]
 
-[node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("6_txrj4")]
+[node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position") instance=ExtResource("6_txrj4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005415261, 3.1108134, 2.7499657)
 wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
-chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
 
 [node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager") instance=ExtResource("3_nomhl")]
 contact_monitor = true
@@ -105,17 +107,5 @@ player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
 
 [node name="Sealion" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")
-
-[node name="Sealion2" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")
-
-[node name="Sealion3" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")
-
-[node name="Sealion4" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -331.16885, 0, -4.8407764)
 ship = NodePath("../Ship")
