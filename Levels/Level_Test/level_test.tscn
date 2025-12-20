@@ -316,18 +316,21 @@ texture = ExtResource("14_2q31l")
 [node name="ProgressUI" type="Node" parent="Player/Camera Position/Camera3D/CanvasLayer"]
 
 [node name="BackWaveBar" type="AnimatedSprite2D" parent="Player/Camera Position/Camera3D/CanvasLayer/ProgressUI"]
-position = Vector2(591, 45.25)
+position = Vector2(589, 45.25)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_hof74")
+autoplay = "default"
 
 [node name="ShipProgressBar" type="AnimatedSprite2D" parent="Player/Camera Position/Camera3D/CanvasLayer/ProgressUI/BackWaveBar"]
 position = Vector2(-847.99994, 19.000006)
 sprite_frames = SubResource("SpriteFrames_h8yr3")
+autoplay = "default"
 
 [node name="FrontWaveBar" type="AnimatedSprite2D" parent="Player/Camera Position/Camera3D/CanvasLayer/ProgressUI"]
-position = Vector2(591, 55)
+position = Vector2(589, 55)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_3m7qw")
+autoplay = "default"
 
 [node name="PenguinStatusesUI" type="Node" parent="Player/Camera Position/Camera3D/CanvasLayer"]
 
