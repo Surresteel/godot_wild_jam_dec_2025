@@ -12,12 +12,16 @@ func enter() -> void:
 	window_sitting()
 	baby.hiding_timer.start()
 	baby.remove_from_group("SealionInteractables")
+	
+	baby.hiding_start.emit()
 
 func exit() -> void:
 	baby.hiding = false
 	baby.skeleton_no_arms.visible  = true
 	baby.add_to_group("SealionInteractables")
 	active = false
+	
+	baby.hiding_stop.emit()
 
 func pre_update() -> void:
 	if baby.hiding_timer.is_stopped() and not baby.being_chased:

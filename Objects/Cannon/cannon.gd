@@ -62,8 +62,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and is_active:
 		var new_rotation_x: float = -event.screen_relative.y * rotation_speed * get_process_delta_time()
 		var new_rotation_y: float = -event.screen_relative.x * rotation_speed * get_process_delta_time()
-		cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,-6,max_angle_x)
-		cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,min_angle_y,max_angle_y)
+		rotate_cannon_within_clamp(new_rotation_x,new_rotation_y)
+
 
 func _physics_process(delta: float) -> void:
 	if is_active:
@@ -113,6 +113,7 @@ func shoot(new_cannonball: RigidBody3D) -> void:
 		current_power = lerpf(5, max_power, #Min-Max Power based on powertimer
 				 1 - (power_timer.time_left / power_timer.wait_time))
 	new_cannonball.fire(current_power, -cannon_barrel.global_basis.z, Velocity)
+	recoil(current_power)
 	
 	power_timer.stop()
 
@@ -131,3 +132,33 @@ func noninput_reload() -> void:
 	if not is_active and not reloaded:
 		reloaded = true
 		print("reloading")
+
+func rotate_cannon_within_clamp(new_rotation_x: float, new_rotation_y: float) -> void:
+	cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,-6,max_angle_x)
+	cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,min_angle_y,max_angle_y)
+
+func recoil(power: float) -> void:
+	var recoil_angle:= 70 - max_angle_x + 4.3
+	
+	var x_ratio = (power-5) / (max_power-5)
+	var cannon_x = (max_angle_x + 4.3 - cannon_barrel.rotation_degrees.x) * x_ratio
+	var player_x = cannon_x - recoil_angle * x_ratio
+	
+	var y_ratio = power / max_power 
+	var cannon_y: float = 15 * y_ratio
+	match randi_range(0,1):
+		0:
+			cannon_y *= -1
+		1:
+			pass
+	#if cannon_y + cannon_barrel
+	
+	var cannon_tween := create_tween()
+	cannon_tween.set_parallel(true)
+	cannon_tween.tween_property(cannon_barrel,"rotation_degrees",Vector3(cannon_x,0,0),0.25)
+	#cannon_tween.tween_property(cannon_rack,"rotation_degrees",Vector3(0,cannon_y,0),0.25)
+	
+	if player_x < 0:
+		var player_tween := create_tween()
+		player_tween.tween_property(camera_positon,"rotation_degrees",Vector3(-player_x,0,0),0.25)
+		player_tween.tween_property(camera_positon,"rotation_degrees",Vector3.ZERO,0.5)

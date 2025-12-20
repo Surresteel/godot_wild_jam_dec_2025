@@ -15,7 +15,7 @@ var next_position: Vector3
 
 
 var cannon_needs_reload: bool = false
-var being_chased: bool = true
+var being_chased: bool = false
 var hiding: bool = false
 var reload_ready: bool = false
 
@@ -28,11 +28,13 @@ var unloaded_cannon: Cannon
 @onready var reload_area: Area3D = $ReloadArea
 @onready var hiding_timer: Timer = $"Hiding Timer"
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal chased_signal()
-@warning_ignore("unused_signal")
-signal reload_signal()
+signal hiding_start
+signal hiding_stop
 
+signal reload_signal()
+@warning_ignore_restore("unused_signal")
 
 func _ready() -> void:
 	statemachine.get_current_state_object().enter()
