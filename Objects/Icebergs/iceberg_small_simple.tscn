@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b52xa181uh7nx"]
+
+[ext_resource type="Script" uid="uid://bqvxye080vjdh" path="res://Objects/Icebergs/iceberg_default_simple.gd" id="1_g74ib"]
+[ext_resource type="PackedScene" uid="uid://c6qbuvhyv63vy" path="res://Models/Icebergs/IceBerg 1Peak1.blend" id="2_b3dkq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g74ib"]
+radius = 1.065893
+
+[node name="IcebergSmallSimple" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 31
+mass = 100.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -2, 0)
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_g74ib")
+_buoyancy_total = 4000.0
+break_velocity = 0.2
+onion_layers = 0
+
+[node name="mesh" parent="." instance=ExtResource("2_b3dkq")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.405, 0, -0.695)
+
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+unit_size = 20.0
+bus = &"SFX_3D"
+
+[node name="ColMain" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.12912416, 0)
+shape = SubResource("SphereShape3D_g74ib")

@@ -5,8 +5,9 @@ var speed = 8 #changing this will affect leaping
 var too_long: bool = false
 
 func enter(sealion: Sealion) -> void:
+	sealion.animation_player.play("Ship Enter",-1,1.5)
+	
 	too_long = false
-	print("entered Boarding state")
 	sealion.change_target_node(sealion.ship)
 	await sealion.get_tree().create_timer(5).timeout
 
@@ -19,7 +20,8 @@ func pre_update(sealion: Sealion) -> void:                                      
 		sealion.change_state(SealionStates.LEAPING)
 	if too_long:
 		sealion.change_state(SealionStates.CIRCLING)
-	
+	if sealion.defeated:
+		sealion.change_state(SealionStates.DEFEATED)
 	
 
 func update(sealion: Sealion, delta) -> void:

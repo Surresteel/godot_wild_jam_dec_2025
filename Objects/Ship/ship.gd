@@ -1,4 +1,4 @@
-#===============================================================================
+#==============================================================================
 #	CLASS PROPERTIES:
 #===============================================================================
 class_name Ship
@@ -24,11 +24,14 @@ const MAX_DEPTH: float = 3.0
 const MAX_SPEED: float = 10.0
 const MAX_ROTATION: float = 10.0
 
-const WP_RADIUS: float = 10.0
+const WP_RADIUS: float = 50.0
 
 
 # SIGNALS:
 signal bow_hit_water()
+signal wave_inbound()
+signal iceberg_hit(did_damage: bool)
+signal enemy_spotted(sector: PenguinLookout.DIRECTIONS)
 
 # BUOYANCY PRIVATE
 var _buoyancy_coef: float = BUOYANCY_MAX / SAMPLE_COUNT
@@ -39,12 +42,16 @@ var _force_to_apply := Vector3.ZERO
 var _torque_to_apply := Vector3.ZERO
 
 # NAVIGATION PRIVATE:
+var _spawn := Vector3.ZERO
 var _has_destination: bool = false
 var _waypoint: Vector3 = Vector3.ZERO
+var _waypoint_prev: Vector3 = Vector3.ZERO
 
 # SETUP PUBLIC:
 @export_group("Setup")
+@export var spawner: Spawner
 @export var wave_manager: WaveManager
+@export var helmsman: HelmsmenPenguin
 @export var initial_waypoint := Vector3.ZERO
 
 # GAMEPLAY PUBLIC:
@@ -52,6 +59,7 @@ var _waypoint: Vector3 = Vector3.ZERO
 @export var max_hitpoints: int = 100
 @export var speed_base: float = 1.0
 @export var momentum_gain: float = 0.01
+@export var callout_distance: float = 200
 
 # GAMEPLAY PRIVATE:
 var _hitpoints: int = 100
@@ -61,12 +69,19 @@ var _timeout_hit_wave: float = 0.0
 var _interval_hit_wave: float = 5.0
 var _timeout_hit_icerberg: float = 0.0
 var _interval_hit_iceberg: float = 30.0
+var _has_driver: bool = true
+
+# ENEMY LOOKOUT:
+@onready var lookout: PenguinLookout = $PenguinLookout
+var _callout_radius_wave: float = 50.0
 
 
 #===============================================================================
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	_spawn = global_position
+	
 	if initial_waypoint.distance_squared_to(global_position) > 25:
 		set_waypoint(initial_waypoint)
 	
@@ -84,11 +99,30 @@ func _ready() -> void:
 	_sample_points.append(Vector3(-2.0, -BUOYANCY_OFFSET_AFT, -8.0))
 	
 	body_entered.connect(_handle_collisions)
+	
+	if not spawner:
+		return
+	
+	lookout.setup(self, spawner)
+	
+	call_deferred("_post_ready")
+
+
+func _post_ready() -> void:
+	_hitpoints = max_hitpoints
+	print(_hitpoints)
+	
+	if helmsman:
+		helmsman.steering_started.connect(_driver_on)
+		helmsman.steering_stopped.connect(_driver_off)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if _has_destination:
+	if _has_driver and _has_destination:
 		_go_to_point(_waypoint)
+	elif not _has_driver and _has_destination:
+		move_forwards()
+		turn_left()
 	
 	_apply_buoyancy_forces(state)
 	_apply_internal_forces(state)
@@ -133,12 +167,12 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 #	COLLISION HANDLING:
 #===============================================================================
 func _handle_collisions(body: Node) -> void:
-	if body is IcebergBase:
-		var speed_sqr = linear_velocity.length_squared()
-		var berg_strength = body.onion_layers * body.onion_layers
-		var dif = speed_sqr - berg_strength
+	if body is IcebergBase or body is IcebergBaseSimple:
+		var speed = linear_velocity.length()
+		var dif = speed - body.break_velocity
 		if dif < 0:
 			_handle_events(EVENTS.ICEBERG, abs(dif))
+		iceberg_hit.emit(dif < 0)
 
 
 #===============================================================================
@@ -162,6 +196,7 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 			for wave in w_data:
 				var offset = Vector2(pos_glb_point.x - wave.pos.x,
 						pos_glb_point.z - wave.pos.y)
+				_callout_wave(offset, wave.dir)
 				var h_temp = WaveFunc.sample_wave_height(wave.pos, offset, 
 						wave.dir, wave.amp)
 				if h_temp != 0 and h_temp > h1:
@@ -177,7 +212,6 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		
 		# Audio Stuff:
 		if point == _sample_points[1] and water_height > 2.5:
-			print(water_height)
 			bow_hit_water.emit()
 		
 		# Wave forces:
@@ -189,7 +223,8 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 					* 5000 * highest_wave.amp * 10 + Vector3(0, 1000, 0) * \
 					highest_wave.amp
 			wave_force /= SAMPLE_COUNT
-			state.apply_force(wave_force, pos_glb_point - state.transform.origin)
+			state.apply_force(wave_force, pos_glb_point - 
+					state.transform.origin)
 		
 		# Dampening forces:
 		var damping_force := 0.0
@@ -202,6 +237,14 @@ func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 		# Apply forces
 		var point_force: Vector3 = Vector3.UP * (buoyancy_force + damping_force)
 		state.apply_force(point_force, pos_glb_point - state.transform.origin)
+
+
+func _callout_wave(to_wave: Vector2, wave_dir: Vector2) -> void:
+	if to_wave.length_squared() > _callout_radius_wave * _callout_radius_wave:
+		return
+	
+	if wave_dir.dot(-to_wave) > 0.7:
+		wave_inbound.emit()
 
 
 # Apply forces internal to the ship (steering, propulsion):
@@ -233,7 +276,7 @@ func _go_to_point(p: Vector3) -> void:
 	var angle = dir.signed_angle_to(global_basis.z, Vector3.UP)
 	
 	if angle < -0.05 or angle > 0.05:
-		if angle > 0:
+		if angle < 0:
 			turn_left()
 		else:
 			turn_right()
@@ -243,6 +286,13 @@ func _go_to_point(p: Vector3) -> void:
 		print("WP reached")
 	else:
 		move_forwards()
+
+
+func _driver_on() -> void:
+	_has_driver = true
+	
+func _driver_off() -> void:
+	_has_driver = false
 
 
 #===============================================================================
@@ -256,18 +306,49 @@ func move_forwards() -> void:
 func turn_left(torque: float = 250.0) -> void:
 	var vel_forward = linear_velocity.dot(global_basis.z)
 	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
-	_torque_to_apply += torque * Vector3.UP * momentum
+	_torque_to_apply -= torque * Vector3.UP * momentum
 
 
 func turn_right(torque: float = 250.0) -> void:
 	var vel_forward = linear_velocity.dot(global_basis.z)
 	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
-	_torque_to_apply -= torque * Vector3.UP * momentum
+	_torque_to_apply += torque * Vector3.UP * momentum
 
 
 func set_waypoint(wp: Vector3) -> void:
+	_waypoint_prev = _waypoint
 	_has_destination = true
 	_waypoint = wp
+
+
+func get_ship_health() -> float:
+	return clampf(float(_hitpoints) / float(max_hitpoints), 0.0, 1.0)
+
+
+func get_progress_wp() -> float:
+	if not _has_destination:
+		return 1.0
+	
+	var dist_wp := (_waypoint - _waypoint_prev).length()
+	var dist_ship := (_waypoint - global_position).length()
+	var prog = 1.0 - (dist_ship / dist_wp)
+	prog = clampf(prog, 0.0, 1.0)
+	return prog
+
+
+func get_progress_total() -> float:
+	if not _has_destination:
+		return 1.0
+	
+	var dist_wp := (_waypoint - _spawn).length()
+	var dist_ship := (_waypoint - global_position).length()
+	var prog = 1.0 - (dist_ship / dist_wp)
+	prog = clampf(prog, 0.0, 1.0)
+	return prog
+
+
+func emit_spotted(sector: PenguinLookout.DIRECTIONS) -> void:
+	enemy_spotted.emit(sector)
 
 
 #===============================================================================

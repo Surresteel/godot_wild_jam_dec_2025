@@ -2,9 +2,15 @@ extends PlayerState
 class_name FallingState
 
 var rotation_lerp_ratio: float
+var fall_speed := 1.0
 
 func enter() -> void:
-	rotation_lerp_ratio = 1
+	if player.was_swimming:
+		player.was_swimming = false
+		fall_speed = 2.0
+	else:
+		rotation_lerp_ratio = 1
+		fall_speed = 1
 
 func exit() -> void:
 	pass
@@ -22,8 +28,8 @@ func update(delta: float) -> void:
 	var dir: Vector3 = (player.transform.basis * Vector3(input_dir.x, 0 ,input_dir.y)).normalized()
 	
 	if dir:
-		player.velocity.x = dir.x * player.speed + player.get_ship_velocity().x
-		player.velocity.z = dir.z * player.speed + player.get_ship_velocity().z
+		player.velocity.x = dir.x * player.speed * fall_speed + player.get_ship_velocity().x
+		player.velocity.z = dir.z * player.speed * fall_speed + player.get_ship_velocity().z
 	else:
 		#take out the y
 		var horizontal_velocity = Vector3(player.velocity.x, 0, player.velocity.z)

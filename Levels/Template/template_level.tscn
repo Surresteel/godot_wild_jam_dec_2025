@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwdq4qvh5hryc"]
+
+[ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_dmh22"]
+[ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://Logical/Scene_Audio/SceneAudio.tscn" id="2_5opb2"]
+[ext_resource type="PackedScene" uid="uid://d2i4sr4fvucba" path="res://Logical/Spawner/spawner.tscn" id="3_7my36"]
+[ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_6k4ig"]
+[ext_resource type="PackedScene" uid="uid://bncmp5m6fasjn" path="res://Penguins/Helmsmen/Helmsmen_Penguin.tscn" id="5_7my36"]
+[ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="5_610ts"]
+[ext_resource type="PackedScene" uid="uid://dk61wht8c4fr0" path="res://Objects/Wave/wave_manager.tscn" id="6_pngnf"]
+[ext_resource type="Environment" uid="uid://b5jo5v8jluau1" path="res://Levels/Template/template_environment.tres" id="7_f6ga3"]
+[ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_5opb2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5opb2"]
+radius = 0.1
+
+[node name="Level" type="Node3D" node_paths=PackedStringArray("gen_point")]
+script = ExtResource("1_dmh22")
+gen_point = NodePath("Ship")
+wave_freq = 0.3
+wave_amp = 2.0
+
+[node name="SceneAudio" parent="." instance=ExtResource("2_5opb2")]
+
+[node name="Spawner" parent="." node_paths=PackedStringArray("wave_manager", "target") instance=ExtResource("3_7my36")]
+init_count_iceberg = 20
+target_count_icebergs = 40
+wave_manager = NodePath("../WaveManager")
+target = NodePath("../Ship")
+enabled = true
+_initial_delay = 0.0
+
+[node name="Player" parent="." instance=ExtResource("4_6k4ig")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
+speed = 2.0
+
+[node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("5_7my36")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.179257, 3.0615563)
+wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
+chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
+
+[node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager", "helmsman") instance=ExtResource("5_610ts")]
+spawner = NodePath("../Spawner")
+wave_manager = NodePath("../WaveManager")
+helmsman = NodePath("../HelmsmenPenguin")
+initial_waypoint = Vector3(0, 0, -1000)
+momentum_gain = 0.1
+
+[node name="Freezer" type="Node3D" parent="Ship"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.3191711, 2.619545, -6.094961)
+
+[node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
+visible = false
+
+[node name="ChasePoint" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2912536, 4.3955297, 5.551)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint"]
+mesh = SubResource("SphereMesh_5opb2")
+
+[node name="WheelPositon" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009420812, 3.0836935, 2.8110943)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/WheelPositon"]
+mesh = SubResource("SphereMesh_5opb2")
+
+[node name="ChasePoint2" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6664878, 2.399132, 0.33378363)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint2"]
+mesh = SubResource("SphereMesh_5opb2")
+
+[node name="ChasePoint3" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0550884, 2.399132, -5.027718)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint3"]
+mesh = SubResource("SphereMesh_5opb2")
+
+[node name="ChasePoint4" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.979349, 2.399132, 0.13241625)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint4"]
+mesh = SubResource("SphereMesh_5opb2")
+
+[node name="WaveManager" parent="." instance=ExtResource("6_pngnf")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("7_f6ga3")
+
+[node name="Sun" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Baby Penguin" parent="." node_paths=PackedStringArray("player", "freezer") instance=ExtResource("8_5opb2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
+player = NodePath("../Player")
+freezer = NodePath("../Ship/Freezer")

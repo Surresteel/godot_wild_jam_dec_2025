@@ -119,7 +119,7 @@ func _play_hit_effect() -> void:
 	audio_emitter.stream = AudioManager.ICE_SOUNDS.pick_random()
 	audio_emitter.play()
 	var ice: Node3D = scene_icicle.instantiate()
-	get_tree().get_root().add_child(ice)
+	get_tree().current_scene.add_child(ice)
 	ice.global_position = global_position
 
 

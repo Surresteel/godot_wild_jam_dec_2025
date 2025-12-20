@@ -28,7 +28,6 @@ mesh = SubResource("CylinderMesh_n3hra")
 transform = Transform3D(-0.9847076, 0, 0.1742153, 0, 1, 0, -0.1742153, 0, -0.9847076, 0.21249378, 3.3768394, -2.932114)
 wall_min_slide_angle = 1.0471976
 speed = 2.5
-ship = NodePath("../Ship")
 
 [node name="Sealion" parent="." instance=ExtResource("7_50fuq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.092077, 1.5236425, 28.630964)

@@ -44,8 +44,10 @@ var _waypoint_radius: float = 100.0
 var _radius_orbit: float = 50.0
 var _orbit_dir: bool = false
 var _allow_pitch: bool = true
-var _lateral_fraction := 0.01
+var _lateral_fraction := 0.1
 var _set_orientation := Vector3.ZERO
+var _timout_impact: float = 0.0
+var _interval_impact: float = 15.0 * 1000
 
 # Follow stuff:
 var _dist_follow: float = 30.0
@@ -178,8 +180,9 @@ func _handle_collision(body: Node3D) -> void:
 		var vel_transfer = vel.dot(to_self)
 		
 		if vel_transfer < IMPACT_DEATH_THRESH:
-			velocity += Vector3(0.0, 15.0, 0.0)
-			_allow_pitch = true
+			if Time.get_ticks_msec() > _timout_impact:
+				velocity += _jump_impulse
+				_timout_impact = Time.get_ticks_msec() + _interval_impact
 		else:
 			_die()
 		return
@@ -189,7 +192,7 @@ func _handle_collision(body: Node3D) -> void:
 		_die()
 	
 	# If they hit an iceberg, they go underwater:
-	if body is IcebergBase:
+	if body is IcebergBase or body is IcebergBaseSimple:
 		velocity += Vector3(0.0, -15.0, 0.0)
 	
 	if body is Orca:
@@ -198,7 +201,7 @@ func _handle_collision(body: Node3D) -> void:
 
 func _die() -> void:
 	var blood: Node3D = scene_death.instantiate()
-	get_tree().get_root().add_child(blood)
+	get_tree().current_scene.add_child(blood)
 	blood.global_position = global_position
 	queue_free()
 
@@ -230,19 +233,14 @@ func _handle_state() -> void:
 
 
 func _do_state_swim(delta: float, destination: Vector3) -> void:
-	if global_position.distance_squared_to(destination) < _waypoint_radius * _waypoint_radius:
+	if global_position.distance_squared_to(destination) < _waypoint_radius \
+			* _waypoint_radius:
 		_audio_emitter.stream = AudioManager.ORCA_ARRIVE
 		_audio_emitter.play()
 		_state = STATES.IDLE
 		return
 	
-	# GATE - Orca must be below max speed:
-	if velocity.length() >= SPEED_MAX:
-		return
-	
-	# Apply acceleration towards destination:
-	var heading_desired = (destination - global_position).normalized()
-	velocity += ACC_MAX * heading_desired * delta
+	_go_to_point(delta, destination)
 
 
 func _do_state_follow(delta: float, target: Node3D) -> void:
@@ -367,7 +365,7 @@ func _do_atk_state_jump(target: Node3D) -> void:
 		#var par = get_parent()
 		var to_target := target.global_position - global_position
 		var wave: Wave = scene_wave.instantiate()
-		get_tree().get_root().add_child(wave)
+		get_tree().current_scene.add_child(wave)
 		var pos := Vector3(global_position.x, 0.0, global_position.z)
 		var dir := Vector3(-basis.z.x, 0.0, -basis.z.z).normalized()
 		var tgt_point: Vector3 = pos + dir * to_target.length()

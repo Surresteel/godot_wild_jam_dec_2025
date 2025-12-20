@@ -22,12 +22,17 @@ var grid_tiles: Array[Node3D]
 
 
 # Children:
-#@onready var ship: Ship = $Ship
 @export var gen_point: Node3D = null
 
+@export_group("Sea Shape")
 @export var wave_freq: float = 3.0
 @export var wave_amp: float = 0.4
 @export var wave_speed: float = 0.25
+
+@export_group("Sea Colour")
+@export var sea_colour_dark := Color(0.0, 0.2, 0.5)
+@export var sea_colour_light := Color(0.0, 0.3, 0.5)
+@export var sea_colour_foam := Color(0.5, 0.5, 1.0)
 
 
 #===============================================================================
@@ -39,9 +44,9 @@ func _ready() -> void:
 
 
 func _ready_post() -> void:
-	Water.set_water_colour_dark(Vector3(0.0, 0.2, 0.5))
-	Water.set_water_colour_light(Vector3(0.0, 0.3, 0.5))
-	Water.set_water_colour_foam(Vector3(0.5, 0.5, 1.0))
+	Water.set_water_colour_dark(_colour_to_vector(sea_colour_dark))
+	Water.set_water_colour_light(_colour_to_vector(sea_colour_light))
+	Water.set_water_colour_foam(_colour_to_vector(sea_colour_foam))
 	Water.set_wave_frequency(wave_freq)
 	Water.set_wave_amplitude(wave_amp)
 	Water.set_wave_speed(wave_speed)
@@ -49,27 +54,28 @@ func _ready_post() -> void:
 
 func _process(_delta: float) -> void:
 	# GATE: - Ship must have moved to generate new tiles.
-	#if (grid_pos == _world_to_grid(ship.global_position)):
 	if (grid_pos == _world_to_grid(gen_point.global_position)):
 		return
 	
 	# Update ship grid position and generate tiles.
-	#grid_pos = _world_to_grid(ship.global_position)
 	grid_pos = _world_to_grid(gen_point.global_position)
 	_update_sea_grid()
 
 
 func _physics_process(_delta: float) -> void:
-	# DEBUG:
-	#ship.move_forwards()
 	Water.advance_time()
-	# DEBUG:
 
 #===============================================================================
 #	PRIVATE FUNCTIONS:
 #===============================================================================
+func _colour_to_vector(c: Color) -> Vector3:
+	var r = clampf(c.r, 0.0, 1.0)
+	var g = clampf(c.g, 0.0, 1.0)
+	var b = clampf(c.b, 0.0, 1.0)
+	return Vector3(r, g, b)
+
+
 func _create_sea_grid() -> void:
-	#grid_pos = _world_to_grid(ship.global_position)
 	grid_pos = _world_to_grid(gen_point.global_position)
 	var instance: Node3D = scene_water.instantiate()
 	add_child(instance)

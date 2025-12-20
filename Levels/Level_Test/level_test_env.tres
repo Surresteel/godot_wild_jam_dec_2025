@@ -5,3 +5,6 @@
 [resource]
 background_mode = 2
 sky = ExtResource("1_u1qs5")
+ssao_radius = 4.6
+fog_light_color = Color(0.39491966, 0.6116559, 0.7730641, 1)
+fog_height = 10.0

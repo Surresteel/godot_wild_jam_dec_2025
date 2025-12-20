@@ -34,6 +34,7 @@ version_control/autoload_on_startup=true
 
 Player="The Player Character"
 SealionInteractables=""
+Cannon=""
 
 [input]
 
@@ -85,6 +86,11 @@ Reload={
 3d_physics/layer_3="Player"
 3d_physics/layer_4="Projectiles"
 3d_physics/layer_5="Icebergs"
+3d_physics/layer_6="Baby"
+3d_physics/layer_7="Cannons"
+3d_physics/layer_8="helmsmen"
+avoidance/layer_1="Enemy"
+avoidance/layer_2="Penguins"
 
 [navigation]
 

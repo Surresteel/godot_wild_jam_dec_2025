@@ -24,14 +24,13 @@ func update(delta: float) -> void:
 	
 	if dir:
 		# Feel free to move this to its own function if you want:
-		if Time.get_ticks_msec() > player.timeout_step:
+		if not player.audio_emitter.playing:
 			var next_sample = AudioManager.WALK_SOUNDS.pick_random()
 			while next_sample == player.audio_emitter.stream:
 				next_sample = AudioManager.WALK_SOUNDS.pick_random()
 			player.audio_emitter.stream = next_sample
 			player.audio_emitter.play()
-			player.timeout_step = Time.get_ticks_msec() \
-					+ player.interval_step * 1000
+		
 		player.velocity.x = dir.x * player.speed
 		player.velocity.z = dir.z * player.speed
 	else:

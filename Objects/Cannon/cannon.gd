@@ -126,3 +126,8 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == &"Cannon/P_FPArms_Cannon_Reload":
 		#reloaded = true
 		animation_player.play(&"Cannon/P_FPArms_Cannon_Idle")
+
+func noninput_reload() -> void:
+	if not is_active and not reloaded:
+		reloaded = true
+		print("reloading")
