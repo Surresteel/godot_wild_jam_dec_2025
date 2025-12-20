@@ -50,11 +50,8 @@ chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("
 spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 helmsman = NodePath("../HelmsmenPenguin")
-initial_waypoint = Vector3(0, 0, -100)
+initial_waypoint = Vector3(0, 0, -8000)
 momentum_gain = 0.05
-
-[node name="Freezer" type="Node3D" parent="Ship"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.3191711, 2.619545, -6.094961)
 
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false
@@ -105,7 +102,7 @@ shadow_blur = 4.647
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
 ship = NodePath("../Ship")
 player = NodePath("../Player")
-freezer = NodePath("../Ship/Freezer")
+freezer = NodePath("")
 
 [node name="CanvasLayer" parent="." node_paths=PackedStringArray("ship", "player", "baby", "helms") instance=ExtResource("10_xmakh")]
 ship = NodePath("../Ship")
