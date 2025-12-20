@@ -6,11 +6,22 @@ extends Area3D
 func _on_body_entered(body: Node3D) -> void:
 	if body is Player:
 		baby_penguin.reload_signal.connect(body.snowball_action.reload)
-		print("player entered")
+		body.snowball_action.player_reload.connect(
+			baby_penguin.statemachine.    #maybe turn getting state into a fucntion on parent
+			all_states[BabyPenguinStateMachine.state.Hiding].window_sitting)
+		body.snowball_action.player_reload.connect(
+			baby_penguin.statemachine.
+			all_states[BabyPenguinStateMachine.state.Reloading].ready_reload)
 
 func _on_body_exited(body: Node3D) -> void:
 	if body is Player:
 		baby_penguin.reload_signal.disconnect(body.snowball_action.reload)
+		body.snowball_action.player_reload.disconnect(
+			baby_penguin.statemachine.    #maybe turn getting state into a fucntion on parent
+			all_states[BabyPenguinStateMachine.state.Hiding].window_sitting)
+		body.snowball_action.player_reload.disconnect(
+			baby_penguin.statemachine.
+			all_states[BabyPenguinStateMachine.state.Reloading].ready_reload)
 
 func _on_area_entered(area: Area3D) -> void:
 	if area is CannonInteract:

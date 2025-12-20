@@ -4,6 +4,7 @@ class_name BabyPenguin
 
 @onready var statemachine: BabyPenguinStateMachine = $BabyPenguinStateMachine
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var skeleton_no_arms: Skeleton3D = $Armature_001/Skeleton3D
 
 @export_category("Stats")
 @export var speed: float = 2
@@ -93,6 +94,9 @@ func set_chased(state: bool) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Baby_GrabbingSnowball":
 		animation_player.play("Baby_HoldingSnowballIdle")
+		set_reload_ready()
+	if anim_name == "Baby_HidingSnowball":
+		animation_player.play("Baby_HidingSnowbalIdle")
 		set_reload_ready()
 
 

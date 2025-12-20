@@ -1,11 +1,10 @@
 extends BabyState
 
+var active: bool = false
 
 func enter() -> void:
-	baby.reload_ready = false
-	
-	baby.animation_player.play("Baby_GrabbingSnowball", 0.2)
-	print("reloading")
+	active = true
+	ready_reload()
 
 func exit() -> void:
 	pass
@@ -24,3 +23,9 @@ func update(_delta: float) -> void:
 	baby.velocity = baby.velocity.move_toward(Vector3.ZERO, _delta * 5)
 	if baby.reload_ready:
 		baby.reload_signal.emit()
+
+func ready_reload() -> void:
+	baby.reload_ready = false
+	
+	baby.animation_player.play("Baby_GrabbingSnowball", 0.2)
+	print("reloading")

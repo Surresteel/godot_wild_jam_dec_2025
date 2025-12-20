@@ -6,6 +6,7 @@ const SNOWBALL = preload("uid://pj5t3u2p6vi2")
 signal signal_animation(anim_name: StringName)
 signal signal_throw()
 signal cannon_reload
+signal player_reload
 
 var ammo: int = 3
 var snowball_ready: bool = true
@@ -45,7 +46,9 @@ func _fire_snowball() -> void:
 	new_snowball.fire(power, -global_basis.z, velocity)
 
 func reload() -> void:
-	ammo = 3
+	if ammo < 3:
+		ammo = 3
+		player_reload.emit()
 
 func _ready_snowball() -> void:
 	snowball_ready = true
