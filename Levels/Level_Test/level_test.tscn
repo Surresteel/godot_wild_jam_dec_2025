@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cv35k8nfgv88o"]
+[gd_scene load_steps=13 format=3 uid="uid://cv35k8nfgv88o"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
 [ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
 [ext_resource type="PackedScene" uid="uid://bncmp5m6fasjn" path="res://Penguins/Helmsmen/Helmsmen_Penguin.tscn" id="6_txrj4"]
 [ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_vnhy5"]
+[ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="10_wqmuq"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_vnhy5"]
 radius = 0.1
@@ -28,21 +29,19 @@ wave_speed = 0.6
 
 [node name="Spawner" type="Node3D" parent="." node_paths=PackedStringArray("wave_manager", "target")]
 script = ExtResource("2_vnhy5")
-target_count_enemties = 0
-init_count_iceberg = 0
-target_count_icebergs = 0
+target_count_enemties = 20
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
 enabled = true
 
 [node name="WaveManager" parent="." instance=ExtResource("2_dq315")]
 
-[node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position") instance=ExtResource("6_txrj4")]
+[node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("6_txrj4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005415261, 3.1108134, 2.7499657)
 wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
+chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
 
 [node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager") instance=ExtResource("3_nomhl")]
-contact_monitor = true
 max_contacts_reported = 4
 spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
@@ -50,7 +49,7 @@ initial_waypoint = Vector3(0, 0, -1000)
 momentum_gain = 0.1
 
 [node name="Freezer" type="Node3D" parent="Ship"]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2811021, 2.5547907, -6.191643)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.3267467, 2.279879, -6.213766)
 
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false
@@ -105,3 +104,15 @@ directional_shadow_blend_splits = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14835966, 4.054515, 5.9928074)
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
+
+[node name="Sealion" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4886737, 0, 10.028204)
+ship = NodePath("../Ship")
+
+[node name="Sealion2" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.753235, 0, 2.4731445)
+ship = NodePath("../Ship")
+
+[node name="Sealion3" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.922851, 0, -6.450098)
+ship = NodePath("../Ship")
