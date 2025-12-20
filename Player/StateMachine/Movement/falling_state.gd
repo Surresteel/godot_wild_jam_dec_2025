@@ -27,7 +27,7 @@ func update(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector("left","right","forward","backward")
 	var dir: Vector3 = (player.transform.basis * Vector3(input_dir.x, 0 ,input_dir.y)).normalized()
 	
-	if dir:
+	if dir and not player.stunned:
 		player.velocity.x = dir.x * player.speed * fall_speed + player.get_ship_velocity().x
 		player.velocity.z = dir.z * player.speed * fall_speed + player.get_ship_velocity().z
 	else:

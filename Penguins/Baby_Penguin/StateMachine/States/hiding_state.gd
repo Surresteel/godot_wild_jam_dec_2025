@@ -24,11 +24,10 @@ func exit() -> void:
 	baby.hiding_stop.emit()
 
 func pre_update() -> void:
-	if baby.hiding_timer.is_stopped() and not baby.being_chased:
+	if baby.ship.sealion_amount <= 0:
 		transition.emit(BabyPenguinStateMachine.state.Player_Follow)
 
 func update(delta: float) -> void:
-	
 	baby.global_transform = baby.freezer.global_transform
 		
 	if not scared:
@@ -39,7 +38,6 @@ func update(delta: float) -> void:
 		current_time += delta
 	else:
 		scared = false
-		print("scared timer timeout")
 	
 	baby.animation_player.play("Baby_HidingIdle", 1)
 	
