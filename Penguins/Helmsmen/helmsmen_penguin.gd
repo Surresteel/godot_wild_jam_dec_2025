@@ -67,9 +67,10 @@ func set_next_target() -> void:
 func set_being_chased():
 	push_error("set_being_chased was called!\n", get_stack())
 
-func set_chased(_state: bool) -> void:
-	animation_player.play("Alert")
-	being_chased = true
+func set_chased(state: bool) -> void:
+	if state:
+		animation_player.play("Alert")
+	being_chased = state
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

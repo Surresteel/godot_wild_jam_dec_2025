@@ -11,7 +11,8 @@ func enter(sealion: Sealion) -> void:
 	
 	sealion.change_target_node(new_target)
 	if new_target.has_method("set_chased"):
-		sealion.chaseing_started.connect(new_target.set_chased)
+		if not sealion.chaseing_started.is_connected(new_target.set_chased):
+			sealion.chaseing_started.connect(new_target.set_chased)
 		sealion.chaseing_started.emit(true)
 
 func exit(_sealion: Sealion) -> void:

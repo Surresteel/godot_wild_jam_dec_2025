@@ -1135,6 +1135,7 @@ script = ExtResource("3_2fkhd")
 path_desired_distance = 0.4
 target_desired_distance = 0.5
 path_height_offset = 0.5
+path_postprocessing = 1
 debug_use_custom = true
 debug_path_custom_color = Color(0, 0, 1, 1)
 

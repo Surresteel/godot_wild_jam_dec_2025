@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cv35k8nfgv88o"]
+[gd_scene load_steps=12 format=3 uid="uid://cv35k8nfgv88o"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
 [ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
 [ext_resource type="PackedScene" uid="uid://bncmp5m6fasjn" path="res://Penguins/Helmsmen/Helmsmen_Penguin.tscn" id="6_txrj4"]
-[ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="7_wqmuq"]
 [ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_vnhy5"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_vnhy5"]
@@ -31,6 +30,7 @@ wave_speed = 0.6
 script = ExtResource("2_vnhy5")
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
+enabled = true
 
 [node name="WaveManager" parent="." instance=ExtResource("2_dq315")]
 
@@ -54,7 +54,7 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2
 visible = false
 
 [node name="ChasePoint" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015966594, 4.209964, 5.720937)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85056025, 4.3669963, 5.909143)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint"]
 mesh = SubResource("SphereMesh_vnhy5")
@@ -103,19 +103,3 @@ directional_shadow_blend_splits = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14835966, 4.054515, 5.9928074)
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
-
-[node name="Sealion" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")
-
-[node name="Sealion2" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")
-
-[node name="Sealion3" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")
-
-[node name="Sealion4" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
-ship = NodePath("../Ship")

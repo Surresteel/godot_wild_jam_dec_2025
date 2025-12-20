@@ -9,7 +9,7 @@ func exit() -> void:
 	pass
 
 func pre_update() -> void:
-	if not penguin.being_chased and penguin.nav_agent.is_navigation_finished():
+	if not penguin.being_chased:
 		transition.emit(HelmsmenStateMachine.state.Steering)
 
 func update(_delta: float) -> void:

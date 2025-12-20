@@ -874,7 +874,7 @@ size = Vector3(1, 0.8358154, 1.5753174)
 
 [node name="Sealion" type="CharacterBody3D"]
 collision_mask = 2
-floor_max_angle = 1.0471976
+floor_max_angle = 1.5707964
 script = ExtResource("1_0fx28")
 
 [node name="capsule" type="CollisionShape3D" parent="."]

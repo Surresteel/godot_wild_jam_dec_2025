@@ -1,7 +1,7 @@
 extends SealionBaseState
 class_name WalkingSeaLionState
 
-
+var change_target: bool = false
 var speed:= 2
 var walk_target: Node3D
 
@@ -14,13 +14,15 @@ func enter(sealion: Sealion) -> void:
 	sealion.nav_agent.set_navigation_layer_value(1,true)
 
 func exit(_sealion: Sealion) -> void:
-	pass
+	change_target = false
 
 func pre_update(sealion: Sealion) -> void:
 	if sealion.global_position.y < sealion.get_water_height():
 		sealion.change_state(SealionStates.CIRCLING)
 	if sealion.defeated:
 		sealion.change_state(SealionStates.DEFEATED)
+	if change_target:
+		sealion.change_state(SealionStates.TARGETING)
 
 func update(sealion: Sealion, _delta) -> void:
 	#Move The Sealion towards it's target
@@ -37,6 +39,9 @@ func update(sealion: Sealion, _delta) -> void:
 		sealion.animation_player.play("Attack")
 		if sealion.target_node.has_method("take_damage"):
 			sealion.target_node.take_damage()
+		if sealion.target_node is BabyPenguin:
+			if sealion.target_node.hiding:
+				change_target = true
 	
 	#Turn Towards Target
 	var radians_to_turn: float = atan2(-dir.x, -dir.z)
