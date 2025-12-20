@@ -8,12 +8,14 @@ var current_time := 0.0
 func enter() -> void:
 	active = true
 	scared = true
+	baby.hiding = true
 	baby.global_rotation = baby.freezer.global_rotation
 	window_sitting()
 	baby.hiding_timer.start()
 	baby.remove_from_group("SealionInteractables")
 
 func exit() -> void:
+	baby.hiding = false
 	baby.skeleton_no_arms.visible  = true
 	baby.add_to_group("SealionInteractables")
 	active = false
