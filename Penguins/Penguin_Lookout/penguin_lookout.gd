@@ -9,6 +9,8 @@ extends Node3D
 #	CLASS MEMBERS:
 #===============================================================================
 @onready var _audio_emitter: AudioStreamPlayer3D = $AudioEmitter
+@onready var _anim_player: AnimationPlayer = \
+		$PenguinAlertScoutSteer/AnimationPlayer
 
 var dist_callout: float = 500
 var dist_callout_sqr: float
@@ -25,14 +27,12 @@ var _interval_wave_callout: float = 10.0 * 1000.0
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	_play_anim("Scouting")
 	if _spawner:
 		_spawner.enemy_spawned.connect(_callout_enemy)
 	
 	if _ship:
-		dist_callout = _ship.callout_distance
 		_ship.wave_inbound.connect(_callout_wave)
-	
-	dist_callout_sqr = dist_callout * dist_callout
 
 
 func _process(_delta: float) -> void:
@@ -53,7 +53,16 @@ func _callout_enemy(enemy: Node3D) -> void:
 func _callout_wave() -> void:
 	if Time.get_ticks_msec() > _timeout_wave_callout:
 		_play_sound(AudioManager.WAVE_INCOMING)
+		_play_anim("Alert")
 		_timeout_wave_callout  = Time.get_ticks_msec() + _interval_wave_callout
+
+
+#===============================================================================
+#	SETUP:
+#===============================================================================
+func _play_anim(anim: String, blend: float = 1, speed: float = 1.0) -> void:
+	_anim_player.play(anim, blend, speed)
+	_anim_player.queue("Scouting")
 
 
 #===============================================================================
@@ -64,6 +73,8 @@ func setup(s: Ship, spwn: Spawner) -> void:
 	if _ship and _ship.wave_inbound.is_connected(_callout_wave):
 		_ship.wave_inbound.disconnect(_callout_wave)
 	_ship = s
+	dist_callout = _ship.callout_distance
+	dist_callout_sqr = dist_callout * dist_callout
 	if not _ship.wave_inbound.is_connected(_callout_wave):
 		_ship.wave_inbound.connect(_callout_wave)
 	
@@ -104,4 +115,5 @@ func _track_target() -> void:
 		else:
 			_play_sound(AudioManager.PENGUIN_WEST)
 	
+	_play_anim("Alert")
 	_target = null

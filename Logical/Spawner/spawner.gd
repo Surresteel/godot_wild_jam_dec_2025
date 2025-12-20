@@ -88,18 +88,16 @@ func _process(_delta: float) -> void:
 		return
 	
 	if Time.get_ticks_msec() >= _timeout_enemy:
-		if _enemies.size() >= target_count_enemties:
-			return
-		_cleaup_enemies()
-		_spawn_enemy()
-		_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000 \
-				+ randf() * _interval_enemy_random
+		if not _enemies.size() >= target_count_enemties:
+			_cleaup_enemies()
+			_spawn_enemy()
+			_timeout_enemy = Time.get_ticks_msec() + _interval_enemy * 1000 \
+					+ randf() * _interval_enemy_random
 	
 	if Time.get_ticks_msec() >= _timeout_iceberg:
-		if _count_icebergs >= target_count_icebergs:
-			return
-		_spawn_iceberg()
-		_timeout_iceberg = Time.get_ticks_msec() + _interval_iceberg * 1000
+		if not _count_icebergs >= target_count_icebergs:
+			_spawn_iceberg()
+			_timeout_iceberg = Time.get_ticks_msec() + _interval_iceberg * 1000
 
 
 func _handle_iceberg_destroyed() -> void:
@@ -107,6 +105,9 @@ func _handle_iceberg_destroyed() -> void:
 
 
 func _handle_iceberg_split(layers: int, pos: Vector3, mult: int) -> void:
+	if not target:
+		return
+	
 	for i in mult:
 		_spawn_iceberg(layers, pos)
 
@@ -135,7 +136,8 @@ func _spawn_enemy() -> void:
 	
 	if enemy is Orca:
 		enemy.set_target(target)
-		enemy.assign_wave_manager(wave_manager)
+		if wave_manager:
+			enemy.assign_wave_manager(wave_manager)
 	if enemy is Sealion:
 		enemy.set_target(target)
 	

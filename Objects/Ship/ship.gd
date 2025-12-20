@@ -24,7 +24,7 @@ const MAX_DEPTH: float = 3.0
 const MAX_SPEED: float = 10.0
 const MAX_ROTATION: float = 10.0
 
-const WP_RADIUS: float = 10.0
+const WP_RADIUS: float = 50.0
 
 
 # SIGNALS:
@@ -40,8 +40,10 @@ var _force_to_apply := Vector3.ZERO
 var _torque_to_apply := Vector3.ZERO
 
 # NAVIGATION PRIVATE:
+var _spawn := Vector3.ZERO
 var _has_destination: bool = false
 var _waypoint: Vector3 = Vector3.ZERO
+var _waypoint_prev: Vector3 = Vector3.ZERO
 
 # SETUP PUBLIC:
 @export_group("Setup")
@@ -54,7 +56,7 @@ var _waypoint: Vector3 = Vector3.ZERO
 @export var max_hitpoints: int = 100
 @export var speed_base: float = 1.0
 @export var momentum_gain: float = 0.01
-@export var callout_distance: float = 500
+@export var callout_distance: float = 200
 
 # GAMEPLAY PRIVATE:
 var _hitpoints: int = 100
@@ -74,6 +76,8 @@ var _callout_radius: float = 50.0
 #	CALLBACKS:
 #===============================================================================
 func _ready() -> void:
+	_spawn = global_position
+	
 	if initial_waypoint.distance_squared_to(global_position) > 25:
 		set_waypoint(initial_waypoint)
 	
@@ -99,6 +103,7 @@ func _ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	print(get_progress_wp())
 	if _has_destination:
 		_go_to_point(_waypoint)
 	
@@ -287,8 +292,31 @@ func turn_right(torque: float = 250.0) -> void:
 
 
 func set_waypoint(wp: Vector3) -> void:
+	_waypoint_prev = _waypoint
 	_has_destination = true
 	_waypoint = wp
+
+
+func get_progress_wp() -> float:
+	if not _has_destination:
+		return 1.0
+	
+	var dist_wp := (_waypoint - _waypoint_prev).length()
+	var dist_ship := (_waypoint - global_position).length()
+	var prog = 1.0 - (dist_ship / dist_wp)
+	prog = clampf(prog, 0.0, 1.0)
+	return prog
+
+
+func get_progress_total() -> float:
+	if not _has_destination:
+		return 1.0
+	
+	var dist_wp := (_waypoint - _spawn).length()
+	var dist_ship := (_waypoint - global_position).length()
+	var prog = 1.0 - (dist_ship / dist_wp)
+	prog = clampf(prog, 0.0, 1.0)
+	return prog
 
 
 #===============================================================================

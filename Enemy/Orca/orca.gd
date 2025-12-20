@@ -44,7 +44,7 @@ var _waypoint_radius: float = 100.0
 var _radius_orbit: float = 50.0
 var _orbit_dir: bool = false
 var _allow_pitch: bool = true
-var _lateral_fraction := 0.01
+var _lateral_fraction := 0.1
 var _set_orientation := Vector3.ZERO
 
 # Follow stuff:
@@ -230,19 +230,14 @@ func _handle_state() -> void:
 
 
 func _do_state_swim(delta: float, destination: Vector3) -> void:
-	if global_position.distance_squared_to(destination) < _waypoint_radius * _waypoint_radius:
+	if global_position.distance_squared_to(destination) < _waypoint_radius \
+			* _waypoint_radius:
 		_audio_emitter.stream = AudioManager.ORCA_ARRIVE
 		_audio_emitter.play()
 		_state = STATES.IDLE
 		return
 	
-	# GATE - Orca must be below max speed:
-	if velocity.length() >= SPEED_MAX:
-		return
-	
-	# Apply acceleration towards destination:
-	var heading_desired = (destination - global_position).normalized()
-	velocity += ACC_MAX * heading_desired * delta
+	_go_to_point(delta, destination)
 
 
 func _do_state_follow(delta: float, target: Node3D) -> void:
