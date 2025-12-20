@@ -22,14 +22,16 @@ extends CanvasLayer
 @onready var distress_sweat_baby_icon: TextureRect = $PenguinStatusesUI/DistressSweatBaby_Icon
 
 
-const PROGRESS_START: float = 377.0
-const PROGRESS_END: float = 810.0
+const PROGRESS_START: float = -211.0
+const PROGRESS_END: float = 218.0
 
 var _is_panicking_baby: bool = false
 var _is_panicking_helms: bool = false
 
+
 func _ready() -> void:
 	call_deferred("_post_ready")
+
 
 func _post_ready() -> void:
 	ship.enemy_spotted.connect(_handle_callout)
@@ -38,22 +40,28 @@ func _post_ready() -> void:
 	
 	helms.steering_stopped.connect(_penguin_helms_panic.bind(true))
 	helms.steering_started.connect(_penguin_helms_panic.bind(false))
+	
+	baby_p_icon.pivot_offset = baby_p_icon.size / 2
+	helsman_p_icon.pivot_offset = helsman_p_icon.size / 2
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	_handle_progress()
 	_handle_ammo()
 	_handle_health()
 	
 	if _is_panicking_baby:
-		_animate_baby_icon(delta)
+		_animate_baby_icon()
 		
 	if _is_panicking_helms:
-		_animate_helms_icon(delta)
-	
+		_animate_helms_icon()
+
+
 func _handle_progress() -> void: 
 	var progress = ship.get_progress_total() 
 	ship_progress_icon.transform.origin.x = remap(progress,0.0,1.0,PROGRESS_START,PROGRESS_END)
-	
+
+
 func _handle_health() -> void:
 	var health = ship.get_ship_health()
 	if health >= 0.66:
@@ -68,10 +76,12 @@ func _handle_health() -> void:
 		ship_health_BADRED.visible = true
 		ship_health_OKORANAGE.visible = false
 		ship_health_GOODGREEN.visible = false
-		
+
+
 func _handle_ammo() -> void:
 	if not player.snowball_action:
 		return
+	
 	var ammo = player.snowball_action.ammo
 	
 	if ammo == 3:
@@ -90,10 +100,9 @@ func _handle_ammo() -> void:
 		snowball_1.visible = false
 		snowball_2.visible = false
 		snowball_3.visible = false
-		
-	
+
+
 func _handle_callout(sector: PenguinLookout.DIRECTIONS) -> void:
-	
 	if sector == PenguinLookout.DIRECTIONS.FORWARD: #Front
 		_warning(ship_callout_front)
 	elif sector == PenguinLookout.DIRECTIONS.AFT: #Back
@@ -103,24 +112,32 @@ func _handle_callout(sector: PenguinLookout.DIRECTIONS) -> void:
 	elif sector == PenguinLookout.DIRECTIONS.RIGHT: #Right
 		_warning(ship_callout_right)
 
+
 func _warning(texture: TextureRect) -> void:	
 	for i in 5:
 		texture.visible = true
 		await get_tree().create_timer(0.8).timeout
 		texture.visible = false
 		await get_tree().create_timer(0.2).timeout
-		
+
+
 func _penguin_baby_panic(toggle: bool) -> void: 
 	distress_sweat_baby_icon.visible = toggle
 	_is_panicking_baby = toggle
-	
+	if not toggle:
+		baby_p_icon.rotation = 0
+
+
 func _penguin_helms_panic(toggle: bool) -> void: 
 	distress_sweat_helms_icon_2.visible = toggle
 	_is_panicking_helms = toggle
-	
-func _animate_baby_icon(delta: float) -> void:
-	baby_p_icon.rotation = sin(delta) * 20
-	
-func _animate_helms_icon(delta: float) -> void:
-	helsman_p_icon.rotation = sin(delta) * 20
-	
+	if not toggle:
+		helsman_p_icon.rotation = 0
+
+
+func _animate_baby_icon() -> void:
+	baby_p_icon.rotation = sin(Time.get_ticks_msec() * 0.01) * 0.8
+
+
+func _animate_helms_icon() -> void:
+	helsman_p_icon.rotation = sin(Time.get_ticks_msec() * 0.01) * 0.8

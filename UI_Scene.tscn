@@ -208,16 +208,22 @@ animations = [{
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_h73pd")
 
-[node name="ShipUI" type="Node" parent="."]
+[node name="ShipUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+mouse_filter = 2
 
 [node name="ShipAttackBacking" type="TextureRect" parent="ShipUI"]
-offset_left = 1031.0
+layout_mode = 0
+offset_left = -116.0
 offset_top = 2.0
-offset_right = 2031.0
+offset_right = 884.0
 offset_bottom = 1827.0
 scale = Vector2(0.11538776, 0.110850714)
 texture = ExtResource("4_vqwk8")
-metadata/_edit_use_anchors_ = true
 
 [node name="ShipAttackFront" type="TextureRect" parent="ShipUI/ShipAttackBacking"]
 visible = false
@@ -248,52 +254,69 @@ offset_bottom = 40.0
 texture = ExtResource("8_woaqk")
 
 [node name="ShipConditionBAD" type="TextureRect" parent="ShipUI"]
-offset_left = 1033.52
+layout_mode = 0
+offset_left = -113.47998
 offset_top = 2.0
-offset_right = 2033.52
+offset_right = 886.52
 offset_bottom = 1827.0
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("2_h73pd")
 
 [node name="ShipConditionOK" type="TextureRect" parent="ShipUI"]
-offset_left = 1033.52
+layout_mode = 0
+offset_left = -113.47998
 offset_top = 2.0
-offset_right = 2033.52
+offset_right = 886.52
 offset_bottom = 1827.0
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("1_s12pb")
 
 [node name="ShipConditionGOOD" type="TextureRect" parent="ShipUI"]
-offset_left = 1033.52
+layout_mode = 0
+offset_left = -113.47998
 offset_top = 2.0
-offset_right = 2033.52
+offset_right = 886.52
 offset_bottom = 1827.0
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("3_1q3i5")
 
-[node name="ProgressUI" type="Node" parent="."]
+[node name="ProgressUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+mouse_filter = 2
 
 [node name="BackWaveBar" type="AnimatedSprite2D" parent="ProgressUI"]
-position = Vector2(589, 45.25)
+position = Vector2(0, 45.25)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_xh5db")
 autoplay = "default"
 
 [node name="ShipProgressBar" type="AnimatedSprite2D" parent="ProgressUI"]
-position = Vector2(377, 50)
+position = Vector2(218, 50)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_00ugu")
 autoplay = "default"
 
 [node name="FrontWaveBar" type="AnimatedSprite2D" parent="ProgressUI"]
-position = Vector2(589, 55)
+position = Vector2(0, 55)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_knjrv")
 autoplay = "default"
 
-[node name="PenguinStatusesUI" type="Node" parent="."]
+[node name="PenguinStatusesUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 39.0
+offset_top = 41.0
+offset_right = 39.0
+offset_bottom = 41.0
+mouse_filter = 2
 
 [node name="BabyP_Icon" type="TextureRect" parent="PenguinStatusesUI"]
+layout_mode = 0
 offset_left = 18.0
 offset_top = 81.0
 offset_right = 58.0
@@ -304,6 +327,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="HelsmanP_Icon" type="TextureRect" parent="PenguinStatusesUI"]
+layout_mode = 0
 offset_left = 97.00001
 offset_top = 19.0
 offset_right = 137.0
@@ -315,6 +339,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DistressSweatBaby_Icon" type="TextureRect" parent="PenguinStatusesUI"]
 visible = false
+layout_mode = 0
 offset_left = 11.0
 offset_top = 87.0
 offset_right = 51.0
@@ -326,6 +351,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DistressSweatHelms_Icon2" type="TextureRect" parent="PenguinStatusesUI"]
 visible = false
+layout_mode = 0
 offset_left = 91.0
 offset_top = 22.0
 offset_right = 131.0
@@ -335,18 +361,28 @@ texture = ExtResource("15_oj722")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="ReticleUI" type="Node" parent="."]
-
-[node name="Recticle0" type="TextureRect" parent="ReticleUI"]
+[node name="ReticleUI" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -118.0
-offset_top = -102.0
-offset_right = 182.0
-offset_bottom = 198.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Recticle0" type="TextureRect" parent="ReticleUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.28
+offset_top = -111.985
+offset_right = 187.72
+offset_bottom = 188.015
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -354,15 +390,16 @@ texture = ExtResource("19_476hm")
 
 [node name="Recticle3" type="TextureRect" parent="ReticleUI"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -118.0
-offset_top = -102.0
-offset_right = 182.0
-offset_bottom = 198.0
+offset_left = -112.28
+offset_top = -111.985
+offset_right = 187.72
+offset_bottom = 188.015
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -371,15 +408,16 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Recticle2" type="TextureRect" parent="ReticleUI"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -118.0
-offset_top = -102.0
-offset_right = 182.0
-offset_bottom = 198.0
+offset_left = -112.28
+offset_top = -111.985
+offset_right = 187.72
+offset_bottom = 188.015
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -387,15 +425,16 @@ texture = ExtResource("17_5aw77")
 
 [node name="Recticle1" type="TextureRect" parent="ReticleUI"]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -118.0
-offset_top = -102.0
-offset_right = 182.0
-offset_bottom = 198.0
+offset_left = -112.28
+offset_top = -111.985
+offset_right = 187.72
+offset_bottom = 188.015
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
