@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://cr6bdlxo31j5t"]
+[gd_scene load_steps=0 format=3 uid="uid://cr6bdlxo31j5t"]
 
 [node name="CenterContainer" type="CenterContainer"]
 anchors_preset = 15
