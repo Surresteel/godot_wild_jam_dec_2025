@@ -27,7 +27,7 @@ func update(sealion: Sealion, _delta) -> void:
 	var dir: Vector3 = (sealion.next_target_pos
 						- sealion.global_position).normalized()
 	
-	if not sealion.nav_agent.is_navigation_finished():
+	if not sealion.nav_agent.is_navigation_finished() and sealion.animation_player.current_animation != "Attack":
 		#set velocity
 		sealion.velocity.x = dir.x * speed
 		sealion.velocity.z = dir.z * speed

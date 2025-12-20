@@ -16,7 +16,5 @@ func pre_update() -> void:
 func update(_delta: float) -> void:
 	player.play_animation_no_interupt("P_FPArms__Idle")
 	
-	#debug button
-	if Input.is_key_pressed(KEY_R):
-		player.snowball_action.reload()
+
  

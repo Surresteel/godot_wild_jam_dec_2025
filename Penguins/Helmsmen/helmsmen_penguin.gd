@@ -26,6 +26,8 @@ signal chased
 
 func _ready() -> void:
 	statemachine.get_current_state_object().enter()
+	for c in get_incoming_connections():
+		print("Incoming:", c)
 
 
 #Set Next Target Position For Nav Agent
@@ -62,6 +64,8 @@ func set_next_target() -> void:
 	else:
 		target = chase_points.pick_random()
 
+func set_being_chased():
+	push_error("set_being_chased was called!\n", get_stack())
 
 func set_chased(_state: bool) -> void:
 	animation_player.play("Alert")

@@ -873,7 +873,7 @@ _data = {
 size = Vector3(1, 0.8358154, 1.5753174)
 
 [node name="Sealion" type="CharacterBody3D"]
-collision_mask = 3
+collision_mask = 2
 floor_max_angle = 1.0471976
 script = ExtResource("1_0fx28")
 
