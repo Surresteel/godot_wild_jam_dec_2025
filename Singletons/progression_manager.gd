@@ -50,3 +50,12 @@ func mission_switch() -> void:
 
 func mission_switch_def() -> void:
 	get_tree().change_scene_to_packed(LEVELS[current_level])
+
+
+func mission_start() -> void:
+	call_deferred("mission_switch_def")
+
+
+func mission_start_def() -> void:
+	current_level = 0
+	get_tree().change_scene_to_packed(LEVELS[current_level])

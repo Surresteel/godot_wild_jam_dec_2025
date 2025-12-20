@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://kcikku064q51"]
+[gd_scene load_steps=49 format=3 uid="uid://kcikku064q51"]
 
 [ext_resource type="Script" uid="uid://dt0oshgv5lsl6" path="res://UIScripts.gd" id="1_h73pd"]
 [ext_resource type="Texture2D" uid="uid://bnumyxx1ygv4m" path="res://ShipStatus_Health_Bad.png" id="1_s12pb"]
@@ -232,6 +232,11 @@ border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_detail = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_s12pb"]
+font_size = 22
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_h73pd")
@@ -485,3 +490,29 @@ theme_override_styles/background = SubResource("StyleBoxFlat_s12pb")
 theme_override_styles/fill = SubResource("StyleBoxFlat_h73pd")
 fill_mode = 3
 show_percentage = false
+
+[node name="Notifications" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="WarningCannons" type="Label" parent="Notifications"]
+visible = false
+layout_mode = 0
+offset_left = -213.0
+offset_top = -251.0
+offset_right = 270.0
+offset_bottom = -186.0
+text = "If you can't aim the cannons
+press TAB twice."
+label_settings = SubResource("LabelSettings_s12pb")
+horizontal_alignment = 1
