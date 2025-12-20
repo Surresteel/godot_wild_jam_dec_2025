@@ -3,7 +3,6 @@ extends helmsmenState
 
 func enter() -> void:
 	penguin.chased.emit()
-	penguin.animation_player.queue("Chase")
 
 func exit() -> void:
 	pass

@@ -883,11 +883,11 @@ transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, 
 shape = SubResource("CapsuleShape3D_myrwn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_max_distance = 1.01
 navigation_layers = 0
 path_postprocessing = 1
-avoidance_mask = 0
+avoidance_enabled = true
 debug_enabled = true
+debug_use_custom = true
 
 [node name="Armature" type="Node3D" parent="."]
 transform = Transform3D(-0.75, 0, -6.556708e-08, 0, 0.75, 0, 6.556708e-08, 0, -0.75, 0, 0, 0)

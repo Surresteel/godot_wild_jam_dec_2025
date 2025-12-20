@@ -9,7 +9,6 @@ func enter() -> void:
 	active = true
 	scared = true
 	baby.hiding = true
-	baby.global_rotation = baby.freezer.global_rotation
 	window_sitting()
 	baby.hiding_timer.start()
 	baby.remove_from_group("SealionInteractables")
@@ -25,20 +24,20 @@ func pre_update() -> void:
 		transition.emit(BabyPenguinStateMachine.state.Player_Follow)
 
 func update(delta: float) -> void:
+	
+	baby.global_transform = baby.freezer.global_transform
+		
+	if not scared:
+		reload_out_door()
+		return
+		
 	if current_time < reload_timer:
 		current_time += delta
 	else:
-		current_time = 0.0
 		scared = false
 		print("scared timer timeout")
 	
-	if baby.animation_player.current_animation == "Baby_HidingIdle":
-		baby.global_position = baby.freezer.global_position
-	else:
-		baby.global_position = baby.freezer.global_position - Vector3(0,0.25,0)
-		
-	if baby.player.global_position.distance_to(baby.global_position) <= 1 and not scared:
-		reload_out_door()
+	baby.animation_player.play("Baby_HidingIdle", 1)
 	
 
 func reload_out_door() -> void:
@@ -50,6 +49,8 @@ func reload_out_door() -> void:
 func window_sitting() -> void:
 	if not active:
 		return
-	baby.animation_player.play("Baby_HidingIdle")
+	baby.animation_player.play("Baby_HidingIdle",0.1)
 	baby.reload_ready = false
 	scared = true
+	current_time = 0.0
+	baby.hiding_timer.start()

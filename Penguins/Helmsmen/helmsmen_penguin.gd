@@ -76,3 +76,5 @@ func set_chased(state: bool) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Scouting":
 		animation_player.play("Steering")
+	if anim_name == "Alert":
+		animation_player.play("Chase")
