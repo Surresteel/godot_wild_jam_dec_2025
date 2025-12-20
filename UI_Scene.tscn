@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://kcikku064q51"]
+[gd_scene load_steps=48 format=3 uid="uid://kcikku064q51"]
 
 [ext_resource type="Script" uid="uid://dt0oshgv5lsl6" path="res://UIScripts.gd" id="1_h73pd"]
 [ext_resource type="Texture2D" uid="uid://bnumyxx1ygv4m" path="res://ShipStatus_Health_Bad.png" id="1_s12pb"]
@@ -204,6 +204,34 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s12pb"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h73pd"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 1, 0, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_detail = 6
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_h73pd")
@@ -445,3 +473,15 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("18_1l11w")
+
+[node name="CannonPower" type="ProgressBar" parent="ReticleUI"]
+visible = false
+layout_mode = 0
+offset_left = -14.666667
+offset_top = 132.0
+offset_right = 15.333333
+offset_bottom = 282.0
+theme_override_styles/background = SubResource("StyleBoxFlat_s12pb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h73pd")
+fill_mode = 3
+show_percentage = false

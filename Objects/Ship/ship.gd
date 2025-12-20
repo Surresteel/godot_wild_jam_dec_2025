@@ -79,6 +79,9 @@ var _callout_radius_wave: float = 50.0
 @onready var sealion_detector: Area3D = $SealionDetector
 var sealion_amount: int = 0
 
+# CANNON REFERENCES:
+var cannons: Array[Cannon]
+
 #===============================================================================
 #	CALLBACKS:
 #===============================================================================
@@ -121,6 +124,12 @@ func _post_ready() -> void:
 	
 	sealion_detector.body_entered.connect(_sealion_tally.bind(true))
 	sealion_detector.body_exited.connect(_sealion_tally.bind(false))
+	
+	cannons.append($Cannons/Cannon)
+	cannons.append($Cannons/Cannon2)
+	cannons.append($Cannons/Cannon3)
+	cannons.append($Cannons/Cannon4)
+	cannons.append($Cannons/Cannon5)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:

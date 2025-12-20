@@ -20,6 +20,7 @@ extends CanvasLayer
 @onready var helsman_p_icon: TextureRect = $PenguinStatusesUI/HelsmanP_Icon
 @onready var distress_sweat_helms_icon_2: TextureRect = $PenguinStatusesUI/DistressSweatHelms_Icon2
 @onready var distress_sweat_baby_icon: TextureRect = $PenguinStatusesUI/DistressSweatBaby_Icon
+@onready var cannon_power: ProgressBar = $ReticleUI/CannonPower
 
 
 const PROGRESS_START: float = -211.0
@@ -43,6 +44,11 @@ func _post_ready() -> void:
 	
 	baby_p_icon.pivot_offset = baby_p_icon.size / 2
 	helsman_p_icon.pivot_offset = helsman_p_icon.size / 2
+	
+	for cannon in ship.cannons:
+		cannon.ui_cannon_enter.connect(_toggle_cannon_power_visibility.bind(true))
+		cannon.ui_cannon_exit.connect(_toggle_cannon_power_visibility.bind(false))
+		cannon.cannon_power.connect(set_cannon_power)
 
 
 func _process(_delta: float) -> void:
@@ -141,3 +147,10 @@ func _animate_baby_icon() -> void:
 
 func _animate_helms_icon() -> void:
 	helsman_p_icon.rotation = sin(Time.get_ticks_msec() * 0.01) * 0.8
+
+
+func _toggle_cannon_power_visibility(toggle: bool) -> void:
+	cannon_power.visible = toggle
+
+func set_cannon_power(power: float) -> void:
+	cannon_power.value = power
