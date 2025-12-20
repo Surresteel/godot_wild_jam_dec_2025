@@ -20,9 +20,9 @@ var do_buoy: bool = true
 var state: SealionBaseState = SealionStates.CIRCLING
 
 # Buoyancy PID controller:
-const KP := 5.0
+const KP := 3.0
 const KI := 1.0
-const KD := 2.0
+const KD := 4.0
 var integral := 0.0
 var last_error := 0.0
 
@@ -44,7 +44,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	#print(dot_sealion_to_ship)
 	#update the Nav Agent
-	if target_node != null:
+	if target_node:
 		next_target_pos = nav_agent.get_next_path_position()
 		nav_agent.target_position = target_node.global_position
 	
@@ -108,7 +108,7 @@ func take_damage_real() -> void:
 		defeated = true
 
 
-func take_damage(body: Node3D) -> void:
+func take_damage(_body: Node3D) -> void:
 	take_damage_real()
 
 func set_target(t: RigidBody3D) -> void:

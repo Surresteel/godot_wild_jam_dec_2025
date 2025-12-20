@@ -29,30 +29,34 @@ func pre_update(sealion: Sealion) -> void:
 	if sealion.defeated:
 		sealion.change_state(SealionStates.DEFEATED)
 
+
 func update(sealion: Sealion, delta) -> void:
-	if animation_current_time < animation_timer:
-		animation_current_time += delta
-	else:
-		animation_current_time = 0
-		animation_timer = randf_range(7,14) 
-		sealion.animation_player.play("Swimming")
-	
-	if swimming_distance > 20:
+	if swimming_distance > 20 and _is_at_circle(sealion, 
+			sealion.ship.global_position):
 		swimming_distance -= delta * swimming_distance_drain_speed
-	
 	
 	var nextpoint:= get_next_pos(sealion,sealion.ship.global_position)
 	nextpoint.y = sealion.global_position.y
-	#print(nextpoint)
+	
 	#set velocity
 	var dir = nextpoint - sealion.global_position
-	sealion.velocity.x = move_toward(sealion.velocity.x, dir.x + sealion.ship.linear_velocity.x, 4 * delta)
-	sealion.velocity.z = move_toward(sealion.velocity.z, dir.z + sealion.ship.linear_velocity.z, 4 * delta)
+	var dir_norm = dir.normalized()
+	var vel_add: Vector3 = dir_norm * 4 * delta
+	var vel_new: Vector3 = sealion.velocity + vel_add
+	vel_new.y = 0
+	if vel_new.length_squared() > speed * speed:
+		var vel_vec: Vector3 = sealion.velocity.normalized()
+		sealion.velocity += -vel_vec * vel_add.length()
+		sealion.velocity += vel_add
+	else:
+		sealion.velocity += vel_add
+	
 	
 	#Turn Towards Target
-	var radians_to_turn: float = atan2(-dir.x, -dir.z)
-	var turn_amount = lerp_angle(sealion.global_rotation.y, radians_to_turn, 7 * delta)
-	sealion.global_rotation.y = turn_amount
+	var t := sealion.transform
+	t.basis = Basis.looking_at(dir.normalized(), Vector3.UP)
+	sealion.transform = sealion.transform.interpolate_with(t, 7 * delta)
+	return
 
 
 func get_next_pos(sealion: Sealion, target: Vector3) -> Vector3:
@@ -70,3 +74,11 @@ func get_next_pos(sealion: Sealion, target: Vector3) -> Vector3:
 	var point_next := target + to_point_next * swimming_distance
 	
 	return point_next
+
+
+func _get_dist_to_target(sealion: Sealion, target: Vector3) -> float:
+	return (target - sealion.global_position).length()
+
+
+func _is_at_circle(sealion: Sealion, target: Vector3) -> bool:
+	return _get_dist_to_target(sealion, target) < swimming_distance + 20
