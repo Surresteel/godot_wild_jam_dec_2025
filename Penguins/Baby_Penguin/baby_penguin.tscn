@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://dw60einr3dthn"]
+[gd_scene load_steps=40 format=4 uid="uid://dbd1v6fr2kvlc"]
 
 [ext_resource type="Script" uid="uid://b42ecmqb5awvo" path="res://Penguins/Baby_Penguin/StateMachine/baby_penguin_state_machine.gd" id="1_m6n0v"]
 [ext_resource type="Script" uid="uid://db1lek7oqkfsj" path="res://Penguins/Baby_Penguin/baby_penguin.gd" id="1_r8tpx"]
