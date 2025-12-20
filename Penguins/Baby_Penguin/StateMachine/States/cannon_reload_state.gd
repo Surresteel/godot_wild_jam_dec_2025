@@ -19,6 +19,8 @@ func pre_update() -> void:
 		transition.emit(BabyPenguinStateMachine.state.Reloading)
 	elif baby.being_chased:
 		transition.emit(BabyPenguinStateMachine.state.Chased)
+	#elif baby.ship.sealion_amount > 0:
+		#transition.emit(BabyPenguinStateMachine.state.Chased)
 
 func update(delta: float) -> void:		#gravity
 	if not baby.is_on_floor():

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
 [ext_resource type="PackedScene" uid="uid://bncmp5m6fasjn" path="res://Penguins/Helmsmen/Helmsmen_Penguin.tscn" id="6_txrj4"]
-[ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_vnhy5"]
+[ext_resource type="PackedScene" uid="uid://dbd1v6fr2kvlc" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_vnhy5"]
 [ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="10_wqmuq"]
 [ext_resource type="PackedScene" uid="uid://kcikku064q51" path="res://UI_Scene.tscn" id="11_c0cov"]
 
@@ -103,8 +103,9 @@ transform = Transform3D(1, 0, 0, 0, 0.63281345, 0.77430433, 0, -0.77430433, 0.63
 shadow_enabled = true
 directional_shadow_blend_splits = true
 
-[node name="Baby Penguin" parent="." node_paths=PackedStringArray("player", "freezer") instance=ExtResource("8_vnhy5")]
+[node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player", "freezer") instance=ExtResource("8_vnhy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14835966, 4.054515, 5.9928074)
+ship = NodePath("../Ship")
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
 
@@ -118,6 +119,18 @@ ship = NodePath("../Ship")
 
 [node name="Sealion3" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.922851, 0, -6.450098)
+ship = NodePath("../Ship")
+
+[node name="Sealion4" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.98401, -9.536743e-07, 20.106174)
+ship = NodePath("../Ship")
+
+[node name="Sealion5" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.257898, -9.536743e-07, 12.551115)
+ship = NodePath("../Ship")
+
+[node name="Sealion6" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("10_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.418187, -9.536743e-07, 3.6278725)
 ship = NodePath("../Ship")
 
 [node name="CanvasLayer" parent="." node_paths=PackedStringArray("ship", "player", "baby", "helms") instance=ExtResource("11_c0cov")]

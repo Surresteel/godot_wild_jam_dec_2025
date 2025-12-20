@@ -1,9 +1,15 @@
-[gd_scene load_steps=64 format=4 uid="uid://cypax8bji6tw1"]
+[gd_scene load_steps=67 format=4 uid="uid://cypax8bji6tw1"]
 
 [ext_resource type="Script" uid="uid://w0qqggs3hjl2" path="res://Objects/Ship/ship.gd" id="1_r5d65"]
 [ext_resource type="PackedScene" uid="uid://cdwtcgl5bsf5f" path="res://Objects/Cannon/cannon.tscn" id="3_olgus"]
 [ext_resource type="Script" uid="uid://13rkt036vyl8" path="res://Objects/Ship/ship_audio.gd" id="4_xuvaw"]
 [ext_resource type="PackedScene" uid="uid://bflnkio28h1e0" path="res://Penguins/Penguin_Lookout/penguin_lookout.tscn" id="5_skpsb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xuvaw"]
+radius = 0.54047227
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_skpsb"]
+radius = 0.54047227
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_0a1j2"]
 vertices = PackedVector3Array(-0.637789, 2.5668638, -0.01646328, 0.11221099, 2.5668638, -0.26646328, 0.11221099, 2.5668638, -0.5164633, -1.637789, 2.7168639, -0.7664633, -1.637789, 4.366864, -6.0164633, -1.887789, 2.7168639, -0.7664633, -1.637789, 4.366864, -5.0164633, -1.700289, 4.2168636, -4.7039633, -1.762789, 3.3168638, -3.3914633, -1.825289, 3.3168638, -2.0789633, -1.8044556, 3.3168638, -2.1831303, -1.637789, 2.5668638, 4.4835367, -0.387789, 2.5668638, 4.4835367, -0.387789, 2.5668638, 4.2335367, -0.637789, 2.5668638, 3.2335367, 1.362211, 3.3168638, -2.7664633, 1.612211, 3.3168638, -3.2664633, -1.387789, 3.3168638, -3.0164633, -1.387789, 3.3168638, -2.7664633, -0.637789, 2.5668638, 0.7335367, -2.387789, 2.5668638, 3.7335367, -2.387789, 2.5668638, -0.5164633, 1.612211, 2.7168639, -0.7664633, 1.862211, 2.7168639, -0.7664633, 1.737211, 3.166864, -2.0164633, 0.11221099, 2.5668638, 2.9835367, 0.11221099, 2.5668638, 0.9835367, 1.362211, 4.366864, -5.2664633, 1.862211, 4.366864, -5.7664633, 1.737211, 4.066864, -4.5164633, 0.612211, 2.5668638, -0.01646328, 2.362211, 2.5668638, -0.5164633, 0.612211, 2.5668638, 3.9835367, 0.11221099, 2.8668637, 5.2335367, 1.112211, 2.5668638, 4.9835367, -0.13778901, 3.7668638, 6.9835367, 0.11221099, 3.7668638, 6.9835367, -1.137789, 3.7668638, 7.4835367, -0.637789, 3.7668638, 8.233537, 0.612211, 3.7668638, 8.233537, 1.112211, 3.7668638, 7.2335367, 0.612211, 2.5668638, 0.7335367, 0.612211, 2.5668638, 3.2335367, 2.362211, 2.5668638, 3.9835367, 1.862211, 2.5668638, 5.4835367)
@@ -1054,6 +1060,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_pf85u")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_g3xnm"]
+size = Vector3(6.1620483, 2.1829834, 16.116577)
+
 [node name="Ship" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 16
@@ -1079,8 +1088,20 @@ transform = Transform3D(-1, -3.0510108e-09, -8.736952e-08, 0, 0.99939084, -0.034
 [node name="Cannon4" parent="Cannons" instance=ExtResource("3_olgus")]
 transform = Transform3D(0.9547867, -0.010375325, -0.29711044, 0, 0.99939084, -0.034899496, 0.29729155, 0.033321574, 0.9542051, 0.71827704, 3.4218335, -8.199997)
 
+[node name="CannonInteract" parent="Cannons/Cannon4" index="2"]
+transform = Transform3D(1.0000001, 3.783498e-10, -2.9802322e-08, 0, 0.99936813, -0.035544872, -2.9802322e-08, 0.035544872, 0.9993682, 0.71827704, 3.4218335, -8.199997)
+
+[node name="CollisionShape3D" parent="Cannons/Cannon4/CannonInteract" index="0"]
+shape = SubResource("SphereShape3D_xuvaw")
+
 [node name="Cannon5" parent="Cannons" instance=ExtResource("3_olgus")]
 transform = Transform3D(0.95476073, 0.010378233, 0.29719374, 0, 0.99939084, -0.034899496, -0.29737484, 0.03332067, 0.95417917, -0.7077598, 3.4218335, -8.199997)
+
+[node name="CannonInteract" parent="Cannons/Cannon5" index="2"]
+transform = Transform3D(1, 8.440111e-10, 2.9802322e-08, 0, 0.9993682, -0.03554487, 0, 0.035544872, 0.9993681, -0.7077598, 3.4218335, -8.199997)
+
+[node name="CollisionShape3D" parent="Cannons/Cannon5/CannonInteract" index="0"]
+shape = SubResource("SphereShape3D_skpsb")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
@@ -1334,3 +1355,12 @@ skeleton = NodePath("")
 transform = Transform3D(0.19601955, -1.6730331e-10, -0.011096014, -0.011096014, -2.955541e-09, -0.19601955, 0, 0.024806496, -2.3429356e-08, 0, 3.4442081, -2.5903575)
 mesh = SubResource("ArrayMesh_skpsb")
 skeleton = NodePath("")
+
+[node name="SealionDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SealionDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011810303, 3.7933185, -1.8816528)
+shape = SubResource("BoxShape3D_g3xnm")
+
+[editable path="Cannons/Cannon4"]
+[editable path="Cannons/Cannon5"]

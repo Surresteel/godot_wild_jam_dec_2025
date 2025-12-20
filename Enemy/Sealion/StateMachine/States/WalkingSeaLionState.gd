@@ -13,8 +13,13 @@ func enter(sealion: Sealion) -> void:
 	#Set NavigationAgentLayer
 	sealion.nav_agent.set_navigation_layer_value(1,true)
 
-func exit(_sealion: Sealion) -> void:
+func exit(sealion: Sealion) -> void:
 	change_target = false
+	sealion.chaseing_started.emit(false)
+	
+	if sealion.target_node.has_method("set_chased"):
+		if sealion.chaseing_started.is_connected(sealion.target_node.set_chased):
+			sealion.chaseing_started.disconnect(sealion.target_node.set_chased)
 
 func pre_update(sealion: Sealion) -> void:
 	if sealion.global_position.y < sealion.get_water_height():
@@ -35,7 +40,7 @@ func update(sealion: Sealion, _delta) -> void:
 		sealion.velocity.z = dir.z * speed
 		
 		sealion.animation_player.play("Chase",1)
-	else:
+	if sealion.target_node.global_position.distance_to(sealion.global_position) <= 1:
 		sealion.velocity = Vector3.ZERO
 		sealion.animation_player.play("Attack")
 		
@@ -45,8 +50,10 @@ func update(sealion: Sealion, _delta) -> void:
 			sealion.timeout_grunt = Time.get_ticks_msec() \
 					+ sealion.interval_grunt
 		
-		if sealion.target_node.has_method("take_damage"):
+		if sealion.target_node.has_method("take_damage") and sealion.can_attack:
 			sealion.target_node.take_damage()
+			sealion.can_attack = false
+		
 		if sealion.target_node is BabyPenguin:
 			if sealion.target_node.hiding:
 				change_target = true

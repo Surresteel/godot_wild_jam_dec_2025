@@ -75,6 +75,9 @@ var _has_driver: bool = true
 @onready var lookout: PenguinLookout = $PenguinLookout
 var _callout_radius_wave: float = 50.0
 
+# SEALION DETECTION:
+@onready var sealion_detector: Area3D = $SealionDetector
+var sealion_amount: int = 0
 
 #===============================================================================
 #	CALLBACKS:
@@ -115,6 +118,9 @@ func _post_ready() -> void:
 	if helmsman:
 		helmsman.steering_started.connect(_driver_on)
 		helmsman.steering_stopped.connect(_driver_off)
+	
+	sealion_detector.body_entered.connect(_sealion_tally.bind(true))
+	sealion_detector.body_exited.connect(_sealion_tally.bind(false))
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
@@ -178,6 +184,14 @@ func _handle_collisions(body: Node) -> void:
 #===============================================================================
 #	PRIVATE FUNCTIONS:
 #===============================================================================
+# Tally Sealions On Board
+func _sealion_tally(body:Node3D, toggle: bool) -> void:
+	if body is Sealion:
+		if toggle:
+			sealion_amount += 1
+		else:
+			sealion_amount -= 1
+			
 # Compute and apply buoyancy forces:
 func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 	# Loop through buoyancy sample points and compute their forces:
