@@ -140,25 +140,27 @@ func rotate_cannon_within_clamp(new_rotation_x: float, new_rotation_y: float) ->
 func recoil(power: float) -> void:
 	var recoil_angle:= 70 - max_angle_x + 4.3
 	
-	var x_ratio = (power-5) / (max_power-5)
-	var cannon_x = (max_angle_x + 4.3 - cannon_barrel.rotation_degrees.x) * x_ratio
-	var player_x = cannon_x - recoil_angle * x_ratio
+	var ratio: float= (power-5) / (max_power-5)
+	var cannon_x: float = cannon_barrel.rotation_degrees.x +(
+			(max_angle_x - cannon_barrel.rotation_degrees.x) * ratio)
+	var player_x: float = cannon_x - recoil_angle * ratio
 	
-	var y_ratio = power / max_power 
-	var cannon_y: float = 15 * y_ratio
-	match randi_range(0,1):
-		0:
-			cannon_y *= -1
-		1:
-			pass
-	#if cannon_y + cannon_barrel
+	var cannon_y: float = 15.0 * ratio
+	if randi_range(0,1) == 1:
+		cannon_y *= -1
+	if cannon_y > 0:
+		cannon_y = clampf(cannon_rack.rotation_degrees.y + cannon_y,min_angle_y,max_angle_y)
+	else:
+		cannon_y = clampf(cannon_rack.rotation_degrees.y - cannon_y,min_angle_y,max_angle_y)
 	
 	var cannon_tween := create_tween()
 	cannon_tween.set_parallel(true)
-	cannon_tween.tween_property(cannon_barrel,"rotation_degrees",Vector3(cannon_x,0,0),0.25)
-	#cannon_tween.tween_property(cannon_rack,"rotation_degrees",Vector3(0,cannon_y,0),0.25)
-	
+	cannon_tween.tween_property(cannon_barrel,"rotation_degrees",Vector3(cannon_x,0,0),0.02)
+	cannon_tween.tween_property(cannon_rack,"rotation_degrees",Vector3(0,cannon_y,0),0.1)
+	cannon_tween.set_parallel(false)
+	cannon_tween.tween_property(cannon_barrel,"rotation_degrees",Vector3(cannon_x - 4.8,0,0),0.25)
+	await get_tree().create_timer(0.05).timeout
 	if player_x < 0:
 		var player_tween := create_tween()
-		player_tween.tween_property(camera_positon,"rotation_degrees",Vector3(-player_x,0,0),0.25)
+		player_tween.tween_property(camera_positon,"rotation_degrees",Vector3(player_x,0,0),0.2)
 		player_tween.tween_property(camera_positon,"rotation_degrees",Vector3.ZERO,0.5)
