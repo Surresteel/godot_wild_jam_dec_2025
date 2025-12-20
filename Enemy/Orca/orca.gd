@@ -46,6 +46,8 @@ var _orbit_dir: bool = false
 var _allow_pitch: bool = true
 var _lateral_fraction := 0.1
 var _set_orientation := Vector3.ZERO
+var _timout_impact: float = 0.0
+var _interval_impact: float = 15.0 * 1000
 
 # Follow stuff:
 var _dist_follow: float = 30.0
@@ -178,8 +180,9 @@ func _handle_collision(body: Node3D) -> void:
 		var vel_transfer = vel.dot(to_self)
 		
 		if vel_transfer < IMPACT_DEATH_THRESH:
-			velocity += Vector3(0.0, 15.0, 0.0)
-			_allow_pitch = true
+			if Time.get_ticks_msec() > _timout_impact:
+				velocity += _jump_impulse
+				_timout_impact = Time.get_ticks_msec() + _interval_impact
 		else:
 			_die()
 		return

@@ -19,7 +19,8 @@ var dist_callout_sqr: float
 
 var _ship: Ship
 var _spawner: Spawner
-var _target: Node3D = null
+#var _target: Node3D = null
+var _target_queue: Array[Node3D] = []
 
 var _timeout_wave_callout: float = 0.0
 var _interval_wave_callout: float = 10.0 * 1000.0
@@ -38,18 +39,23 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if not _target:
+	#if not _target:
+	if _target_queue.is_empty():
 		return
 	
-	_track_target()
+	for i in range(_target_queue.size() -1, -1, -1):
+		if (_track_target(_target_queue[i])):
+			_target_queue.remove_at(i)
 
 
 ## Executes code based on the quadrant that an enemy is in relative to the ship:
 func _callout_enemy(enemy: Node3D) -> void:
-	if not _ship and not _target:
+	#if not _ship and not _target:
+	if not _ship and _target_queue.is_empty():
 		return
 	
-	_target = enemy
+	#_target = enemy
+	_target_queue.push_back(enemy)
 
 
 func _callout_wave() -> void:
@@ -97,10 +103,11 @@ func _play_sound(stream: AudioStream) -> void:
 		_audio_emitter.play()
 
 
-func _track_target() -> void:
-	var to_enemy := _target.global_position - global_position
+func _track_target(tgt: Node3D) -> bool:
+	#var to_enemy := _target.global_position - global_position
+	var to_enemy := tgt.global_position - global_position
 	if to_enemy.length_squared() > dist_callout_sqr:
-		return
+		return false
 	
 	var dir = to_enemy.normalized()
 	var dot_fwd = dir.dot(-_ship.global_basis.z)
@@ -122,4 +129,5 @@ func _track_target() -> void:
 			_play_sound(AudioManager.PENGUIN_WEST)
 	
 	_play_anim("Alert")
-	_target = null
+	#_target = null
+	return true

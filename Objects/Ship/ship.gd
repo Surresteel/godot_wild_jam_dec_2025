@@ -101,10 +101,16 @@ func _ready() -> void:
 		return
 	
 	lookout.setup(self, spawner)
+	
+	call_deferred("_post_ready")
+
+
+func _post_ready() -> void:
+	_hitpoints = max_hitpoints
+	print(_hitpoints)
 
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	print(get_progress_wp())
 	if _has_destination:
 		_go_to_point(_waypoint)
 	
