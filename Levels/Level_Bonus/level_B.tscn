@@ -99,7 +99,7 @@ light_angular_distance = 0.5
 shadow_enabled = true
 shadow_blur = 4.647
 
-[node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player") instance=ExtResource("9_6dwsn")]
+[node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player", "freezer") instance=ExtResource("9_6dwsn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 5.506114, -4.476364)
 ship = NodePath("../Ship")
 player = NodePath("../Player")
