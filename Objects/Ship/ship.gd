@@ -149,13 +149,13 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 	match event:
 		EVENTS.WAVE:
 			if Time.get_ticks_msec() > _timeout_hit_wave:
-				_hitpoints -= 5 * int(severity)
+				_hitpoints -= 10 * int(severity)
 				_speed_mult = max(_speed_mult - severity, 1.0)
 				_timeout_hit_wave = Time.get_ticks_msec() + _interval_hit_wave \
 						* 1000
 		EVENTS.ICEBERG:
 			if Time.get_ticks_msec() > _timeout_hit_icerberg:
-				_hitpoints -= 5 * int(severity)
+				_hitpoints -= 10 * int(severity)
 				_speed_mult = max(_speed_mult - severity, 1.0)
 				_timeout_hit_icerberg = Time.get_ticks_msec() + \
 						_interval_hit_iceberg * 1000
@@ -167,6 +167,9 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 		var new_buoyancy = remap(_hitpoints, 0, max_hitpoints, 
 				BUOYANCY_MIN, BUOYANCY_MAX)
 		_buoyancy_coef = new_buoyancy / SAMPLE_COUNT
+	
+	if _hitpoints <= 0:
+		_game_over()
 
 
 #===============================================================================
@@ -308,6 +311,10 @@ func _driver_on() -> void:
 	
 func _driver_off() -> void:
 	_has_driver = false
+
+
+func _game_over() -> void:
+	ProgressionManager.mission_failed()
 
 
 #===============================================================================

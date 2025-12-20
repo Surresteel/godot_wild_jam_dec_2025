@@ -2,14 +2,25 @@ extends Node
 
 
 const LEVEL_1 = preload("uid://dgld7qc03yurl")
-const TEMPLATE_LEVEL = preload("uid://dwdq4qvh5hryc")
+const LEVEL_2 = preload("uid://bwgr8xk2v6nbq")
+const LEVEL_3 = preload("uid://cj4b0enjdlrf0")
+const LEVEL_4 = preload("uid://v83e6qskbeih")
+const LEVEL_5 = preload("uid://baw7marflqavm")
+const LEVEL_6 = preload("uid://b8v72wifgfegc")
+const LEVEL_B = preload("uid://bhwx1ckn7gmcg")
+
 const LEVEL_TRANSITION_RES = preload("uid://p5m50im4t3er")
 const LEVEL_TRANSITION = preload("uid://c3guus2ws8ywh")
 
 const LEVELS: Array = \
 [
 	LEVEL_1,
-	TEMPLATE_LEVEL,
+	LEVEL_2,
+	LEVEL_3,
+	LEVEL_4,
+	LEVEL_5,
+	LEVEL_6,
+	LEVEL_B,
 ]
 
 

@@ -1,0 +1,6 @@
+[gd_resource type="Sky" load_steps=2 format=3 uid="uid://t3mcmvgcy0w0"]
+
+[ext_resource type="Material" uid="uid://uiq5ubuuqdfe" path="res://Levels/Level_3/level_3_sky_material.tres" id="1_qen2n"]
+
+[resource]
+sky_material = ExtResource("1_qen2n")

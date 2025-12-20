@@ -1,0 +1,11 @@
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://ieux3c8alifd"]
+
+[ext_resource type="Sky" uid="uid://b5h3eohucvqjr" path="res://Levels/Level_Bonus/level_B_sky.tres" id="1_0kd0e"]
+
+[resource]
+background_mode = 2
+sky = ExtResource("1_0kd0e")
+fog_light_color = Color(0.4834503, 0.57042223, 0.56923634, 1)
+fog_light_energy = 0.6
+fog_sun_scatter = 0.05
+fog_density = 0.021

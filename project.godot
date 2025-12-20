@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="godot_wild_jam_dec_2025"
-run/main_scene="uid://cv35k8nfgv88o"
+run/main_scene="uid://dgld7qc03yurl"
 config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"

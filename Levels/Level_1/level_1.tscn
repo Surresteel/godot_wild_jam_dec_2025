@@ -44,7 +44,7 @@ chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("
 spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 helmsman = NodePath("../HelmsmenPenguin")
-initial_waypoint = Vector3(0, 0, -1000)
+initial_waypoint = Vector3(0, 0, -100)
 momentum_gain = 0.1
 
 [node name="Freezer" type="Node3D" parent="Ship"]
@@ -92,8 +92,9 @@ environment = ExtResource("8_fesbl")
 transform = Transform3D(0.50305015, 0.6358709, -0.5853279, 0, 0.67726123, 0.7357426, 0.8642572, -0.37011543, 0.34069636, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Baby Penguin" parent="." node_paths=PackedStringArray("player", "freezer") instance=ExtResource("9_n5wxx")]
+[node name="Baby Penguin" parent="." node_paths=PackedStringArray("ship", "player", "freezer") instance=ExtResource("9_n5wxx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3062141, 2.4738643, -4.476364)
+ship = NodePath("../Ship")
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
 
