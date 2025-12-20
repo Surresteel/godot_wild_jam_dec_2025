@@ -36,6 +36,7 @@ func update(sealion: Sealion, _delta) -> void:
 		
 		sealion.animation_player.play("Chase",1)
 	else:
+		sealion.velocity = Vector3.ZERO
 		sealion.animation_player.play("Attack")
 		if sealion.target_node.has_method("take_damage"):
 			sealion.target_node.take_damage()
