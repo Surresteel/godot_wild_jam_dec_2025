@@ -12,6 +12,7 @@ class_name BabyPenguin
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var target: Node3D
 var next_position: Vector3
+@export var ship: Ship
 
 
 var cannon_needs_reload: bool = false
@@ -40,8 +41,13 @@ func _ready() -> void:
 	statemachine.get_current_state_object().enter()
 	set_next_target_position()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	set_next_target_position()
+	
+	if ship.sealion_amount > 0 and\
+	 		statemachine.get_current_state_object() != statemachine.all_states[BabyPenguinStateMachine.state.Chased]\
+			and statemachine.get_current_state_object() != statemachine.all_states[BabyPenguinStateMachine.state.Hiding]:
+		statemachine.change_state(BabyPenguinStateMachine.state.Chased)
 
 #Set Next Target Position For Nav Agent - updates the path
 func set_next_target_position() -> void:

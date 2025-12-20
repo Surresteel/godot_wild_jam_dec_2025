@@ -12,7 +12,7 @@ var floor_velocity: Vector3
 
 var is_interacting: bool = false
 var was_swimming: bool = false
-
+var stunned: bool = false
 
 @export_category("Internal Nodes")
 @export var camera: PlayerCamera
@@ -20,6 +20,7 @@ var was_swimming: bool = false
 @export var animation_player: AnimationPlayer
 @export var snowball_action: SnowballAction 
 @export var Skeleton_root_node: Node3D
+@onready var stun_timer: Timer = $stunTimer
 
 var target: Node3D
 
@@ -143,3 +144,17 @@ func play_animation_no_interupt(anim_name: String) -> void: #intended in process
 func _play_throw_sound() -> void:
 	audio_emitter.stream = AudioManager.THROW_SOUNDS.pick_random()
 	audio_emitter.play()
+
+func take_damage() -> void:
+	var direction: Vector3
+	if randi_range(0,1) == 1:
+		direction = ship.global_basis.x
+	else:
+		direction = -ship.global_basis.x
+	print(direction)
+	velocity = direction * randf_range(5,15) + Vector3(0,6,0)
+	stunned = true
+	stun_timer.start()
+
+func unstun() -> void:
+	stunned = false

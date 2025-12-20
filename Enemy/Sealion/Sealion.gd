@@ -23,6 +23,7 @@ var next_target_pos: Vector3
 @export var ship: Ship
 
 var do_buoy: bool = true
+var can_attack: bool = true
 
 var state: SealionBaseState = SealionStates.CIRCLING
 
@@ -136,3 +137,9 @@ func take_damage(body: Node3D) -> void:
 
 func set_target(t: RigidBody3D) -> void:
 	ship = t
+
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "Attack":
+		can_attack = true

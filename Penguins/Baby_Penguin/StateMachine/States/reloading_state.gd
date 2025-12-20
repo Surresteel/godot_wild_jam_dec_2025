@@ -17,7 +17,8 @@ func pre_update() -> void:
 		if baby.unloaded_cannon.reloaded:
 			baby.set_closest_unloaded_cannon()
 			transition.emit(BabyPenguinStateMachine.state.Cannon_Reload)
-
+	#elif baby.ship.sealion_amount > 0:
+		#transition.emit(BabyPenguinStateMachine.state.Chased)
 
 func update(delta: float) -> void:
 	baby.velocity = baby.velocity.move_toward(Vector3.ZERO, delta * 5)
