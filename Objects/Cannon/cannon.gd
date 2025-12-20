@@ -37,18 +37,24 @@ var shoot_bool: bool = false
 @export var max_angle_y: float = 10.0
 
 
-signal cannon_exit(pos: Vector3, rot: Vector3)
+signal cannon_exit()
 signal cannon_reload()
+
+signal ui_cannon_enter
+signal ui_cannon_exit
+signal cannon_power
 
 func activate() -> void:
 	is_active = true
 	animaiton_mesh_parent.visible = true
+	ui_cannon_enter.emit()
 
 func deactivate() -> void:
 	is_active = false
 	animaiton_mesh_parent.visible = false                      #Player Height
 	cannon_exit.emit(0.65 * global_basis.z + global_position,
 			 global_rotation)
+	ui_cannon_exit.emit()
 
 func _ready() -> void:
 	power_timer.wait_time = charge_time
@@ -67,6 +73,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_active:
+		if power_timer.is_stopped() and shoot_bool:
+			cannon_power.emit(100.0)
+		elif shoot_bool:
+			cannon_power.emit((1 - (power_timer.time_left / power_timer.wait_time)) * 100)
+		else:
+			cannon_power.emit(0)
 		
 		##camera_positon shenanigans
 		#camera_positon.position = camera_positon.position.move_toward(Vector3.ZERO, delta * 2)
