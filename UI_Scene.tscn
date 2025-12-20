@@ -1,6 +1,6 @@
 [gd_scene load_steps=46 format=3 uid="uid://kcikku064q51"]
 
-[ext_resource type="Script" path="res://UIScripts.gd" id="1_h73pd"]
+[ext_resource type="Script" uid="uid://dt0oshgv5lsl6" path="res://UIScripts.gd" id="1_h73pd"]
 [ext_resource type="Texture2D" uid="uid://bnumyxx1ygv4m" path="res://ShipStatus_Health_Bad.png" id="1_s12pb"]
 [ext_resource type="Texture2D" uid="uid://dipyuf0ssxwx1" path="res://ShipStatus_Health_Dire.png" id="2_h73pd"]
 [ext_resource type="Texture2D" uid="uid://bd8kmurdenrre" path="res://ShipStatus_Health_Okay.png" id="3_1q3i5"]
@@ -314,6 +314,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="DistressSweatBaby_Icon" type="TextureRect" parent="PenguinStatusesUI"]
+visible = false
 offset_left = 11.0
 offset_top = 87.0
 offset_right = 51.0
@@ -324,6 +325,7 @@ expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="DistressSweatHelms_Icon2" type="TextureRect" parent="PenguinStatusesUI"]
+visible = false
 offset_left = 91.0
 offset_top = 22.0
 offset_right = 131.0

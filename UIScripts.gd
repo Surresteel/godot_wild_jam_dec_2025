@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @export var ship: Ship
 @export var player: Player
+@export var baby: BabyPenguin
+@export var helms: HelmsmenPenguin
 
 @onready var ship_progress_icon: AnimatedSprite2D = $ProgressUI/ShipProgressBar
 @onready var ship_health_BADRED: TextureRect = $ShipUI/ShipConditionBAD
@@ -14,21 +16,39 @@ extends CanvasLayer
 @onready var ship_callout_back: TextureRect = $ShipUI/ShipAttackBacking/ShipAttackBack
 @onready var ship_callout_left: TextureRect = $ShipUI/ShipAttackBacking/ShipAttackLeft
 @onready var ship_callout_right: TextureRect = $ShipUI/ShipAttackBacking/ShipAttackRight
+@onready var baby_p_icon: TextureRect = $PenguinStatusesUI/BabyP_Icon
+@onready var helsman_p_icon: TextureRect = $PenguinStatusesUI/HelsmanP_Icon
+@onready var distress_sweat_helms_icon_2: TextureRect = $PenguinStatusesUI/DistressSweatHelms_Icon2
+@onready var distress_sweat_baby_icon: TextureRect = $PenguinStatusesUI/DistressSweatBaby_Icon
 
 
 const PROGRESS_START: float = 377.0
 const PROGRESS_END: float = 810.0
+
+var _is_panicking_baby: bool = false
+var _is_panicking_helms: bool = false
 
 func _ready() -> void:
 	call_deferred("_post_ready")
 
 func _post_ready() -> void:
 	ship.enemy_spotted.connect(_handle_callout)
+	baby.chased_signal.connect(_penguin_baby_panic.bind(true))
+	baby.hiding_stop.connect(_penguin_baby_panic.bind(false))
+	
+	helms.steering_stopped.connect(_penguin_helms_panic.bind(true))
+	helms.steering_started.connect(_penguin_helms_panic.bind(false))
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	_handle_progress()
 	_handle_ammo()
 	_handle_health()
+	
+	if _is_panicking_baby:
+		_animate_baby_icon(delta)
+		
+	if _is_panicking_helms:
+		_animate_helms_icon(delta)
 	
 func _handle_progress() -> void: 
 	var progress = ship.get_progress_total() 
@@ -89,5 +109,18 @@ func _warning(texture: TextureRect) -> void:
 		await get_tree().create_timer(0.8).timeout
 		texture.visible = false
 		await get_tree().create_timer(0.2).timeout
+		
+func _penguin_baby_panic(toggle: bool) -> void: 
+	distress_sweat_baby_icon.visible = toggle
+	_is_panicking_baby = toggle
 	
+func _penguin_helms_panic(toggle: bool) -> void: 
+	distress_sweat_helms_icon_2.visible = toggle
+	_is_panicking_helms = toggle
+	
+func _animate_baby_icon(delta: float) -> void:
+	baby_p_icon.rotation = sin(delta) * 20
+	
+func _animate_helms_icon(delta: float) -> void:
+	helsman_p_icon.rotation = sin(delta) * 20
 	
