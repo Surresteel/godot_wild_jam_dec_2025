@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cv35k8nfgv88o"]
+[gd_scene load_steps=13 format=3 uid="uid://cv35k8nfgv88o"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_0pb8u"]
 [ext_resource type="Environment" uid="uid://cn5ej3o7urc5e" path="res://Levels/Level_Test/level_test_env.tres" id="1_koan3"]
@@ -7,7 +7,12 @@
 [ext_resource type="Script" uid="uid://cly5pmnbwi55w" path="res://Logical/Spawner/spawner.gd" id="2_vnhy5"]
 [ext_resource type="PackedScene" uid="uid://cypax8bji6tw1" path="res://Objects/Ship/ship.tscn" id="3_nomhl"]
 [ext_resource type="PackedScene" uid="uid://u8ioaod5e2a3" path="res://Player/Player.tscn" id="4_dq315"]
+[ext_resource type="PackedScene" uid="uid://bncmp5m6fasjn" path="res://Penguins/Helmsmen/Helmsmen_Penguin.tscn" id="6_txrj4"]
+[ext_resource type="PackedScene" uid="uid://b1nfl17a80wwi" path="res://Enemy/Sealion/sealion.tscn" id="7_wqmuq"]
 [ext_resource type="PackedScene" uid="uid://dw60einr3dthn" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="8_vnhy5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vnhy5"]
+radius = 0.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_q246h"]
 radius = 5.0
@@ -29,6 +34,11 @@ target = NodePath("../Ship")
 
 [node name="WaveManager" parent="." instance=ExtResource("2_dq315")]
 
+[node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("6_txrj4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005415261, 3.1108134, 2.7499657)
+wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
+chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
+
 [node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager") instance=ExtResource("3_nomhl")]
 contact_monitor = true
 max_contacts_reported = 4
@@ -38,7 +48,40 @@ initial_waypoint = Vector3(0, 0, -1000)
 momentum_gain = 0.1
 
 [node name="Freezer" type="Node3D" parent="Ship"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2811021, 2.5547907, -6.191643)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.2811021, 2.5547907, -6.191643)
+
+[node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
+visible = false
+
+[node name="ChasePoint" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015966594, 4.209964, 5.720937)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint"]
+mesh = SubResource("SphereMesh_vnhy5")
+
+[node name="WheelPositon" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009420812, 3.0836935, 2.8110943)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/WheelPositon"]
+mesh = SubResource("SphereMesh_vnhy5")
+
+[node name="ChasePoint2" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6664878, 2.399132, 0.33378363)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint2"]
+mesh = SubResource("SphereMesh_vnhy5")
+
+[node name="ChasePoint3" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0550884, 2.399132, -5.027718)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint3"]
+mesh = SubResource("SphereMesh_vnhy5")
+
+[node name="ChasePoint4" type="Node3D" parent="Ship/Helmsmen Penguins POI"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.979349, 2.399132, 0.13241625)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint4"]
+mesh = SubResource("SphereMesh_vnhy5")
 
 [node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("4_dq315")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19108248, 2.9951112, -1.2782485)
@@ -57,41 +100,22 @@ shadow_enabled = true
 directional_shadow_blend_splits = true
 
 [node name="Baby Penguin" parent="." node_paths=PackedStringArray("player", "freezer") instance=ExtResource("8_vnhy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2645253, 2.3000753, -5.27761)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14835966, 4.054515, 5.9928074)
 player = NodePath("../Player")
 freezer = NodePath("../Ship/Freezer")
 
-[node name="Skeleton3D" parent="Baby Penguin/Armature_001" index="0"]
-bones/1/position = Vector3(0, -1.0805426e-08, 0.24281041)
-bones/1/rotation = Quaternion(-0.84099483, -0.39407834, 0.15729909, 0.33568895)
-bones/2/position = Vector3(0.11842165, 0.05323002, 0.04314214)
-bones/2/rotation = Quaternion(0.3949305, 2.7241382e-09, -1.1633393e-08, 0.918711)
-bones/2/scale = Vector3(1.0000001, 1.0000001, 1.0000001)
-bones/3/position = Vector3(-0.118421644, 0.053230025, 0.04314214)
-bones/3/rotation = Quaternion(0.39493045, -1.34955025e-08, -1.1633394e-08, 0.918711)
-bones/3/scale = Vector3(1.0000001, 1.0000001, 1)
-bones/4/position = Vector3(8.959397e-09, -1.976307e-09, 1.876723e-09)
-bones/4/rotation = Quaternion(0.90639484, -0.19382204, -0.06858313, -0.36902273)
-bones/4/scale = Vector3(1, 1.0000001, 1.0000001)
-bones/5/rotation = Quaternion(0.29511148, -0.012102315, 0.08601758, 0.951506)
-bones/6/rotation = Quaternion(0.3187417, 0.024257196, 0.096207924, 0.9426343)
-bones/7/rotation = Quaternion(-0.09129541, 0.012971709, -0.57181865, 0.81518114)
-bones/8/rotation = Quaternion(0.70710003, -0.0030865057, 0.003086935, 0.70710003)
-bones/9/rotation = Quaternion(-0.08400097, 0.14484224, -0.6518356, 0.73964524)
-bones/10/rotation = Quaternion(1.2596026e-07, 1.072786e-07, -0.52726233, 0.8497026)
-bones/11/rotation = Quaternion(1.33276385e-08, 9.433299e-08, -0.020526659, 0.9997893)
-bones/12/rotation = Quaternion(0.058304407, 0.40168917, 0.39998928, 0.821739)
-bones/13/rotation = Quaternion(-0.11119379, -0.98343796, 0.13767903, 0.039118186)
-bones/14/rotation = Quaternion(5.6836726e-09, -7.3647186e-08, 0.020526646, 0.9997893)
-bones/15/position = Vector3(-6.7339315e-08, -0.10384157, -0.26816225)
-bones/15/rotation = Quaternion(-0.1265369, 2.5545823e-08, -1.3991741e-08, 0.9919619)
-bones/15/scale = Vector3(0.9999999, 0.9999998, 0.9999999)
-bones/16/position = Vector3(0.07303144, 0.11165284, -0.0077817226)
-bones/16/rotation = Quaternion(0.11624136, -5.419286e-09, 6.8671864e-09, 0.99322104)
-bones/17/position = Vector3(-0.057055816, 0.15362673, 0.0031039407)
-bones/17/rotation = Quaternion(0.11624137, -1.693316e-08, -2.2944334e-08, 0.99322104)
-bones/18/position = Vector3(-0.17239818, 0.29004216, 0.005589707)
-bones/18/rotation = Quaternion(-0.010372089, 2.78927e-08, -4.014813e-09, 0.9999463)
-bones/18/scale = Vector3(0.9999999, 1, 0.99999994)
+[node name="Sealion" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
+ship = NodePath("../Ship")
 
-[editable path="Baby Penguin"]
+[node name="Sealion2" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
+ship = NodePath("../Ship")
+
+[node name="Sealion3" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
+ship = NodePath("../Ship")
+
+[node name="Sealion4" parent="." node_paths=PackedStringArray("ship") instance=ExtResource("7_wqmuq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.220609, 0, 21.550295)
+ship = NodePath("../Ship")

@@ -19,8 +19,11 @@ func pre_update() -> void:
 			transition.emit(BabyPenguinStateMachine.state.Cannon_Reload)
 
 
-func update(_delta: float) -> void:
-	baby.velocity = baby.velocity.move_toward(Vector3.ZERO, _delta * 5)
+func update(delta: float) -> void:
+	baby.velocity = baby.velocity.move_toward(Vector3.ZERO, delta * 5)
+	if not baby.is_on_floor():
+		baby.velocity.y += baby.get_gravity().y * delta
+	baby.move_and_slide()
 	if baby.reload_ready:
 		baby.reload_signal.emit()
 
@@ -28,4 +31,3 @@ func ready_reload() -> void:
 	baby.reload_ready = false
 	
 	baby.animation_player.play("Baby_GrabbingSnowball", 0.2)
-	print("reloading")

@@ -88,6 +88,9 @@ Reload={
 3d_physics/layer_5="Icebergs"
 3d_physics/layer_6="Baby"
 3d_physics/layer_7="Cannons"
+3d_physics/layer_8="helmsmen"
+avoidance/layer_1="Enemy"
+avoidance/layer_2="Penguins"
 
 [navigation]
 

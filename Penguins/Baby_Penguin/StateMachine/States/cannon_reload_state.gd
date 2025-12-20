@@ -4,7 +4,6 @@ extends BabyState
 func enter() -> void:
 	baby.reload_area.set_collision_mask_value(7,1)
 	baby.reload_area.set_collision_mask_value(3,0)
-	print("cannon reloading")
 	
 	baby.animation_player.play("Baby_Run",1)
 	
@@ -21,6 +20,8 @@ func pre_update() -> void:
 	elif baby.being_chased:
 		transition.emit(BabyPenguinStateMachine.state.Chased)
 
-func update(delta: float) -> void:
+func update(delta: float) -> void:		#gravity
+	if not baby.is_on_floor():
+		baby.velocity.y += baby.get_gravity().y * delta
 	baby.move(delta)
 	
