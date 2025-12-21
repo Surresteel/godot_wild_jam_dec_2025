@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://kcikku064q51"]
+[gd_scene load_steps=53 format=3 uid="uid://kcikku064q51"]
 
 [ext_resource type="Script" uid="uid://dt0oshgv5lsl6" path="res://UIScripts.gd" id="1_h73pd"]
 [ext_resource type="Texture2D" uid="uid://bnumyxx1ygv4m" path="res://ShipStatus_Health_Bad.png" id="1_s12pb"]
@@ -19,6 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://bha4crb0xeqch" path="res://UI/Reticle2SB.png" id="17_5aw77"]
 [ext_resource type="Texture2D" uid="uid://dt82k0ic2vppb" path="res://UI/Reticle1SB.png" id="18_1l11w"]
 [ext_resource type="Texture2D" uid="uid://drkk6ccp7i6oc" path="res://UI/Reticle0SB.png" id="19_476hm"]
+[ext_resource type="Texture2D" uid="uid://bfrpfbxkfhrnh" path="res://Images/speed_1.png" id="20_h73pd"]
+[ext_resource type="Texture2D" uid="uid://csf6eymuoegnp" path="res://Images/speed_2.png" id="21_ek3xw"]
+[ext_resource type="Texture2D" uid="uid://d22uec74tuanp" path="res://Images/speed_3.png" id="22_tqxyw"]
+[ext_resource type="Texture2D" uid="uid://bycnbk8cc4jjt" path="res://Images/speed_4.png" id="23_uwv65"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_50p1x"]
 atlas = ExtResource("9_ehqk1")
@@ -516,3 +520,53 @@ text = "If you can't aim the cannons
 press TAB twice."
 label_settings = SubResource("LabelSettings_s12pb")
 horizontal_alignment = 1
+
+[node name="Momentum" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -49.0
+offset_top = 24.0
+offset_right = -9.0
+offset_bottom = 64.0
+grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+
+[node name="s1" type="TextureRect" parent="Momentum"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = 70.0
+offset_right = -9.0
+offset_bottom = 134.0
+texture = ExtResource("20_h73pd")
+stretch_mode = 2
+
+[node name="s2" type="TextureRect" parent="Momentum"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = 70.0
+offset_right = -9.0
+offset_bottom = 134.0
+texture = ExtResource("21_ek3xw")
+stretch_mode = 2
+
+[node name="s3" type="TextureRect" parent="Momentum"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = 70.0
+offset_right = -9.0
+offset_bottom = 134.0
+texture = ExtResource("22_tqxyw")
+stretch_mode = 2
+
+[node name="s4" type="TextureRect" parent="Momentum"]
+layout_mode = 0
+offset_left = -49.0
+offset_top = 70.0
+offset_right = -9.0
+offset_bottom = 134.0
+texture = ExtResource("23_uwv65")
+stretch_mode = 2
