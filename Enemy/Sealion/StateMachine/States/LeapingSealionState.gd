@@ -2,7 +2,7 @@ extends SealionBaseState
 class_name LeapingSealionState
 
 var missed: bool = false
-
+var do_once: bool = true
 
 func enter(sealion: Sealion) -> void:
 	var b:= Basis.looking_at((sealion.ship.global_position - sealion.global_position).normalized(), Vector3.UP)
@@ -10,24 +10,27 @@ func enter(sealion: Sealion) -> void:
 	#sealion.look_at(sealion.ship.global_position + sealion.ship.global_basis.z * Vector3(0, 0, -10))
 	sealion.do_buoy = false
 	missed = false
+	do_once = true
 			   #Up and Backwards Vector - default(7.5,4.5) 
 	sealion.velocity = (sealion.ship.global_position 
 			- sealion.global_position).normalized() * 5.25 + sealion.ship.linear_velocity
 	sealion.velocity.y = 9.5  
 	
+	sealion.animation_player.play_section("Ship Enter",2.5)
+	
+	
 	#stop buoyancy calcs for the leao
 	await sealion.get_tree().create_timer(0.1).timeout
 	sealion.do_buoy = true
 	#if still here after 3 seconds then he missed probably
-	await sealion.get_tree().create_timer(3).timeout
+	await sealion.get_tree().create_timer(8).timeout
 	missed = true
-	
 
 func exit(sealion: Sealion) -> void:
 	sealion.rotation.x = 0
 
 func pre_update(sealion: Sealion) -> void:
-	if sealion.is_on_floor():
+	if sealion.is_on_floor() and not sealion.animation_player.is_playing():
 		sealion.change_state(SealionStates.TARGETING)
 	elif missed:
 		sealion.change_state(SealionStates.CIRCLING)
@@ -35,6 +38,17 @@ func pre_update(sealion: Sealion) -> void:
 		sealion.change_state(SealionStates.DEFEATED)
 
 func update(sealion: Sealion, delta) -> void:
-	sealion.velocity.x = move_toward(sealion.velocity.x, sealion.ship.linear_velocity.x, delta * 2)
-	sealion.velocity.z = move_toward(sealion.velocity.z, sealion.ship.linear_velocity.z, delta * 2)
-	sealion.look_at(sealion.global_position + sealion.velocity)
+	if sealion.is_on_floor():
+		if do_once:
+			sealion.audio_emitter.stream = AudioManager.THUD
+			sealion.audio_emitter.play()
+			do_once = false
+		sealion.velocity.x = move_toward(sealion.velocity.x,0, delta * 7)
+		sealion.velocity.z = move_toward(sealion.velocity.z, 0, delta * 7)
+	else:
+		sealion.velocity.x = move_toward(sealion.velocity.x, sealion.ship.linear_velocity.x, delta * 2)
+		sealion.velocity.z = move_toward(sealion.velocity.z, sealion.ship.linear_velocity.z, delta * 2)
+	
+	
+	if sealion.velocity.length() != 0:
+		sealion.look_at(sealion.global_position + sealion.velocity)

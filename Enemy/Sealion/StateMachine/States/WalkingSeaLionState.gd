@@ -6,14 +6,10 @@ var speed:= 2
 var walk_target: Node3D
 
 func enter(sealion: Sealion) -> void:
-	sealion.audio_emitter.stream = AudioManager.THUD
-	sealion.audio_emitter.play()
 	
 	#animation
-	sealion.animation_player.play("Chase",1)
+	sealion.animation_player.play("Chase")
 	
-	#Set NavigationAgentLayer
-	sealion.nav_agent.set_navigation_layer_value(1,true)
 
 func exit(sealion: Sealion) -> void:
 	
