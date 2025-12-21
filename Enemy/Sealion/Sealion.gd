@@ -40,6 +40,15 @@ var submerge_amount := 0
 var health: int = 3
 var defeated: bool = false
 
+#Sealion Circling State Stuff
+var speed:= 10.0
+var swimming_distance: float = 50.0
+var swimming_distance_drain_speed:= 2.0
+var clockwise:int = 0
+
+var animation_timer: float = 20
+var animation_current_time: float = 0
+
 @warning_ignore("unused_signal")
 signal chaseing_started
 @warning_ignore("unused_signal")

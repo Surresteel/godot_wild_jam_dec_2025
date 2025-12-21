@@ -84,7 +84,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.979349, 2.399132, 0.1324162
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ship/Helmsmen Penguins POI/ChasePoint4"]
 mesh = SubResource("SphereMesh_vnhy5")
 
-[node name="Player" parent="." groups=["SealionInteractables"] instance=ExtResource("4_dq315")]
+[node name="Player" parent="." instance=ExtResource("4_dq315")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19108248, 2.9951112, -1.2782485)
 speed = 2.0
 

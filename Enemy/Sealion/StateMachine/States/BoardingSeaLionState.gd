@@ -8,7 +8,7 @@ func enter(sealion: Sealion) -> void:
 	sealion.audio_emitter.stream = AudioManager.SEALION_BOARD
 	sealion.audio_emitter.play()
 	
-	sealion.animation_player.play("Ship Enter",-1,1.5)
+	sealion.animation_player.play_section("Ship Enter",0,2.5)
 	
 	too_long = false
 	sealion.change_target_node(sealion.ship)
