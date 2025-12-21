@@ -326,6 +326,16 @@ tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = PackedFloat32Array(0, 1, 0.8713423, 0, 0, 0.49067566, 1.2333333, 1, 0.9484367, 0, 0, 0.3169667, 2.1666667, 1, 0.70710677, 0, 0, 0.70710677, 2.4, 1, -0.014948171, 0, 0, 0.99988824, 2.7, 1, -0.7723596, 0, 0, 0.6351855, 3, 1, 0.99317366, 0, 0, 0.1166447, 3.4, 1, 0.5481911, 0, 0, 0.8363532, 3.7, 1, -0.23415811, 0, 0, 0.97219855, 3.9333334, 1, 0.95023066, 0, 0, -0.31154722, 4.0666666, 1, 0.8583112, 0, 0, 0.51312935, 4.1666665, 1, -0.26787734, 0, 0, 0.963453, 4.4333334, 1, -0.72139764, 0, 0, 0.69252104, 4.733333, 1, -0.7213976, 0, 0, 0.6925211, 5.9666667, 1, -0.009258673, 0, 0, 0.9999571, 7.2, 1, 0.7025569, 0, 0, 0.7116275)
 
+[sub_resource type="Animation" id="Animation_5jdkj"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CollisionArea/AreaBody")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.70710677, 0, 0, 0.70710677)
+
 [sub_resource type="Animation" id="Animation_mt81x"]
 resource_name = "Searching"
 length = 4.0
@@ -1117,16 +1127,6 @@ tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = PackedFloat32Array(0, 1, -0.027596142, 0.022073247, -0.15085422, 0.9879242)
 
-[sub_resource type="Animation" id="Animation_5jdkj"]
-length = 0.001
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../CollisionArea/AreaBody")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.70710677, 0, 0, 0.70710677)
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sjcow"]
 _data = {
 &"Dive": SubResource("Animation_18f38"),
@@ -1144,8 +1144,8 @@ radius = 0.9
 height = 6.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rkctl"]
-radius = 1.0
-height = 6.7380857
+radius = 1.4995117
+height = 7.665259
 
 [node name="Orca" type="CharacterBody3D"]
 collision_mask = 27
@@ -1155,24 +1155,17 @@ script = ExtResource("1_4eyy6")
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Orca_AnimatedDone/Armature" index="0"]
-bones/1/rotation = Quaternion(0, 0.07311043, 0.9973239, 0)
-bones/2/rotation = Quaternion(-7.431956e-08, -0.2205045, 0.975386, -1.3286655e-08)
-bones/3/rotation = Quaternion(-0.02348921, -7.5477075e-08, -1.7733789e-09, 0.9997241)
-bones/4/rotation = Quaternion(-0.05883375, -1.1884778e-13, 1.0177516e-15, 0.9982678)
-bones/5/rotation = Quaternion(-0.075431824, -1.1148598e-15, 8.4902136e-15, 0.99715096)
-bones/6/rotation = Quaternion(-0.19964075, -1.06380105e-14, 2.6503342e-14, 0.97986925)
-bones/7/rotation = Quaternion(-3.6402507e-05, -0.00059237814, -0.3528806, 0.9356682)
-bones/8/rotation = Quaternion(-3.640252e-05, 0.0005923782, 0.35288057, 0.9356682)
-bones/10/rotation = Quaternion(-0.2110277, -2.094268e-08, 0.0021970288, 0.9774776)
-bones/11/rotation = Quaternion(0.13885994, 0, 0, 0.99031204)
-bones/12/rotation = Quaternion(0.19789745, 0, 0, 0.98022276)
-bones/13/rotation = Quaternion(0.030842021, 6.646769e-07, -9.57357e-08, 0.99952435)
-bones/14/rotation = Quaternion(-0.10465441, -0.260522, 0.6347686, 0.7198921)
-bones/15/rotation = Quaternion(-0.050998025, 0.010258492, 0.09328163, 0.9942799)
-bones/16/rotation = Quaternion(-0.027596181, -0.022073245, 0.15085424, 0.9879242)
-bones/17/rotation = Quaternion(-0.10465441, 0.260522, -0.6347686, 0.7198921)
-bones/18/rotation = Quaternion(-0.050998025, -0.010258492, -0.09328163, 0.9942799)
-bones/19/rotation = Quaternion(-0.027596181, 0.022073245, -0.15085424, 0.9879242)
+bones/2/rotation = Quaternion(-7.5478425e-08, -0.022709742, 0.9997421, 1.7145366e-09)
+bones/3/rotation = Quaternion(0.013672187, -7.549084e-08, 1.0322239e-09, 0.99990654)
+bones/4/rotation = Quaternion(0.004570212, -1.154879e-13, -9.938854e-17, 0.99998957)
+bones/5/rotation = Quaternion(-0.0003198353, -2.0607513e-18, 2.8494807e-17, 0.99999994)
+bones/6/rotation = Quaternion(-0.002371107, -1.3527466e-17, 2.1128268e-16, 0.9999972)
+bones/6/scale = Vector3(1, 0.99999994, 0.99999994)
+bones/7/rotation = Quaternion(-3.6389865e-05, -0.00059238693, -0.3528806, 0.9356682)
+bones/8/rotation = Quaternion(-3.637894e-05, 0.000592379, 0.3528806, 0.9356682)
+bones/11/rotation = Quaternion(2.9802322e-08, 0, 0, 1)
+bones/12/rotation = Quaternion(0, 0, 0, 1)
+bones/13/rotation = Quaternion(-0.05607197, 6.704795e-07, -3.765434e-08, 0.99842674)
 
 [node name="AnimationPlayer" parent="Orca_AnimatedDone" index="1"]
 libraries = {
@@ -1187,7 +1180,7 @@ shape = SubResource("CapsuleShape3D_4eyy6")
 collision_mask = 27
 
 [node name="AreaBody" type="CollisionShape3D" parent="CollisionArea"]
-transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 0.9, 0.85482985)
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.9999999, 0, 0.9999999, -4.3711385e-08, 0, 1.0845904, 0.6007651)
 shape = SubResource("CapsuleShape3D_rkctl")
 
 [node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]

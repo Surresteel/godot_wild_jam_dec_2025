@@ -154,7 +154,7 @@ func noninput_reload() -> void:
 		print("reloading")
 
 func rotate_cannon_within_clamp(new_rotation_x: float, new_rotation_y: float) -> void:
-	cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,-6,max_angle_x)
+	cannon_barrel.rotation_degrees.x = clampf(cannon_barrel.rotation_degrees.x + new_rotation_x,-9,max_angle_x)
 	cannon_rack.rotation_degrees.y = clampf(cannon_rack.rotation_degrees.y + new_rotation_y,min_angle_y,max_angle_y)
 
 func recoil(power: float) -> void:
