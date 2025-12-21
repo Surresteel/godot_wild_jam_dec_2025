@@ -33,6 +33,9 @@ signal Interact
 # AUDIO STUFF:
 @onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 
+# WAVE STUFF:
+@export var wave_manager: WaveManager = null
+
 # Buoyancy PID controller:
 const KP := 20.0
 const KI := 2.0
@@ -58,7 +61,6 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	_handle_buoyancy(delta)
-	#print(ship.angular_velocity)
 	move_and_slide()
 	
 	if Input.is_action_just_pressed("interact"):
@@ -72,6 +74,9 @@ func _handle_buoyancy(delta: float) -> void:
 				(Time.get_ticks_msec() / 1000.0))
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
+	var wave_height := _process_waves(delta)
+	water_height = maxf(water_height, wave_height)
+	
 	if global_position.y - 0.1 < water_height:
 		var error = water_height - (global_position.y - 0.1)
 		integral += error * delta
@@ -80,6 +85,32 @@ func _handle_buoyancy(delta: float) -> void:
 		
 		var output = KP * error + KI * integral + KD * derivative
 		velocity.y += output * delta
+
+
+func _process_waves(delta: float) -> float:
+	if not wave_manager:
+		printerr("Player instance has no WaveManager reference.")
+		return -10000.0
+	
+	var highest_wave: WaveManager.WaveData = null
+	var highest_point: float = -10000.0
+	var w_data: Array[WaveManager.WaveData] = wave_manager.get_waves()
+	for wave in w_data:
+		var offset = Vector2(global_position.x - wave.pos.x, 
+				global_position.z - wave.pos.y)
+		var h_temp = WaveFunc.sample_wave_height(wave.pos, offset, wave.dir, 
+				wave.amp)
+		if h_temp > 0.5 and h_temp > highest_point:
+			highest_point = h_temp
+			highest_wave = wave
+	
+	if highest_wave:
+		velocity -= Vector3(highest_wave.dir.x, -0.2, 
+				highest_wave.dir.y).normalized() * 25.0 * delta
+	
+	
+	return highest_point
+
 
 func get_water_height() -> float:
 	var data := Vector3(global_position.x, global_position.z, 

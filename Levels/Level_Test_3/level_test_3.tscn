@@ -34,9 +34,10 @@ _interval_enemy_random = 5.0
 enabled = true
 _initial_delay = 0.0
 
-[node name="Player" parent="." instance=ExtResource("4_mi3fe")]
+[node name="Player" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("4_mi3fe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
 speed = 2.0
+wave_manager = NodePath("../WaveManager")
 
 [node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("5_wjuv5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.179257, 3.0615563)
