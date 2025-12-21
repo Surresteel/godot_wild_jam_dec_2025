@@ -89,7 +89,7 @@ func set_closest_unloaded_cannon() -> void:
 				closest_cannon = cannon
 	
 	unloaded_cannon = closest_cannon
-	print(closest_cannon," is the closest unloaded cannon")
+	#print(closest_cannon," is the closest unloaded cannon")
 
 func set_reload_ready() -> void:
 	reload_ready = true
@@ -103,7 +103,3 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "Baby_HidingSnowball":
 		animation_player.play("Baby_HidingSnowbalIdle")
 		set_reload_ready()
-
-
-func hide_in_freezer() -> void:
-	pass

@@ -14,6 +14,7 @@ func enter(sealion: Sealion) -> void:
 	sealion.nav_agent.set_navigation_layer_value(1,true)
 
 func exit(sealion: Sealion) -> void:
+	
 	change_target = false
 	sealion.chaseing_started.emit(false)
 	
@@ -39,7 +40,10 @@ func update(sealion: Sealion, _delta) -> void:
 		sealion.velocity.x = dir.x * speed
 		sealion.velocity.z = dir.z * speed
 		
+		sealion.nav_agent.velocity = sealion.velocity
+		
 		sealion.animation_player.play("Chase",1)
+	
 	if sealion.target_node.global_position.distance_to(sealion.global_position) <= 1:
 		sealion.velocity = Vector3.ZERO
 		sealion.animation_player.play("Attack")

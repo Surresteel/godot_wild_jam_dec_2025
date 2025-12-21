@@ -16,6 +16,7 @@ var next_position: Vector3
 @export var chase_points: Array[Node3D]
 
 var being_chased: bool = false
+var chase_amount: int = 0
 
 @warning_ignore_start("unused_signal")
 signal steering_started
@@ -70,7 +71,12 @@ func set_being_chased():
 func set_chased(state: bool) -> void:
 	if state:
 		animation_player.play("Alert")
-	being_chased = state
+		chase_amount += 1
+		being_chased = true
+	else:
+		chase_amount -=1
+		if chase_amount <= 0:
+			being_chased = false
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

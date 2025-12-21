@@ -875,7 +875,7 @@ size = Vector3(1, 0.8358154, 1.5753174)
 
 [node name="Sealion" type="CharacterBody3D"]
 collision_mask = 2
-floor_max_angle = 1.5707964
+floor_max_angle = 1.134464
 script = ExtResource("1_0fx28")
 
 [node name="capsule" type="CollisionShape3D" parent="."]
@@ -883,9 +883,12 @@ transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, -0.99999994, 0, 0.99999994, 
 shape = SubResource("CapsuleShape3D_myrwn")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.5
+target_desired_distance = 0.5
 navigation_layers = 0
-path_postprocessing = 1
-avoidance_enabled = true
+radius = 0.8
+use_3d_avoidance = true
+debug_enabled = true
 debug_use_custom = true
 
 [node name="Armature" type="Node3D" parent="."]

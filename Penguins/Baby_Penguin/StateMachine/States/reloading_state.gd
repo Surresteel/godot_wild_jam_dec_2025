@@ -7,7 +7,7 @@ func enter() -> void:
 	ready_reload()
 
 func exit() -> void:
-	pass
+	active = false
 
 func pre_update() -> void:
 	#check if anything is reloaded
@@ -29,6 +29,6 @@ func update(delta: float) -> void:
 		baby.reload_signal.emit()
 
 func ready_reload() -> void:
-	baby.reload_ready = false
-	
-	baby.animation_player.play("Baby_GrabbingSnowball", 0.2)
+	if active:
+		baby.reload_ready = false
+		baby.animation_player.play("Baby_GrabbingSnowball", 0.2)
