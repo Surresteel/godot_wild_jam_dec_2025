@@ -106,7 +106,13 @@ func _physics_process(delta: float) -> void:
 			#if is_active then player shouldnt be null
 			if Input.is_action_just_pressed("Reload") or Input.is_action_just_pressed("Main Action"):
 				cannon_reload.emit()
-	
+				
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.pressed:
+				if event.keycode == KEY_BACKSPACE:
+					get_tree().paused = true
 
 func instance_new_cannonball() -> CannonBall:
 	var local_offset: Vector3 = -cannon_barrel.global_basis.z * projectile_Offset
@@ -126,7 +132,7 @@ func shoot(new_cannonball: RigidBody3D) -> void:
 	else:
 		current_power = lerpf(5, max_power, #Min-Max Power based on powertimer
 				 1 - (power_timer.time_left / power_timer.wait_time))
-	new_cannonball.fire(current_power, -cannon_barrel.global_basis.z, Velocity)
+	new_cannonball.fire(current_power, -cannon_barrel.global_basis.z.rotated(cannon_barrel.global_basis.x,deg_to_rad(4)), Velocity)
 	recoil(current_power)
 	
 	power_timer.stop()
