@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwgr8xk2v6nbq"]
+[gd_scene load_steps=13 format=3 uid="uid://bwgr8xk2v6nbq"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_mus7a"]
 [ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://Logical/Scene_Audio/SceneAudio.tscn" id="2_5ysvd"]
@@ -10,6 +10,7 @@
 [ext_resource type="Environment" uid="uid://bhscshoc4nglk" path="res://Levels/Level_2/level_2_environment.tres" id="8_jy8j1"]
 [ext_resource type="PackedScene" uid="uid://dbd1v6fr2kvlc" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="9_n5wxx"]
 [ext_resource type="PackedScene" uid="uid://kcikku064q51" path="res://UI_Scene.tscn" id="10_nagst"]
+[ext_resource type="PackedScene" uid="uid://c8xkkxqtohqnl" path="res://Objects/Lighthouse/lighthouse.tscn" id="11_l5wlt"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5opb2"]
 radius = 0.1
@@ -36,9 +37,10 @@ _interval_enemy_random = 20.0
 enabled = true
 _initial_delay = 0.0
 
-[node name="Player" parent="." instance=ExtResource("4_mi3fe")]
+[node name="Player" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("4_mi3fe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
 speed = 2.0
+wave_manager = NodePath("../WaveManager")
 
 [node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("5_wjuv5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.179257, 3.0615563)
@@ -50,7 +52,6 @@ spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 helmsman = NodePath("../HelmsmenPenguin")
 initial_waypoint = Vector3(-1000, 0, 0)
-momentum_gain = 0.05
 
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false
@@ -107,6 +108,9 @@ ship = NodePath("../Ship")
 player = NodePath("../Player")
 baby = NodePath("../Baby Penguin")
 helms = NodePath("../HelmsmenPenguin")
+
+[node name="Lighthouse" parent="." instance=ExtResource("11_l5wlt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1000, -10, 0)
 
 [editable path="Ship"]
 [editable path="Ship/Cannons/Cannon4"]

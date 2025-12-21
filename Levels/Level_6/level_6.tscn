@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8v72wifgfegc"]
+[gd_scene load_steps=13 format=3 uid="uid://b8v72wifgfegc"]
 
 [ext_resource type="Script" uid="uid://dwtgplk7q0u1q" path="res://Scripts/Standalone/sea.gd" id="1_4rxsq"]
 [ext_resource type="PackedScene" uid="uid://cdtrx7q1fcfqx" path="res://Logical/Scene_Audio/SceneAudio.tscn" id="2_jbwh3"]
@@ -10,6 +10,7 @@
 [ext_resource type="Environment" uid="uid://cblcwp24tfttw" path="res://Levels/Level_6/level_6_environment.tres" id="8_ndrxa"]
 [ext_resource type="PackedScene" uid="uid://dbd1v6fr2kvlc" path="res://Penguins/Baby_Penguin/baby_penguin.tscn" id="9_g8hy2"]
 [ext_resource type="PackedScene" uid="uid://kcikku064q51" path="res://UI_Scene.tscn" id="10_rwvcs"]
+[ext_resource type="PackedScene" uid="uid://c8xkkxqtohqnl" path="res://Objects/Lighthouse/lighthouse.tscn" id="11_7igdj"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_5opb2"]
 radius = 0.1
@@ -36,21 +37,22 @@ _interval_enemy = 18.0
 enabled = true
 _initial_delay = 0.0
 
-[node name="Player" parent="." instance=ExtResource("4_ala1r")]
+[node name="Player" parent="." node_paths=PackedStringArray("wave_manager") instance=ExtResource("4_ala1r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
 speed = 2.0
+wave_manager = NodePath("../WaveManager")
 
 [node name="HelmsmenPenguin" parent="." node_paths=PackedStringArray("wheel_position", "chase_points") instance=ExtResource("5_dss4j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.179257, 3.0615563)
 wheel_position = NodePath("../Ship/Helmsmen Penguins POI/WheelPositon")
 chase_points = [NodePath("../Ship/Helmsmen Penguins POI/ChasePoint"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint2"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint3"), NodePath("../Ship/Helmsmen Penguins POI/ChasePoint4")]
 
-[node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager", "helmsman") instance=ExtResource("6_xtoxr")]
+[node name="Ship" parent="." node_paths=PackedStringArray("spawner", "wave_manager", "helmsman", "waypoint_override_object") instance=ExtResource("6_xtoxr")]
 spawner = NodePath("../Spawner")
 wave_manager = NodePath("../WaveManager")
 helmsman = NodePath("../HelmsmenPenguin")
-initial_waypoint = Vector3(500, 0, -1000)
-momentum_gain = 0.05
+initial_waypoint = Vector3(1000, 0, -1000)
+waypoint_override_object = NodePath("../Lighthouse")
 
 [node name="Helmsmen Penguins POI" type="Node3D" parent="Ship"]
 visible = false
@@ -109,6 +111,9 @@ ship = NodePath("../Ship")
 player = NodePath("../Player")
 baby = NodePath("../Baby Penguin")
 helms = NodePath("../HelmsmenPenguin")
+
+[node name="Lighthouse" parent="." instance=ExtResource("11_7igdj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1000, -10, -1000)
 
 [editable path="Ship"]
 [editable path="Ship/Cannons/Cannon4"]

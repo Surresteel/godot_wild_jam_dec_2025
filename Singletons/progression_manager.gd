@@ -36,6 +36,14 @@ func mission_failed() -> void:
 	call_deferred("restart_switch_def")
 
 
+func mission_switch() -> void:
+	call_deferred("mission_switch_def")
+
+
+func mission_start() -> void:
+	call_deferred("mission_switch_def")
+
+
 func transition_switch_def() -> void:
 	get_tree().change_scene_to_packed(LEVEL_TRANSITION)
 
@@ -44,16 +52,8 @@ func restart_switch_def() -> void:
 	get_tree().change_scene_to_packed(LEVEL_TRANSITION_RES)
 
 
-func mission_switch() -> void:
-	call_deferred("mission_switch_def")
-
-
 func mission_switch_def() -> void:
 	get_tree().change_scene_to_packed(LEVELS[current_level])
-
-
-func mission_start() -> void:
-	call_deferred("mission_switch_def")
 
 
 func mission_start_def() -> void:

@@ -182,7 +182,7 @@ func take_damage() -> void:
 		direction = ship.global_basis.x
 	else:
 		direction = -ship.global_basis.x
-	print(direction)
+	#print(direction)
 	velocity = direction * randf_range(5,15) + Vector3(0,6,0)
 	stunned = true
 	stun_timer.start()

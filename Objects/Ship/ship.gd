@@ -196,7 +196,6 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 		EVENTS.ICEBERG:
 			if Time.get_ticks_msec() > _timeout_hit_ice:
 				_hitpoints -= 10 * int(severity)
-				print(_hitpoints)
 				_speed_mult = max(_speed_mult - severity, 1.0)
 				_timeout_hit_ice = Time.get_ticks_msec() + _interval_hit_ice
 		EVENTS.SEALION:
@@ -356,7 +355,6 @@ func _go_to_point(p: Vector3) -> void:
 	# Determine if point p is reached:
 	if to_point.length_squared() <= WP_RADIUS * WP_RADIUS:
 		_has_destination = false
-		print("WP reached")
 		ProgressionManager.mission_complete()
 	else:
 		move_forwards()
