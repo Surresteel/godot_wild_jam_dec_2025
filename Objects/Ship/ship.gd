@@ -193,7 +193,7 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 		EVENTS.WAVE:
 			if Time.get_ticks_msec() > _timeout_hit_wave:
 				_hitpoints -= 10 * int(severity)
-				_speed_mult = max(_speed_mult - severity, 1.0)
+				_speed_mult = max(_speed_mult - severity, 2.0)
 				_timeout_hit_wave = Time.get_ticks_msec() + _interval_hit_wave
 		EVENTS.ICEBERG:
 			if Time.get_ticks_msec() > _timeout_hit_ice:
@@ -203,7 +203,7 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 		EVENTS.SEALION:
 			if Time.get_ticks_msec() > _timeout_sealion:
 				_hitpoints -= 1 * int(severity)
-				_speed_mult = max(_speed_mult - severity * 0.2, 1.0)
+				_speed_mult = max(_speed_mult - severity * 0.5, 1.0)
 				_timeout_sealion = Time.get_ticks_msec() + _interval_sealion
 	
 	# Handicap the ship if health is lower than _damage_thresh:

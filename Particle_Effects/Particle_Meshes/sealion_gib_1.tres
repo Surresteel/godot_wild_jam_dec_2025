@@ -5,18 +5,33 @@ resource_name = "SealionSkin"
 cull_mode = 2
 albedo_color = Color(0.4556854, 0.413178, 0.3167712, 1)
 roughness = 0.5
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5gej"]
 resource_name = "Flesh"
 cull_mode = 2
 albedo_color = Color(0.9063355, 0.26387227, 0.26387227, 1)
 roughness = 0.35384613
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1tre7"]
 resource_name = "FleshExterior"
 cull_mode = 2
 albedo_color = Color(0.9063355, 0.4948731, 0.417842, 1)
 roughness = 0.5
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_v1j77"]
 _surfaces = [{

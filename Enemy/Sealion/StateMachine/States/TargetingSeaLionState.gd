@@ -6,6 +6,7 @@ class_name TargetingSeaLionState
 func enter(sealion: Sealion) -> void:
 	var targets = sealion.get_tree().get_nodes_in_group("SealionInteractables")
 	if targets.is_empty():
+		printerr("Sealion has no targets to pick from.")
 		return
 	var new_target: Node3D = targets.pick_random()
 	

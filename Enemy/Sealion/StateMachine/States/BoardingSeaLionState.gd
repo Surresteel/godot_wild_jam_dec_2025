@@ -16,6 +16,10 @@ func enter(sealion: Sealion) -> void:
 
 
 func exit(sealion: Sealion) -> void:
+	if not sealion.target_node:
+		printerr("BoardingSeaLionState - exit(): Sealion has no target_node.")
+		return
+		
 	sealion.change_target_pos(sealion.target_node.global_position)
 
 func pre_update(sealion: Sealion) -> void:                                              #seems good length

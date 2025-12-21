@@ -17,7 +17,7 @@ func exit(sealion: Sealion) -> void:
 	
 	sealion.chaseing_started.emit(false)
 	
-	if sealion.target_node.has_method("set_chased"):
+	if sealion.target_node and sealion.target_node.has_method("set_chased"):
 		if sealion.chaseing_started.is_connected(sealion.target_node.set_chased):
 			sealion.chaseing_started.disconnect(sealion.target_node.set_chased)
 
@@ -43,6 +43,15 @@ func update(sealion: Sealion, _delta) -> void:
 		
 		sealion.animation_player.play("Chase",1)
 	
+	#Turn Towards Target
+	var radians_to_turn: float = atan2(-dir.x, -dir.z)
+	var turn_amount = lerp_angle(sealion.global_rotation.y, radians_to_turn, 0.5)
+	sealion.global_rotation.y = turn_amount
+	
+	if not sealion.target_node:
+		printerr("WalkingSeaLionState - update: target_node is null")
+		return
+	
 	if sealion.target_node.global_position.distance_to(sealion.global_position) <= 1:
 		sealion.velocity = Vector3.ZERO
 		sealion.animation_player.play("Attack")
@@ -61,8 +70,3 @@ func update(sealion: Sealion, _delta) -> void:
 		if sealion.target_node is BabyPenguin:
 			if sealion.target_node.hiding:
 				change_target = true
-	
-	#Turn Towards Target
-	var radians_to_turn: float = atan2(-dir.x, -dir.z)
-	var turn_amount = lerp_angle(sealion.global_rotation.y, radians_to_turn, 0.5)
-	sealion.global_rotation.y = turn_amount

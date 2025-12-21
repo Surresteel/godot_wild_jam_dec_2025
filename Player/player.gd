@@ -74,7 +74,7 @@ func _handle_buoyancy(delta: float) -> void:
 				(Time.get_ticks_msec() / 1000.0))
 	var water_height = NoiseFunc.sample_at_pos_time(data)
 	
-	var wave_height := _process_waves(delta)
+	var wave_height := _process_waves(delta, water_height)
 	water_height = maxf(water_height, wave_height)
 	
 	if global_position.y - 0.1 < water_height:
@@ -87,7 +87,7 @@ func _handle_buoyancy(delta: float) -> void:
 		velocity.y += output * delta
 
 
-func _process_waves(delta: float) -> float:
+func _process_waves(delta: float, water_height: float) -> float:
 	if not wave_manager:
 		printerr("Player instance has no WaveManager reference.")
 		return -10000.0
@@ -100,13 +100,13 @@ func _process_waves(delta: float) -> float:
 				global_position.z - wave.pos.y)
 		var h_temp = WaveFunc.sample_wave_height(wave.pos, offset, wave.dir, 
 				wave.amp)
-		if h_temp > 0.5 and h_temp > highest_point:
+		if h_temp > water_height and h_temp > highest_point:
 			highest_point = h_temp
 			highest_wave = wave
 	
 	if highest_wave:
 		velocity -= Vector3(highest_wave.dir.x, -0.2, 
-				highest_wave.dir.y).normalized() * 25.0 * delta
+				highest_wave.dir.y).normalized() * 50.0 * delta
 	
 	
 	return highest_point
