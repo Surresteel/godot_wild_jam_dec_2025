@@ -888,7 +888,6 @@ target_desired_distance = 0.5
 navigation_layers = 0
 radius = 0.8
 use_3d_avoidance = true
-debug_enabled = true
 debug_use_custom = true
 
 [node name="Armature" type="Node3D" parent="."]
