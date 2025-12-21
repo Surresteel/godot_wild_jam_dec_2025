@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnqjfiat53fya"]
+
+[ext_resource type="Texture2D" uid="uid://bsa1tfgykrtmm" path="res://Images/light_texture.png" id="1_4hc0r"]
+[ext_resource type="Script" uid="uid://ie5b0mksnftk" path="res://Objects/Lighthouse/lighthouse_light.gd" id="1_ifilo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vob7y"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+disable_specular_occlusion = true
+albedo_texture = ExtResource("1_4hc0r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qum0g"]
+material = SubResource("StandardMaterial3D_vob7y")
+size = Vector2(10, 10)
+
+[node name="LighthouseLight" type="Node3D"]
+script = ExtResource("1_ifilo")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_qum0g")
+
+[node name="Light" type="SpotLight3D" parent="."]
+spot_range = 1024.0
+spot_attenuation = 0.2
+spot_angle = 16.0
+spot_angle_attenuation = 3.7321315
