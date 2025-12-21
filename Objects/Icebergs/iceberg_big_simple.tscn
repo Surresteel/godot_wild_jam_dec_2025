@@ -16,7 +16,7 @@ contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_q5tn1")
 _buoyancy_total = 80000.0
-break_velocity = 6.0
+break_velocity = 8.0
 onion_layers = 3
 
 [node name="Mesh" parent="." instance=ExtResource("2_mxvs0")]

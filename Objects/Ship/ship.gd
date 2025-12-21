@@ -24,7 +24,7 @@ const MAX_DEPTH: float = 3.0
 const MAX_SPEED: float = 10.0
 const MAX_ROTATION: float = 10.0
 
-const WP_RADIUS: float = 50.0
+const WP_RADIUS: float = 30.0
 
 
 # SIGNALS:
@@ -53,6 +53,7 @@ var _waypoint_prev: Vector3 = Vector3.ZERO
 @export var wave_manager: WaveManager
 @export var helmsman: HelmsmenPenguin
 @export var initial_waypoint := Vector3.ZERO
+@export var waypoint_override_object: Node3D = null
 
 # GAMEPLAY PUBLIC:
 @export_group("Gameplay")
@@ -68,7 +69,7 @@ var _speed_mult: float = 1.0
 var _timeout_hit_wave: float = 0.0
 var _interval_hit_wave: float = 5.0
 var _timeout_hit_icerberg: float = 0.0
-var _interval_hit_iceberg: float = 30.0
+var _interval_hit_iceberg: float = 5.0
 var _has_driver: bool = true
 var _has_failed: bool = false
 
@@ -89,7 +90,12 @@ var cannons: Array[Cannon]
 func _ready() -> void:
 	_spawn = global_position
 	
-	if initial_waypoint.distance_squared_to(global_position) > 25:
+	if waypoint_override_object:
+		var wp := waypoint_override_object.global_position
+		var dir := (global_position - wp).normalized()
+		wp = wp + dir * 10
+		set_waypoint(wp)
+	elif initial_waypoint.distance_squared_to(global_position) > 25:
 		set_waypoint(initial_waypoint)
 	
 	# Forward
@@ -117,7 +123,6 @@ func _ready() -> void:
 
 func _post_ready() -> void:
 	_hitpoints = max_hitpoints
-	print(_hitpoints)
 	
 	if helmsman:
 		helmsman.steering_started.connect(_driver_on)
@@ -168,6 +173,7 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 		EVENTS.ICEBERG:
 			if Time.get_ticks_msec() > _timeout_hit_icerberg:
 				_hitpoints -= 10 * int(severity)
+				print(_hitpoints)
 				_speed_mult = max(_speed_mult - severity, 1.0)
 				_timeout_hit_icerberg = Time.get_ticks_msec() + \
 						_interval_hit_iceberg * 1000
@@ -190,10 +196,13 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 func _handle_collisions(body: Node) -> void:
 	if body is IcebergBase or body is IcebergBaseSimple:
 		var speed = linear_velocity.length()
-		var dif = speed - body.break_velocity
-		if dif < 0:
-			_handle_events(EVENTS.ICEBERG, abs(dif))
-		iceberg_hit.emit(dif < 0)
+		#var dif = speed - body.break_velocity
+		#if dif < 0:
+		if speed < body.break_velocity:
+			#_handle_events(EVENTS.ICEBERG, ceil(abs(dif)))
+			_handle_events(EVENTS.ICEBERG, ceil(speed))
+		#iceberg_hit.emit(dif < 0)
+		iceberg_hit.emit(speed < body.break_velocity)
 
 
 #===============================================================================
@@ -310,7 +319,7 @@ func _go_to_point(p: Vector3) -> void:
 		else:
 			turn_right()
 	
-	if to_point.length_squared() <= WP_RADIUS:
+	if to_point.length_squared() <= WP_RADIUS * WP_RADIUS:
 		_has_destination = false
 		print("WP reached")
 		ProgressionManager.mission_complete()

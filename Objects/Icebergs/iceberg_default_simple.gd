@@ -12,7 +12,6 @@ const MAX_DEPTH: float = 3.0
 const DIST_DESPAWN: float = 50.0
 
 @export var _buoyancy_total: float = 15_000.0
-#@export var _buoyancy_width: float = 4.0
 @export var _buoyancy_height: float = -1.0
 @export var _buoyancy_damping: float = 250.0
 
@@ -105,8 +104,6 @@ func _handle_collisions(body: Node) -> void:
 		var vel_to_self = body.linear_velocity.dot(tgt_to_self.normalized())
 		if is_sinking or vel_to_self > break_velocity:
 			_play_hit_effect()
-			#_mitosis(onion_layers - 1)
-			#_break_apart()
 			sink_and_melt()
 
 

@@ -19,7 +19,7 @@ angular_damp = 0.1
 script = ExtResource("1_6nwvx")
 _buoyancy_total = 8000.0
 _buoyancy_height = -2.0
-break_velocity = 1.0
+break_velocity = 2.0
 onion_layers = 1
 
 [node name="Mesh" parent="." instance=ExtResource("2_xasw3")]
