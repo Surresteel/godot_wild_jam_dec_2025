@@ -22,7 +22,7 @@ func pre_update(sealion: Sealion) -> void:
 	if sealion.defeated:
 		sealion.change_state(SealionStates.DEFEATED)
 	if sealion.is_on_floor():
-		sealion.change_state(SealionStates.WALKING)
+		sealion.change_state(SealionStates.TARGETING)
 
 
 func update(sealion: Sealion, delta) -> void:
