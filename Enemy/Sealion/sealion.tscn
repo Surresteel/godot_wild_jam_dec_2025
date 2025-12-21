@@ -875,7 +875,7 @@ radius = 0.67529297
 height = 1.7338867
 
 [node name="Sealion" type="CharacterBody3D"]
-collision_mask = 2
+collision_mask = 18
 floor_max_angle = 1.134464
 script = ExtResource("1_0fx28")
 
