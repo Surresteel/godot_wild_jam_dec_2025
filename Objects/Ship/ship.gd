@@ -125,8 +125,10 @@ func _post_ready() -> void:
 	_hitpoints = max_hitpoints
 	
 	if helmsman:
-		helmsman.steering_started.connect(_driver_on)
-		helmsman.steering_stopped.connect(_driver_off)
+		#helmsman.steering_started.connect(_driver_on)
+		helmsman.steering_started.connect(_driver_toggle.bind(true))
+		#helmsman.steering_stopped.connect(_driver_off)
+		helmsman.steering_stopped.connect(_driver_toggle.bind(false))
 	
 	sealion_detector.body_entered.connect(_sealion_tally.bind(true))
 	sealion_detector.body_exited.connect(_sealion_tally.bind(false))
@@ -196,26 +198,24 @@ func _handle_events(event: EVENTS, severity: float = 1.0) -> void:
 func _handle_collisions(body: Node) -> void:
 	if body is IcebergBase or body is IcebergBaseSimple:
 		var speed = linear_velocity.length()
-		#var dif = speed - body.break_velocity
-		#if dif < 0:
 		if speed < body.break_velocity:
-			#_handle_events(EVENTS.ICEBERG, ceil(abs(dif)))
 			_handle_events(EVENTS.ICEBERG, ceil(speed))
-		#iceberg_hit.emit(dif < 0)
+		
 		iceberg_hit.emit(speed < body.break_velocity)
 
 
 #===============================================================================
 #	PRIVATE FUNCTIONS:
 #===============================================================================
-# Tally Sealions On Board
+# Tally sealions on board:
 func _sealion_tally(body:Node3D, toggle: bool) -> void:
 	if body is Sealion:
 		if toggle:
 			sealion_amount += 1
 		else:
 			sealion_amount -= 1
-			
+
+
 # Compute and apply buoyancy forces:
 func _apply_buoyancy_forces(state: PhysicsDirectBodyState3D) -> void:
 	# Loop through buoyancy sample points and compute their forces:
@@ -327,11 +327,14 @@ func _go_to_point(p: Vector3) -> void:
 		move_forwards()
 
 
-func _driver_on() -> void:
-	_has_driver = true
-	
-func _driver_off() -> void:
-	_has_driver = false
+func _driver_toggle(value: bool) -> void:
+	_has_driver = value
+
+#func _driver_on() -> void:
+#	_has_driver = true
+#	
+#func _driver_off() -> void:
+#	_has_driver = false
 
 
 func _game_over() -> void:
@@ -355,33 +358,38 @@ func _fail_mission() -> void:
 #===============================================================================
 #	PUBLIC FUNCTIONS:
 #===============================================================================
-# Moves the ship forwards:
+## Moves the ship forwards:
 func move_forwards() -> void:
 	_force_to_apply += 2000.0 * -self.transform.basis.z
 
 
+## Turns the ship left by the provided torque:
 func turn_left(torque: float = 250.0) -> void:
 	var vel_forward = linear_velocity.dot(global_basis.z)
 	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
 	_torque_to_apply -= torque * Vector3.UP * momentum
 
 
+## Turns the ship right by the provided torque:
 func turn_right(torque: float = 250.0) -> void:
 	var vel_forward = linear_velocity.dot(global_basis.z)
 	var momentum =  remap(vel_forward, 0.0, 2.0, 0.0, 1.0)
 	_torque_to_apply += torque * Vector3.UP * momentum
 
 
+## Gives the ship a waypoint to go to:
 func set_waypoint(wp: Vector3) -> void:
 	_waypoint_prev = _waypoint
 	_has_destination = true
 	_waypoint = wp
 
 
+## Returns the ship's health as a value from 0.0 to 1.0
 func get_ship_health() -> float:
 	return clampf(float(_hitpoints) / float(max_hitpoints), 0.0, 1.0)
 
 
+## Gets the ships progress between waypoints as a value from 0.0 to 1.0:
 func get_progress_wp() -> float:
 	if not _has_destination:
 		return 1.0
@@ -393,6 +401,7 @@ func get_progress_wp() -> float:
 	return prog
 
 
+## Gets ships progress to waypoint from spawn as a value from 0.0 to 1.0:
 func get_progress_total() -> float:
 	if not _has_destination:
 		return 1.0
@@ -404,6 +413,7 @@ func get_progress_total() -> float:
 	return prog
 
 
+## A wrapper function for PenguinLookout to emit signals through the ship:
 func emit_spotted(sector: PenguinLookout.DIRECTIONS) -> void:
 	enemy_spotted.emit(sector)
 

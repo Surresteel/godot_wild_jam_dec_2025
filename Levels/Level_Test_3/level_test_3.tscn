@@ -24,13 +24,15 @@ wave_speed = 1.0
 [node name="SceneAudio" parent="." instance=ExtResource("2_5ysvd")]
 
 [node name="Spawner" parent="." node_paths=PackedStringArray("wave_manager", "target") instance=ExtResource("3_o1w0d")]
-target_count_enemties = 0
-init_count_iceberg = 100
-target_count_icebergs = 100
+target_count_enemties = 20
+init_count_iceberg = 0
+target_count_icebergs = 0
 wave_manager = NodePath("../WaveManager")
 target = NodePath("../Ship")
+_interval_enemy = 5.0
+_interval_enemy_random = 5.0
 enabled = true
-_initial_delay = 10.0
+_initial_delay = 0.0
 
 [node name="Player" parent="." instance=ExtResource("4_mi3fe")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.15819, 5.0755663)
@@ -104,7 +106,7 @@ baby = NodePath("../Baby Penguin")
 helms = NodePath("../HelmsmenPenguin")
 
 [node name="Lighthouse" parent="." instance=ExtResource("11_ar44o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.762146, -11.916, -155.69348)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2466.2605, -11.916, -5014.1387)
 
 [editable path="Ship"]
 [editable path="Ship/Cannons/Cannon4"]

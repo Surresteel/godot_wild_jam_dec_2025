@@ -155,6 +155,8 @@ func take_damage() -> void:
 	velocity = direction * randf_range(5,15) + Vector3(0,6,0)
 	stunned = true
 	stun_timer.start()
+	audio_emitter.stream = AudioManager.SEALION_HIT
+	audio_emitter.play()
 
 func unstun() -> void:
 	stunned = false
