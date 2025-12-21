@@ -9,11 +9,22 @@ extends Node3D
 @export var lighthouse: Node3D
 @export var player: Node3D
 
+@export var colour_light: Color = Color.WHITE
+
 @onready var mesh: MeshInstance3D = $Mesh
 @onready var light: SpotLight3D = $Light
 
 var _offset_vert_light := Vector3(0.0, 65.0, 0.0)
 var _offset_dist_light: float = 500.0
+
+
+#===============================================================================
+#	CALLBACKS:
+#===============================================================================
+func _ready() -> void:
+	light.light_color = colour_light
+	var mat = mesh.get_active_material(0)
+	mat.albedo_color = colour_light
 
 
 func _process(_delta: float) -> void:
