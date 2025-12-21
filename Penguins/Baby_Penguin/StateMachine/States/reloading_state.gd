@@ -1,10 +1,12 @@
 extends BabyState
 
 var active: bool = false
+@onready var reload_reset: Timer = $ReloadReset
 
 func enter() -> void:
 	active = true
 	ready_reload()
+	reload_reset.start()
 
 func exit() -> void:
 	active = false
@@ -32,3 +34,7 @@ func ready_reload() -> void:
 	if active:
 		baby.reload_ready = false
 		baby.animation_player.play("Baby_GrabbingSnowball", 0.2)
+
+func reloadstate_reset() -> void:
+	if active:
+		transition.emit(BabyPenguinStateMachine.state.Player_Follow)
