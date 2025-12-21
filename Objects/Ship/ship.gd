@@ -68,8 +68,9 @@ var _waypoint_prev: Vector3 = Vector3.ZERO
 
 # GAMEPLAY PRIVATE:
 var _hitpoints: int = 100
-var _speed_limit: float = MAX_SPEED
-var _speed_mult: float = 1.0
+var _speed_limit: float = MAX_SPEED / speed_base
+var _speed_mult_base: float = 1.0
+var _speed_mult: float = _speed_mult_base
 var _damage_thresh: float = 0.75
 var _timeout_hit_wave: float = 0.0
 var _interval_hit_wave: float = 5.0 * 1000.0
@@ -132,8 +133,9 @@ func _ready() -> void:
 
 
 func _post_ready() -> void:
-	# Initialise hitpoints:
+	# Initialise hitpoints and speed limit:
 	_hitpoints = max_hitpoints
+	_speed_limit = MAX_SPEED / speed_base
 	
 	# Connect collision signals:
 	body_entered.connect(_handle_collisions)
@@ -443,6 +445,11 @@ func get_progress_total() -> float:
 	var prog = 1.0 - (dist_ship / dist_wp)
 	prog = clampf(prog, 0.0, 1.0)
 	return prog
+
+
+func get_momentum() -> float:
+	var val = remap(_speed_mult, _speed_mult_base, _speed_limit, 0.0, 1.0)
+	return clampf(val, 0.0, 1.0)
 
 
 ## A wrapper function for PenguinLookout to emit signals through the ship:

@@ -24,6 +24,11 @@ extends CanvasLayer
 
 @onready var warning_cannons: Label = $Notifications/WarningCannons
 
+@onready var s_1: TextureRect = $Momentum/s1
+@onready var s_2: TextureRect = $Momentum/s2
+@onready var s_3: TextureRect = $Momentum/s3
+@onready var s_4: TextureRect = $Momentum/s4
+
 
 const PROGRESS_START: float = -211.0
 const PROGRESS_END: float = 218.0
@@ -58,6 +63,7 @@ func _process(_delta: float) -> void:
 	_handle_progress()
 	_handle_ammo()
 	_handle_health()
+	_handle_momentum()
 	
 	if _is_panicking_baby:
 		_animate_baby_icon()
@@ -120,6 +126,30 @@ func _handle_callout(sector: PenguinLookout.DIRECTIONS) -> void:
 		_warning(ship_callout_left)
 	elif sector == PenguinLookout.DIRECTIONS.RIGHT: #Right
 		_warning(ship_callout_right)
+
+
+func _handle_momentum() -> void:
+	var m = ship.get_momentum()
+	if m > 0.95:
+		s_1.visible = false
+		s_2.visible = false
+		s_3.visible = false
+		s_4.visible = true
+	elif m > 0.66:
+		s_1.visible = false
+		s_2.visible = false
+		s_3.visible = true
+		s_4.visible = false
+	elif m > 0.33:
+		s_1.visible = false
+		s_2.visible = true
+		s_3.visible = false
+		s_4.visible = false
+	else:
+		s_1.visible = true
+		s_2.visible = false
+		s_3.visible = false
+		s_4.visible = false
 
 
 func _warning(texture: TextureRect) -> void:	
