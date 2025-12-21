@@ -14,6 +14,7 @@ config/name="godot_wild_jam_dec_2025"
 run/main_scene="uid://b0ib2yxsxyfn1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=60
+boot_splash/image="uid://b82rh8t3fhqum"
 config/icon="res://icon.svg"
 
 [autoload]
