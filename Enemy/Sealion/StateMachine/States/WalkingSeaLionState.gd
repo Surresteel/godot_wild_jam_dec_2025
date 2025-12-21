@@ -6,6 +6,8 @@ var speed:= 2
 var walk_target: Node3D
 
 func enter(sealion: Sealion) -> void:
+	sealion.audio_emitter.stream = AudioManager.THUD
+	sealion.audio_emitter.play()
 	
 	#animation
 	sealion.animation_player.play("Chase",1)
@@ -16,6 +18,7 @@ func enter(sealion: Sealion) -> void:
 func exit(sealion: Sealion) -> void:
 	
 	change_target = false
+	
 	sealion.chaseing_started.emit(false)
 	
 	if sealion.target_node.has_method("set_chased"):
@@ -49,7 +52,8 @@ func update(sealion: Sealion, _delta) -> void:
 		sealion.animation_player.play("Attack")
 		
 		if Time.get_ticks_msec() > sealion.timeout_grunt:
-			sealion.audio_emitter.stream = AudioManager.SEALION_GRUNT
+			sealion.audio_emitter.stream = \
+					AudioManager.SEALION_GRUNTS.pick_random()
 			sealion.audio_emitter.play()
 			sealion.timeout_grunt = Time.get_ticks_msec() \
 					+ sealion.interval_grunt

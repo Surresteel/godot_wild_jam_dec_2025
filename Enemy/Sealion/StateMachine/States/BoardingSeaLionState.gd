@@ -5,6 +5,9 @@ var speed = 8 #changing this will affect leaping
 var too_long: bool = false
 
 func enter(sealion: Sealion) -> void:
+	sealion.audio_emitter.stream = AudioManager.SEALION_BOARD
+	sealion.audio_emitter.play()
+	
 	sealion.animation_player.play("Ship Enter",-1,1.5)
 	
 	too_long = false

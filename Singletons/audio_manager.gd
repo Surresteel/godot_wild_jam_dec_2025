@@ -81,9 +81,18 @@ const PENGUIN_WEST = preload("uid://k5umegh7rai4")
 const WAVE_INCOMING = preload("uid://ch5fhuuy0sccy")
 const PUNCH = preload("uid://sa1xkciyy3ls")
 
-const SEALION_GRUNT = preload("uid://cu425cdlsei3t")
+const SEALION_GRUNTS: Array[AudioStream] = \
+[
+	preload("uid://vfmruk8oxwnx"),
+	preload("uid://iri18qan00ny"),
+	preload("uid://cu425cdlsei3t")
+]
 const SEALION_DEATH = preload("uid://cn06xh0157jie")
 const SEALION_HIT = preload("uid://61vmwt0mi63h")
+const SEALION_BOARD = preload("uid://1xreqgvuyo84")
+
 
 const WAVE_LOOP = preload("uid://c2v7fo7f1tl7t")
 const WATER_SPASH = preload("uid://c4qcl01fufva8")
+
+const THUD = preload("uid://bihv5g5wuuoqi")
