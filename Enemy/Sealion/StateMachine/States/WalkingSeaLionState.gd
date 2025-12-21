@@ -30,6 +30,8 @@ func pre_update(sealion: Sealion) -> void:
 		sealion.change_state(SealionStates.TARGETING)
 
 func update(sealion: Sealion, _delta) -> void:
+	
+	
 	#Move The Sealion towards it's target
 	var dir: Vector3 = (sealion.next_target_pos
 						- sealion.global_position).normalized()
