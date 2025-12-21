@@ -15,6 +15,7 @@ var velocity := Vector3.ZERO
 
 
 # Private members:
+@onready var audio_emitter: AudioStreamPlayer3D = $AudioEmitter
 @onready var _mesh: MeshInstance3D = $Mesh
 var _pos_old := Vector3.ZERO
 var _target: Vector3
@@ -30,6 +31,8 @@ var _target_reached: bool = false
 #===============================================================================
 func _ready() -> void:
 	_pos_old = global_position
+	audio_emitter.stream = AudioManager.WAVE_LOOP
+	audio_emitter.play()
 
 
 func _physics_process(delta: float) -> void:
@@ -39,7 +42,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Remove node from scene tree if done:
 	if is_done:
-		queue_free()
+		_handle_fade(delta)
+		return
 	
 	# Update Velocity:
 	velocity = global_position - _pos_old
@@ -55,6 +59,17 @@ func _physics_process(delta: float) -> void:
 	
 	# Update shader:
 	_mesh.set_instance_shader_parameter("swave_amp", amplitude)
+	var new_vol = remap(amplitude, 0.0, 3.0, -6.0, 3.0)
+	audio_emitter.max_db = clampf(new_vol, -6.0, 3.0)
+
+#===============================================================================
+#	PRIVATE FUNCTIONS:
+#===============================================================================
+func _handle_fade(delta: float) -> void:
+	global_position.y += -1 * delta
+	audio_emitter.max_db += -10 * delta
+	if audio_emitter.max_db < -64:
+		queue_free()
 
 
 #===============================================================================

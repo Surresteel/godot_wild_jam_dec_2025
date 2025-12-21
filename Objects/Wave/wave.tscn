@@ -16,5 +16,9 @@ script = ExtResource("1_bjumy")
 instance_shader_parameters/swave_amp = 4.305
 mesh = SubResource("PlaneMesh_57l7g")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.03856472, -0.5185196, 0.85419565, -0.023385994, 0.85506576, 0.51799196, -0.9989824, 0, -0.045101468, 22.916431, 4.8651743, 4.259881)
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]
+volume_db = 3.0
+unit_size = 20.0
+panning_strength = 0.8
+bus = &"SFX_3D"
+doppler_tracking = 2

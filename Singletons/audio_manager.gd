@@ -84,3 +84,5 @@ const PUNCH = preload("uid://sa1xkciyy3ls")
 const SEALION_GRUNT = preload("uid://cu425cdlsei3t")
 const SEALION_DEATH = preload("uid://cn06xh0157jie")
 const SEALION_HIT = preload("uid://61vmwt0mi63h")
+
+const WAVE_LOOP = preload("uid://c2v7fo7f1tl7t")
