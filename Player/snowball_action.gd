@@ -40,6 +40,10 @@ func throw_snowball() -> void:
 	signal_throw.emit()
 	ammo -= 1
 	snowball_ready = false
+	#_fire_snowball at point in animation
+	await get_tree().create_timer(0.7).timeout
+	_ready_snowball()
+	
 
 func _fire_snowball() -> void:
 	var new_snowball:= _spawn_snowball()

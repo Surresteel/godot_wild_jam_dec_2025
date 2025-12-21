@@ -152,7 +152,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func teleport_to_position(pos: Vector3, rot: Vector3) -> void:
 	#camera.global_position = global_position
 	global_position = pos
-	global_rotation = rot
+	global_rotation.y = rot.y
 	#print("teleported")
 
 

@@ -73,6 +73,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	#rotation_degrees.x += 10 # - debugging the rotaiton bug
 	if is_active:
 		if power_timer.is_stopped() and shoot_bool:
 			cannon_power.emit(100.0)

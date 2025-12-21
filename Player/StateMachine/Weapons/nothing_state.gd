@@ -14,7 +14,7 @@ func pre_update() -> void:
 		transition.emit(WeaponStateMachine.state.Snowball)
 
 func update(_delta: float) -> void:
-	player.play_animation_no_interupt("P_FPArms__Idle")
+	pass
 	
 
  
