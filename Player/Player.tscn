@@ -417,7 +417,7 @@ one_shot = true
 
 [node name="P_Generic_Static3" type="MeshInstance3D" parent="."]
 transform = Transform3D(-0.99999994, 0, -8.742277e-08, 0, 1, 0, 8.742277e-08, 0, -0.99999994, 0, 0, 0)
-transparency = 1.0
+cast_shadow = 3
 mesh = SubResource("ArrayMesh_3mea3")
 skeleton = NodePath("")
 
