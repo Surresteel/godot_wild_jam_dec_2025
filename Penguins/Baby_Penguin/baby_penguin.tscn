@@ -1127,6 +1127,10 @@ script = ExtResource("6_mk2on")
 [node name="Reloading_State" type="Node" parent="BabyPenguinStateMachine"]
 script = ExtResource("7_pv82n")
 
+[node name="ReloadReset" type="Timer" parent="BabyPenguinStateMachine/Reloading_State"]
+wait_time = 10.0
+one_shot = true
+
 [node name="BaseState" type="Node" parent="."]
 script = ExtResource("3_2fkhd")
 
@@ -1161,6 +1165,7 @@ autostart = true
 wait_time = 5.0
 one_shot = true
 
+[connection signal="timeout" from="BabyPenguinStateMachine/Reloading_State/ReloadReset" to="BabyPenguinStateMachine/Reloading_State" method="reloadstate_reset"]
 [connection signal="area_entered" from="ReloadArea" to="ReloadArea" method="_on_area_entered"]
 [connection signal="area_exited" from="ReloadArea" to="ReloadArea" method="_on_area_exited"]
 [connection signal="body_entered" from="ReloadArea" to="ReloadArea" method="_on_body_entered"]
