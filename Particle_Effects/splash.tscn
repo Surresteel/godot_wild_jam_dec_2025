@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dl6ehllftdjtv"]
 
 [ext_resource type="Material" uid="uid://dh8s1e0dnxmiu" path="res://Particle_Effects/splash.tres" id="1_3cv4u"]
-[ext_resource type="Script" uid="uid://6pp0feiy0ted" path="res://Particle_Effects/particle_lifetime_manager.gd" id="1_srfek"]
+[ext_resource type="Script" uid="uid://db25pucyb13rp" path="res://Particle_Effects/splash_lifetime_manager.gd" id="2_3cv4u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_weow8"]
 albedo_color = Color(0, 0.6833334, 1, 1)
@@ -20,4 +20,6 @@ explosiveness = 1.0
 trail_lifetime = 0.01
 process_material = ExtResource("1_3cv4u")
 draw_pass_1 = SubResource("SphereMesh_xo2mc")
-script = ExtResource("1_srfek")
+script = ExtResource("2_3cv4u")
+
+[node name="AudioEmitter" type="AudioStreamPlayer3D" parent="."]

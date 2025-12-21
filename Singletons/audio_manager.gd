@@ -86,3 +86,4 @@ const SEALION_DEATH = preload("uid://cn06xh0157jie")
 const SEALION_HIT = preload("uid://61vmwt0mi63h")
 
 const WAVE_LOOP = preload("uid://c2v7fo7f1tl7t")
+const WATER_SPASH = preload("uid://c4qcl01fufva8")
